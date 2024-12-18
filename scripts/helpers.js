@@ -283,6 +283,7 @@ export const detectPartialBoosts = (actor) => {
 
     return {
       key,
+      mod,
       label: game.i18n.localize(CONFIG.PF2E.abilities[key]),
       isPartial
     };
@@ -332,7 +333,6 @@ export const attachValidationHandlers = (
   selectedBoosts
 ) => {
   const validateForm = () => {
-    console.log(selectedBoosts);
     const requiredFields = form.find('[data-required="true"]');
     const allRequiredValid = Array.from(requiredFields).every(
       (field) => field.value.trim() !== ''
@@ -372,13 +372,26 @@ export const attachAttributeBoostHandlers = (
       );
       const isPartial = partialBoostEntry?.isPartial || false;
 
-      // Update button text
-      if (isSelected) {
+      const modifierElement = $(`#modifier-${attribute}`);
+      const currentModifier = parseInt(modifierElement.text(), 10);
+
+      // Update button text & modifier
+      if (isSelected && !button.hasClass('updated')) {
         button.html(`<span>${isPartial ? 'Partial' : 'Boost'}</span>`);
-        button.toggleClass('partial', isPartial); // Add 'partial' class if needed
-      } else {
+        button.toggleClass('partial', isPartial);
+
+        const newModifier = isPartial ? currentModifier : currentModifier + 1;
+        modifierElement.text(`+${newModifier}`);
+        button.addClass('updated');
+      } else if (!isSelected && button.hasClass('updated')) {
         button.html(`<span>Boost</span>`);
-        button.removeClass('partial'); // Remove 'partial' class when unselected
+        button.removeClass('partial');
+
+        const newModifier = isPartial ? currentModifier : currentModifier - 1;
+        modifierElement.text(`+${newModifier}`);
+        button.removeClass('updated');
+      } else {
+        modifierElement.text(`+${currentModifier}`);
       }
 
       // Disable non-selected buttons when 4 are selected

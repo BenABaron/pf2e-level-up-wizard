@@ -243,7 +243,6 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
       const boostPath = `system.build.attributes.boosts.${targetLevel}`;
       const updateData = { [boostPath]: formData.abilityBoosts };
 
-      // console.log(updateData);
       await actor.update(updateData);
     }
 
