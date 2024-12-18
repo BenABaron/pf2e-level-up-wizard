@@ -35,6 +35,12 @@
         "header": "Skill Increases",
         "label": "Skill Increase Available:"
       },
+      "attributeBoosts": {
+        "header": "Attribute Boosts",
+        "label": "Select four different Attributes to boost:",
+        "boost": "BOOST",
+        "partial": "PARTIAL"
+      },
       "features": {
         "class": {
           "header": "New Class Features",
@@ -42,14 +48,8 @@
         },
         "manual": {
           "update": "Update this manually on the",
-          "tab": {
-            "character": "Character",
-            "spellcasting": "Spellcasting"
-          },
+          "spellcasting": "Spellcasting",
           "sheet": "tab of your character sheet."
-        },
-        "abilityScore": {
-          "header": "Ability Score Increases:"
         },
         "spellcasting": {
           "rank": "New Spell Rank & Slots Available:",
@@ -109,7 +109,6 @@
       },
       "personal": {
         "header": "{actorName} Manual Updates Needed",
-        "abilityScores": "Ability Score Increases (Character tab)",
         "spellRank": "New Spell Rank & Slots (Spellcasting tab)",
         "spellSlots": "New Spell Slots (Spellcasting tab)"
       }

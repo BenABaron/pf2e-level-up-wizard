@@ -101,15 +101,26 @@
 
   {{#if features.abilityScoreIncreaseLevel}}
     <h3>
-      <strong>Attribute Boosts</strong>
+      <strong>
+        {{localize 'PF2E_LEVEL_UP_WIZARD.menu.attributeBoosts.header'}}
+      </strong>
     </h3>
-    <p>Select four different attributes to boost:</p>
+    <p>{{localize 'PF2E_LEVEL_UP_WIZARD.menu.attributeBoosts.label'}}</p>
     <div class="attribute-boosts">
       {{#each abilities}}
         <div class="attribute-boosts-column">
-          <label for="boost-{{key}}" class="attribute-boosts-label">{{localize (concat 'PF2E.AbilityId.' key)}}</label>
-          <button class="attribute-boosts-button" data-value="{{key}}" id="boost-{{key}}" type="button">
-            <span class="boost-text">BOOST</span>
+          <label for="boost-{{key}}" class="attribute-boosts-label">
+            {{localize (concat 'PF2E.AbilityId.' key)}}
+          </label>
+          <button 
+            class="attribute-boosts-button" 
+            data-value="{{key}}" 
+            id="boost-{{key}}" 
+            type="button"
+          >
+            <span class="boost-text">
+              {{localize 'PF2E_LEVEL_UP_WIZARD.menu.attributeBoosts.boost'}}
+            </span>
           </button>
           <div class="attribute-modifier" id="modifier-{{key}}">
             {{mod}}
@@ -150,7 +161,7 @@
           </strong>
           {{localize 'PF2E_LEVEL_UP_WIZARD.menu.features.manual.update'}}
           <em>
-            {{localize 'PF2E_LEVEL_UP_WIZARD.menu.features.manual.tab.spellcasting'}}
+            {{localize 'PF2E_LEVEL_UP_WIZARD.menu.features.manual.spellcasting'}}
           </em>
           {{localize 'PF2E_LEVEL_UP_WIZARD.menu.features.manual.sheet'}}
         </p>
@@ -162,7 +173,7 @@
           </strong>
           {{localize 'PF2E_LEVEL_UP_WIZARD.menu.features.manual.update'}}
           <em>
-            {{localize 'PF2E_LEVEL_UP_WIZARD.menu.features.manual.tab.spellcasting'}}
+            {{localize 'PF2E_LEVEL_UP_WIZARD.menu.features.manual.spellcasting'}}
           </em>
           {{localize 'PF2E_LEVEL_UP_WIZARD.menu.features.manual.sheet'}}
         </p>

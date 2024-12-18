@@ -377,7 +377,15 @@ export const attachAttributeBoostHandlers = (
       // Update button text & modifier
       if (isSelected && !button.hasClass('updated')) {
         button.html(
-          `<span class="boost-text">${isPartial ? 'PARTIAL' : 'BOOST'}</span>`
+          `<span class="boost-text">${
+            isPartial
+              ? game.i18n.localize(
+                  'PF2E_LEVEL_UP_WIZARD.menu.attributeBoosts.partial'
+                )
+              : game.i18n.localize(
+                  'PF2E_LEVEL_UP_WIZARD.menu.attributeBoosts.boost'
+                )
+          }</span>`
         );
         button.toggleClass('partial', isPartial);
 
@@ -387,7 +395,11 @@ export const attachAttributeBoostHandlers = (
         );
         button.addClass('updated');
       } else if (!isSelected && button.hasClass('updated')) {
-        button.html(`<span class="boost-text">BOOST</span>`);
+        button.html(
+          `<span class="boost-text">${game.i18n.localize(
+            'PF2E_LEVEL_UP_WIZARD.menu.attributeBoosts.boost'
+          )}</span>`
+        );
         button.removeClass('partial');
 
         const newModifier = isPartial ? currentModifier : currentModifier - 1;
