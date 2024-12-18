@@ -28,6 +28,10 @@
         "header": "Ancestry Feats",
         "label": "New Ancestry Feat Available:"
       },
+      "ancestryParagonFeats": {
+        "header": "Ancestry Paragon Feats",
+        "label": "New Ancestry Paragon Feat Available:"
+      },
       "skillFeats": {
         "header": "Skill Feats",
         "label": "New Skill Feat Available:"

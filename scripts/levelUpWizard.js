@@ -116,6 +116,17 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
       ? await getFeatsForLevel(this.actorData, 'archetype', targetLevel)
       : [];
 
+    const ancestryParagon =
+      game.modules.get('xdy-pf2e-workbench')?.active &&
+      game.settings.get(
+        'xdy-pf2e-workbench',
+        'legacyVariantRuleAncestryParagon'
+      );
+
+    const ancestryParagonFeats = ancestryParagon
+      ? await getFeatsForLevel(this.actorData, 'ancestryParagon', targetLevel)
+      : [];
+
     // Check if at least one field in `features` is truthy
     const hasFeaturesToDisplay = !!(
       features.featuresForLevel.length > 0 ||
@@ -127,6 +138,7 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
       classFeats,
       freeArchetypeFeats,
       ancestryFeats,
+      ancestryParagonFeats,
       skillFeats,
       generalFeats,
       features,
@@ -182,7 +194,8 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
       ancestryFeats: formData.ancestryFeats,
       skillFeats: formData.skillFeats,
       generalFeats: formData.generalFeats,
-      freeArchetypeFeats: formData.freeArchetypeFeats
+      freeArchetypeFeats: formData.freeArchetypeFeats,
+      ancestryParagonFeats: formData.ancestryParagonFeats
     });
 
     const validFeatEntries = featEntries.filter(([, uuid]) => uuid);
@@ -201,7 +214,8 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
       ancestryFeats: 'ancestry',
       skillFeats: 'skill',
       generalFeats: 'general',
-      freeArchetypeFeats: 'archetype'
+      freeArchetypeFeats: 'archetype',
+      ancestryParagonFeats: 'xdy_ancestryparagon'
     };
 
     const itemsToCreate = featsToAdd.map(({ feat, type }) => ({

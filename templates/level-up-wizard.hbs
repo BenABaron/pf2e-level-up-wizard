@@ -71,6 +71,17 @@
     }}
   {{/if}}
 
+  {{! Ancestry Paragon Feats }}
+  {{#if ancestryParagonFeats}}
+    {{> featDropdown
+      name="ancestryParagonFeats"
+      feats=ancestryParagonFeats
+      headerKey='PF2E_LEVEL_UP_WIZARD.menu.ancestryParagonFeats.header'
+      labelKey='PF2E_LEVEL_UP_WIZARD.menu.ancestryParagonFeats.label'
+      showFeatPrerequisites=showFeatPrerequisites
+    }}
+  {{/if}}
+
   {{! Skill Feats }}
   {{#if skillFeats}}
     {{> featDropdown
