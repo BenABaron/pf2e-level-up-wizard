@@ -110,6 +110,12 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
 
     const abilities = detectPartialBoosts(this.actorData);
 
+    const freeArchetype = game.settings.get('pf2e', 'freeArchetypeVariant');
+
+    const freeArchetypeFeats = freeArchetype
+      ? await getFeatsForLevel(this.actorData, 'archetype', targetLevel)
+      : [];
+
     // Check if at least one field in `features` is truthy
     const hasFeaturesToDisplay = !!(
       features.featuresForLevel.length > 0 ||
@@ -119,6 +125,7 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
 
     return {
       classFeats,
+      freeArchetypeFeats,
       ancestryFeats,
       skillFeats,
       generalFeats,
@@ -174,7 +181,8 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
       classFeats: formData.classFeats,
       ancestryFeats: formData.ancestryFeats,
       skillFeats: formData.skillFeats,
-      generalFeats: formData.generalFeats
+      generalFeats: formData.generalFeats,
+      freeArchetypeFeats: formData.freeArchetypeFeats
     });
 
     const validFeatEntries = featEntries.filter(([, uuid]) => uuid);
@@ -192,7 +200,8 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
       classFeats: 'class',
       ancestryFeats: 'ancestry',
       skillFeats: 'skill',
-      generalFeats: 'general'
+      generalFeats: 'general',
+      freeArchetypeFeats: 'archetype'
     };
 
     const itemsToCreate = featsToAdd.map(({ feat, type }) => ({

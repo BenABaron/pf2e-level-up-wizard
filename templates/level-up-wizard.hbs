@@ -49,6 +49,17 @@
     </div>
   {{/if}}
 
+  {{! Free Archetype Feats }}
+  {{#if freeArchetypeFeats}}
+    {{> featDropdown
+      name="freeArchetypeFeats"
+      feats=freeArchetypeFeats
+      headerKey='PF2E_LEVEL_UP_WIZARD.menu.freeArchetypeFeats.header'
+      labelKey='PF2E_LEVEL_UP_WIZARD.menu.freeArchetypeFeats.label'
+      showFeatPrerequisites=showFeatPrerequisites
+    }}
+  {{/if}}
+
   {{! Ancestry Feats }}
   {{#if ancestryFeats}}
     {{> featDropdown

@@ -20,6 +20,10 @@
         "label": "New Class Feat Available:",
         "checkbox": "Include Archetype Feats"
       },
+      "freeArchetypeFeats": {
+        "header": "Free Archetype Feats",
+        "label": "New Free Archetype Feat Available:"
+      },
       "ancestryFeats": {
         "header": "Ancestry Feats",
         "label": "New Ancestry Feat Available:"

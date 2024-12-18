@@ -5,6 +5,7 @@ let cachedFeats = null;
 /** CONSTANTS */
 const abilityScoreIncreaseLevels = [5, 10, 15, 20];
 const newSpellRankLevels = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19];
+const freeArchetypeFeatLevels = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20];
 
 export const skillProficiencyRanks = {
   0: 'Untrained',
@@ -171,7 +172,9 @@ export const getFeatsForLevel = async (
   includeArchetypeFeats = false
 ) => {
   const levelsArray =
-    characterData?.class?.system?.[`${type}FeatLevels`]?.value;
+    type === 'archetype'
+      ? freeArchetypeFeatLevels
+      : characterData?.class?.system?.[`${type}FeatLevels`]?.value;
 
   if (!levelsArray.includes(targetLevel)) return;
 
@@ -179,7 +182,8 @@ export const getFeatsForLevel = async (
     class: characterData?.class?.name,
     ancestry: characterData?.ancestry?.name,
     general: 'general',
-    skill: 'skill'
+    skill: 'skill',
+    archetype: 'archetype'
   };
 
   const searchQuery = queryMap[type];
