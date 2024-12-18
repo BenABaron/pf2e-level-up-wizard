@@ -1,3 +1,4 @@
+{{log 'formData' this}}
 <form>
   <h1 class='fancy-font'>
     {{localize
@@ -99,6 +100,23 @@
     </div>
   {{/if}}
 
+  {{#if features.abilityScoreIncreaseLevel}}
+    <h3>
+      <strong>Attribute Boosts</strong>
+    </h3>
+    <p>Select four different attributes to boost:</p>
+    <div class="attribute-boosts">
+      {{#each abilities}}
+        <div class="attribute-boosts-column">
+          <label for="boost-{{key}}">{{label}}</label>
+          <button class="attribute-boosts-button" data-value="{{key}}" id="boost-{{key}}" type="button">
+            <span>Boost</span>
+          </button>
+        </div>
+      {{/each}}
+    </div>
+  {{/if}}
+
   {{! Class Features }}
   {{#if hasFeaturesToDisplay}}
     <h3>
@@ -118,20 +136,6 @@
           {{{this.description}}}
         </p>
       {{/each}}
-    {{/if}}
-
-    {{! Ability Score Increases }}
-    {{#if features.abilityScoreIncreaseLevel}}
-      <p>
-        <strong>
-          {{localize 'PF2E_LEVEL_UP_WIZARD.menu.features.abilityScore.header'}}
-        </strong>
-        {{localize 'PF2E_LEVEL_UP_WIZARD.menu.features.manual.update'}}
-        <em>
-          {{localize 'PF2E_LEVEL_UP_WIZARD.menu.features.manual.tab.character'}}
-        </em>
-        {{localize 'PF2E_LEVEL_UP_WIZARD.menu.features.manual.sheet'}}
-      </p>
     {{/if}}
 
     {{! Spellcasting }}

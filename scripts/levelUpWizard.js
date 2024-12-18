@@ -7,7 +7,10 @@ import {
   createGlobalLevelMessage,
   createPersonalLevelMessage,
   skillProficiencyRanks,
-  confirmChanges
+  confirmChanges,
+  attachValidationHandlers,
+  attachAttributeBoostHandlers,
+  attachArchetypeCheckboxHandler
 } from './helpers.js';
 
 export class PF2eLevelUpWizardConfig extends FormApplication {
@@ -35,25 +38,24 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
     Hooks.once('renderPF2eLevelUpWizardConfig', () => {
       const form = this.element.find('form');
       const submitButton = this.element.find('button[type="submit"]');
-
-      const validateForm = () => {
-        const requiredFields = form.find('[data-required="true"]');
-
-        const allValid = Array.from(requiredFields).every(
-          (field) => field.value.trim() !== ''
-        );
-
-        submitButton.prop('disabled', !allValid);
-      };
-
-      validateForm();
-
-      form.on('change', '[data-required="true"]', validateForm);
-
+      const attributeButtons = form.find('.attribute-boosts-button');
       const archetypeCheckbox = form.find('#includeArchetypeFeats');
 
-      archetypeCheckbox.on('change', (event) => {
-        this.includeArchetypeFeats = event.target.checked; // Update the state
+      const selectedBoosts = new Set();
+
+      const validateForm = attachValidationHandlers(
+        form,
+        submitButton,
+        attributeButtons,
+        selectedBoosts
+      );
+      attachAttributeBoostHandlers(
+        attributeButtons,
+        selectedBoosts,
+        validateForm
+      );
+      attachArchetypeCheckboxHandler(archetypeCheckbox, (isChecked) => {
+        this.includeArchetypeFeats = isChecked; // Update state
         this.render(true); // Re-render the form
       });
     });
@@ -100,6 +102,18 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
       'show-feat-prerequisites'
     );
 
+    const abilities = Object.entries(this.actorData.system.abilities).reduce(
+      (acc, [key, ability]) => {
+        acc[key] = {
+          label: game.i18n.localize(CONFIG.PF2E.abilities[key]),
+          value: ability.mod,
+          key: key
+        };
+        return acc;
+      },
+      {}
+    );
+
     // Check if at least one field in `features` is truthy
     const hasFeaturesToDisplay = !!(
       features.featuresForLevel.length > 0 ||
@@ -114,6 +128,7 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
       skillFeats,
       generalFeats,
       features,
+      abilities,
       skills,
       hasFeaturesToDisplay,
       actorName,
@@ -218,6 +233,26 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
     const selectedFeats = featsToAdd
       .map(({ feat }) => `@UUID[${feat.uuid}]`)
       .join(', ');
+
+    if (formData.abilityScoreIncreaseLevel) {
+      const attributeBoosts = this.element.find(
+        '.attribute-boosts-button.selected'
+      );
+      formData.abilityBoosts = Array.from(attributeBoosts).map((button) =>
+        $(button).data('value')
+      );
+
+      if (formData.abilityBoosts.length !== 4) {
+        ui.notifications.error(game.i18n.localize('invalid boost selection'));
+        return;
+      }
+
+      const boostPath = `system.build.attributes.boosts.${targetLevel}`;
+      const updateData = { [boostPath]: formData.abilityBoosts };
+
+      // console.log(updateData);
+      await actor.update(updateData);
+    }
 
     createGlobalLevelMessage(
       actorName,
