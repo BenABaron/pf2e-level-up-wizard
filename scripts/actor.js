@@ -12,7 +12,7 @@ export const renderLevelUpButton = (sheet, html) => {
   if (
     // prettier-ignore
     game.settings.get(module_name, 'button-placement') === 'CHAR_HEADER_SMALL' ||
-    game.settings.get(module_name, 'button-placement') === 'CHAR_HEADER_LARGE'
+    game.settings.get(module_name, 'button-placement') === 'CHAR_HEADER'
   ) {
     const isSmall =
       game.settings.get(module_name, 'button-placement') ===

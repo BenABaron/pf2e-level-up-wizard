@@ -9,7 +9,8 @@
       },
       "notes": {
         "note": "Note:",
-        "featsPrereq": "Feats with prerequisites are marked with an asterisk (*)"
+        "featsPrereq": "Feats with prerequisites are marked with an asterisk (*)",
+        "classJournal": "Learn more about your class:"
       },
       "dropdown": {
         "placeholder": "Make a Selection"

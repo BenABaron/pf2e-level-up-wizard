@@ -46,6 +46,10 @@
   background-color: var(--color-proficiency-legendary);
 }
 
+.header-container p:last-of-type {
+  padding-bottom: 8px;
+}
+
 .selection-row {
   display: flex;
   justify-content: space-between;
@@ -74,10 +78,6 @@
 .fancy-font {
   font-family: var(--serif);
   font-weight: 600;
-}
-
-.flavor-text {
-  padding-bottom: 8px;
 }
 
 .attribute-boosts {

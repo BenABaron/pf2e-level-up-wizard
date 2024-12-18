@@ -11,7 +11,8 @@ import {
   attachValidationHandlers,
   attachAttributeBoostHandlers,
   attachArchetypeCheckboxHandler,
-  detectPartialBoosts
+  detectPartialBoosts,
+  getClassJournal
 } from './helpers.js';
 
 export class PF2eLevelUpWizardConfig extends FormApplication {
@@ -73,6 +74,8 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
   async getData() {
     const currentLevel = this.actorData.system.details.level.value;
 
+    const classJournal = await getClassJournal(this.actorData);
+
     const targetLevel = this.triggeredByManualLevelUp
       ? currentLevel
       : currentLevel + 1;
@@ -126,7 +129,11 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
       actorName,
       targetLevel,
       includeArchetypeFeats: this.includeArchetypeFeats || false,
-      showFeatPrerequisites
+      showFeatPrerequisites,
+      classJournal: {
+        uuid: classJournal.uuid,
+        name: classJournal.name
+      }
     };
   }
 
