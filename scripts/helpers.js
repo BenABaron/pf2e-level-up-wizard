@@ -246,6 +246,49 @@ export const getFeaturesForLevel = async (characterData, targetLevel) => {
   };
 };
 
+export const detectPartialBoosts = (actor) => {
+  const abilities = actor.system.abilities;
+  const buildData = actor.system.build.attributes;
+
+  // Initialize boost counts with flaws accounted for
+  const boostCounts = {};
+
+  // Process boosts (arrays) and class (string)
+  Object.entries(buildData.boosts).forEach(([key, value]) => {
+    if (Array.isArray(value)) {
+      // Count boosts from arrays
+      value.forEach((boost) => {
+        boostCounts[boost] = (boostCounts[boost] || 0) + 1;
+      });
+    } else if (key === 'class' && typeof value === 'string') {
+      // Count the single boost from 'class'
+      boostCounts[value] = (boostCounts[value] || 0) + 1;
+    }
+  });
+
+  // Subtract flaws from the boost count
+  Object.values(buildData.flaws).forEach((flawArray) => {
+    flawArray.forEach((flaw) => {
+      boostCounts[flaw] = (boostCounts[flaw] || 0) - 1;
+    });
+  });
+
+  // Check if the next boost is partial or full
+  return Object.entries(abilities).map(([key, ability]) => {
+    const currentCount = boostCounts[key] || 0;
+    const mod = ability.mod;
+
+    // Determine if the next boost is partial
+    const isPartial = mod >= 4 && currentCount % 2 === 0;
+
+    return {
+      key,
+      label: game.i18n.localize(CONFIG.PF2E.abilities[key]),
+      isPartial
+    };
+  });
+};
+
 /** SKILLS */
 export const getMaxSkillProficiency = (level) => {
   if (level >= 15) return 4; // Legendary
@@ -314,15 +357,37 @@ export const attachValidationHandlers = (
 export const attachAttributeBoostHandlers = (
   attributeButtons,
   selectedBoosts,
-  validateForm
+  validateForm,
+  partialBoosts
 ) => {
   const updateButtonStates = () => {
-    // Disable buttons if 4 boosts are selected
-    if (selectedBoosts.size >= 4) {
-      attributeButtons.not('.selected').prop('disabled', true);
-    } else {
-      attributeButtons.prop('disabled', false);
-    }
+    attributeButtons.each((_, buttonElement) => {
+      const button = $(buttonElement);
+      const attribute = button.data('value');
+      const isSelected = selectedBoosts.has(attribute);
+
+      // Find if this attribute is marked as partial
+      const partialBoostEntry = partialBoosts.find(
+        (boost) => boost.key === attribute
+      );
+      const isPartial = partialBoostEntry?.isPartial || false;
+
+      // Update button text
+      if (isSelected) {
+        button.html(`<span>${isPartial ? 'Partial' : 'Boost'}</span>`);
+        button.toggleClass('partial', isPartial); // Add 'partial' class if needed
+      } else {
+        button.html(`<span>Boost</span>`);
+        button.removeClass('partial'); // Remove 'partial' class when unselected
+      }
+
+      // Disable non-selected buttons when 4 are selected
+      if (selectedBoosts.size >= 4 && !isSelected) {
+        button.prop('disabled', true);
+      } else {
+        button.prop('disabled', false);
+      }
+    });
   };
 
   attributeButtons.on('click', (event) => {
@@ -342,6 +407,7 @@ export const attachAttributeBoostHandlers = (
     validateForm();
   });
 
+  // Initial update
   updateButtonStates();
 };
 

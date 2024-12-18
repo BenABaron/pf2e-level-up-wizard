@@ -77,6 +77,7 @@
   display: flex;
   margin-bottom: 1rem;
   --button-color: #316549;
+  --color-boost-dark: #1b3c2a;
 }
 
 .attribute-boosts-column {
@@ -107,6 +108,10 @@
 .attribute-boosts-button.selected {
   background-color: var(--button-color);
   color: var(--text-light);
+
+  &.partial {
+    background: var(--color-boost-dark);
+  }
 }
 
 .attribute-boosts-button:disabled {

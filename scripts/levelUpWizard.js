@@ -10,7 +10,8 @@ import {
   confirmChanges,
   attachValidationHandlers,
   attachAttributeBoostHandlers,
-  attachArchetypeCheckboxHandler
+  attachArchetypeCheckboxHandler,
+  detectPartialBoosts
 } from './helpers.js';
 
 export class PF2eLevelUpWizardConfig extends FormApplication {
@@ -40,6 +41,7 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
       const submitButton = this.element.find('button[type="submit"]');
       const attributeButtons = form.find('.attribute-boosts-button');
       const archetypeCheckbox = form.find('#includeArchetypeFeats');
+      const partialBoosts = detectPartialBoosts(this.actorData);
 
       const selectedBoosts = new Set();
 
@@ -52,7 +54,8 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
       attachAttributeBoostHandlers(
         attributeButtons,
         selectedBoosts,
-        validateForm
+        validateForm,
+        partialBoosts
       );
       attachArchetypeCheckboxHandler(archetypeCheckbox, (isChecked) => {
         this.includeArchetypeFeats = isChecked; // Update state
@@ -102,17 +105,7 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
       'show-feat-prerequisites'
     );
 
-    const abilities = Object.entries(this.actorData.system.abilities).reduce(
-      (acc, [key, ability]) => {
-        acc[key] = {
-          label: game.i18n.localize(CONFIG.PF2E.abilities[key]),
-          value: ability.mod,
-          key: key
-        };
-        return acc;
-      },
-      {}
-    );
+    const abilities = detectPartialBoosts(this.actorData);
 
     // Check if at least one field in `features` is truthy
     const hasFeaturesToDisplay = !!(
