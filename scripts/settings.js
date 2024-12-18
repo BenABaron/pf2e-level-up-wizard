@@ -36,7 +36,7 @@ export const registerSettings = () => {
     scope: 'client',
     config: true,
     type: String,
-    default: 'CHAR_HEADER',
+    default: 'CHAR_HEADER_SMALL',
     choices: {
       CHAR_HEADER: game.i18n.localize(
         'PF2E_LEVEL_UP_WIZARD.settings.buttonPlacement.options.charHeaderLarge'
