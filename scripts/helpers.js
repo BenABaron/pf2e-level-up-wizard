@@ -250,35 +250,28 @@ export const detectPartialBoosts = (actor) => {
   const abilities = actor.system.abilities;
   const buildData = actor.system.build.attributes;
 
-  // Initialize boost counts with flaws accounted for
   const boostCounts = {};
 
-  // Process boosts (arrays) and class (string)
   Object.entries(buildData.boosts).forEach(([key, value]) => {
     if (Array.isArray(value)) {
-      // Count boosts from arrays
       value.forEach((boost) => {
         boostCounts[boost] = (boostCounts[boost] || 0) + 1;
       });
     } else if (key === 'class' && typeof value === 'string') {
-      // Count the single boost from 'class'
       boostCounts[value] = (boostCounts[value] || 0) + 1;
     }
   });
 
-  // Subtract flaws from the boost count
   Object.values(buildData.flaws).forEach((flawArray) => {
     flawArray.forEach((flaw) => {
       boostCounts[flaw] = (boostCounts[flaw] || 0) - 1;
     });
   });
 
-  // Check if the next boost is partial or full
   return Object.entries(abilities).map(([key, ability]) => {
     const currentCount = boostCounts[key] || 0;
     const mod = ability.mod;
 
-    // Determine if the next boost is partial
     const isPartial = mod >= 4 && currentCount % 2 === 0;
 
     return {
@@ -365,7 +358,6 @@ export const attachAttributeBoostHandlers = (
       const attribute = button.data('value');
       const isSelected = selectedBoosts.has(attribute);
 
-      // Find if this attribute is marked as partial
       const partialBoostEntry = partialBoosts.find(
         (boost) => boost.key === attribute
       );
@@ -374,7 +366,6 @@ export const attachAttributeBoostHandlers = (
       const modifierElement = $(`#modifier-${attribute}`);
       const currentModifier = parseInt(modifierElement.text(), 10);
 
-      // Update button text & modifier
       if (isSelected && !button.hasClass('updated')) {
         button.html(
           `<span class="boost-text">${
@@ -413,7 +404,6 @@ export const attachAttributeBoostHandlers = (
         );
       }
 
-      // Disable non-selected buttons when 4 are selected
       if (selectedBoosts.size >= 4 && !isSelected) {
         button.prop('disabled', true);
       } else {
@@ -426,7 +416,6 @@ export const attachAttributeBoostHandlers = (
     const button = $(event.currentTarget);
     const attribute = button.data('value');
 
-    // Toggle selection state
     if (selectedBoosts.has(attribute)) {
       selectedBoosts.delete(attribute);
       button.removeClass('selected');
@@ -439,7 +428,6 @@ export const attachAttributeBoostHandlers = (
     validateForm();
   });
 
-  // Initial update
   updateButtonStates();
 };
 

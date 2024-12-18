@@ -3,9 +3,16 @@
   border: 0;
   color: var(--color-pf-tertiary-darker);
   background: transparent;
-  font-size: 36px;
   line-height: normal;
   align-self: center;
+}
+
+.level-up-icon-button-large {
+  font-size: 36px;
+}
+
+.level-up-icon-button-small {
+  font-size: 24px;
 }
 
 .level-up-icon-button:hover,

@@ -70,7 +70,8 @@
         "name": "Level-Up Button Placement",
         "hint": "Select where the Level-Up button appears: either next to the character's level or in the toolbar at the top of the character sheet.",
         "options": {
-          "charHeader": "Next to Level",
+          "charHeaderSmall": "Next to Level - Small",
+          "charHeaderLarge": "Next to Level - Large",
           "windowHeader": "Toolbar"
         }
       },

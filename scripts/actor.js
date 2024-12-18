@@ -9,10 +9,21 @@ export const renderLevelUpButton = (sheet, html) => {
   html.find('.level-up-icon-button').remove();
   html.find('.level-up-wizard').remove();
 
-  if (game.settings.get(module_name, 'button-placement') === 'CHAR_HEADER') {
+  if (
+    // prettier-ignore
+    game.settings.get(module_name, 'button-placement') === 'CHAR_HEADER_SMALL' ||
+    game.settings.get(module_name, 'button-placement') === 'CHAR_HEADER_LARGE'
+  ) {
+    const isSmall =
+      game.settings.get(module_name, 'button-placement') ===
+      'CHAR_HEADER_SMALL';
+    const buttonSizeClass = isSmall
+      ? 'level-up-icon-button-small'
+      : 'level-up-icon-button-large';
+
     const button = $(
-      `<button type='button' class='level-up-icon-button flex0' title="${title}">
-      <i class='fas fa-hat-wizard'></i>
+      `<button type='button' class='level-up-icon-button ${buttonSizeClass} flex0' title="${title}">
+        <i class='fas fa-hat-wizard'></i>
       </button>`
     );
 
