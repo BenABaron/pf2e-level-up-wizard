@@ -72,13 +72,24 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
   }
 
   async getData() {
+    const actorName = this.actorData.name;
     const currentLevel = this.actorData.system.details.level.value;
-
-    const classJournal = await getClassJournal(this.actorData);
-
     const targetLevel = this.triggeredByManualLevelUp
       ? currentLevel
       : currentLevel + 1;
+
+    const freeArchetype = game.settings.get('pf2e', 'freeArchetypeVariant');
+    const ancestryParagon =
+      game.modules.get('xdy-pf2e-workbench')?.active &&
+      game.settings.get(
+        'xdy-pf2e-workbench',
+        'legacyVariantRuleAncestryParagon'
+      );
+    const showFeatPrerequisites = game.settings.get(
+      module_name,
+      'show-feat-prerequisites'
+    );
+
     const classFeats = await getFeatsForLevel(
       this.actorData,
       'class',
@@ -100,34 +111,18 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
       'general',
       targetLevel
     );
-    const features = await getFeaturesForLevel(this.actorData, targetLevel);
-    const skills = getSkillsForLevel(this.actorData, targetLevel);
-    const actorName = this.actorData.name;
-    const showFeatPrerequisites = game.settings.get(
-      module_name,
-      'show-feat-prerequisites'
-    );
+    const freeArchetypeFeats =
+      freeArchetype &&
+      (await getFeatsForLevel(this.actorData, 'archetype', targetLevel));
+    const ancestryParagonFeats =
+      ancestryParagon &&
+      (await getFeatsForLevel(this.actorData, 'ancestryParagon', targetLevel));
 
     const abilities = detectPartialBoosts(this.actorData);
+    const features = await getFeaturesForLevel(this.actorData, targetLevel);
+    const skills = getSkillsForLevel(this.actorData, targetLevel);
+    const classJournal = await getClassJournal(this.actorData);
 
-    const freeArchetype = game.settings.get('pf2e', 'freeArchetypeVariant');
-
-    const freeArchetypeFeats = freeArchetype
-      ? await getFeatsForLevel(this.actorData, 'archetype', targetLevel)
-      : [];
-
-    const ancestryParagon =
-      game.modules.get('xdy-pf2e-workbench')?.active &&
-      game.settings.get(
-        'xdy-pf2e-workbench',
-        'legacyVariantRuleAncestryParagon'
-      );
-
-    const ancestryParagonFeats = ancestryParagon
-      ? await getFeatsForLevel(this.actorData, 'ancestryParagon', targetLevel)
-      : [];
-
-    // Check if at least one field in `features` is truthy
     const hasFeaturesToDisplay = !!(
       features.featuresForLevel.length > 0 ||
       features.newSpellRankLevel ||

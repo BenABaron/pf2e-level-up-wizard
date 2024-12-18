@@ -11,7 +11,7 @@ This module can be installed directly in Foundry via `Install Modules` and searc
 Once the module is enabled, players will see a wizard hat appear on their character sheets next to their level. This can be moved to the window's toolbar in the settings.
 When it's time to level up, simply click the wizard hat to start up the Level-Up Wizard.
 
-The wizard will show the player any new feature they gained with their level up, as well as prompting them to select any `Feats` or `Skill Increases` if available.
+The wizard will show the player any new feature they gained with their level up, as well as prompting them to make any relevant selections if available.
 Follow the steps on screen, hit submit (and confirm!), and watch as the wizard handles all of the necessary changes to the character sheet!
 
 https://github.com/user-attachments/assets/699ad20d-4993-47de-acc6-63680786c968

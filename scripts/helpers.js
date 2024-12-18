@@ -128,6 +128,22 @@ export const createPersonalLevelMessage = (formData, playerId, actorName) => {
   }
 };
 
+export const getClassJournal = async (actor) => {
+  const characterClass = actor?.class?.name.toLowerCase();
+
+  const classesJournal = game.packs
+    .get('pf2e.journals')
+    ?.index.find((entry) => entry.name === 'Classes');
+
+  const classesJournalEntry = await fromUuid(classesJournal.uuid);
+
+  const classSpecificJournal = classesJournalEntry.pages.contents.find(
+    (page) => page.name.toLowerCase() === characterClass
+  );
+
+  return classSpecificJournal;
+};
+
 /** FEATS */
 const filterFeats = async (searchQuery, targetLevel, existingFeats) => {
   const feats = await getCachedFeats();
@@ -453,20 +469,4 @@ export const attachArchetypeCheckboxHandler = (
   archetypeCheckbox.on('change', (event) => {
     reRenderCallback(event.target.checked);
   });
-};
-
-export const getClassJournal = async (actor) => {
-  const characterClass = actor?.class?.name.toLowerCase();
-
-  const classesJournal = game.packs
-    .get('pf2e.journals')
-    ?.index.find((entry) => entry.name === 'Classes');
-
-  const classesJournalEntry = await fromUuid(classesJournal.uuid);
-
-  const classSpecificJournal = classesJournalEntry.pages.contents.find(
-    (page) => page.name.toLowerCase() === characterClass
-  );
-
-  return classSpecificJournal;
 };
