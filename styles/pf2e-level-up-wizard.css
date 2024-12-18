@@ -75,7 +75,6 @@
 
 .attribute-boosts {
   display: flex;
-  margin-bottom: 1rem;
   --button-color: #316549;
   --color-boost-dark: #1b3c2a;
 }
@@ -88,15 +87,22 @@
   gap: 4px;
 }
 
+.attribute-boosts-label {
+  font: 400 var(--font-size-24) var(--serif-condensed);
+  width: 100%;
+  text-align: center;
+}
+
 .attribute-boosts-button {
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--button-color);
   border: 1px solid var(--button-color);
+  font-size: var(--font-size-12);
   height: 1.5em;
   outline: none;
-  width: 5.5em;
+  width: 6em;
   border-radius: 3px;
 }
 
@@ -123,4 +129,12 @@
 .attribute-boosts-button:disabled:hover,
 .attribute-boosts-button:disabled:focus {
   box-shadow: none;
+}
+
+.attribute-modifier {
+  font: 700 var(--font-size-24) var(--serif);
+}
+
+.boost-text {
+  padding-top: 2px;
 }

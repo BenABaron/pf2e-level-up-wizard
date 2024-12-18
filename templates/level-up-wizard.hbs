@@ -107,9 +107,9 @@
     <div class="attribute-boosts">
       {{#each abilities}}
         <div class="attribute-boosts-column">
-          <label for="boost-{{key}}">{{label}}</label>
+          <label for="boost-{{key}}" class="attribute-boosts-label">{{localize (concat 'PF2E.AbilityId.' key)}}</label>
           <button class="attribute-boosts-button" data-value="{{key}}" id="boost-{{key}}" type="button">
-            <span>Boost</span>
+            <span class="boost-text">BOOST</span>
           </button>
           <div class="attribute-modifier" id="modifier-{{key}}">
             {{mod}}

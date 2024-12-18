@@ -110,7 +110,6 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
     // Check if at least one field in `features` is truthy
     const hasFeaturesToDisplay = !!(
       features.featuresForLevel.length > 0 ||
-      features.abilityScoreIncreaseLevel ||
       features.newSpellRankLevel ||
       features.spellcasting
     );

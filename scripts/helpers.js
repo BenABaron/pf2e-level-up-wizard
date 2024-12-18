@@ -284,7 +284,6 @@ export const detectPartialBoosts = (actor) => {
     return {
       key,
       mod,
-      label: game.i18n.localize(CONFIG.PF2E.abilities[key]),
       isPartial
     };
   });
@@ -377,21 +376,29 @@ export const attachAttributeBoostHandlers = (
 
       // Update button text & modifier
       if (isSelected && !button.hasClass('updated')) {
-        button.html(`<span>${isPartial ? 'Partial' : 'Boost'}</span>`);
+        button.html(
+          `<span class="boost-text">${isPartial ? 'PARTIAL' : 'BOOST'}</span>`
+        );
         button.toggleClass('partial', isPartial);
 
         const newModifier = isPartial ? currentModifier : currentModifier + 1;
-        modifierElement.text(`+${newModifier}`);
+        modifierElement.text(
+          newModifier >= 0 ? `+${newModifier}` : newModifier
+        );
         button.addClass('updated');
       } else if (!isSelected && button.hasClass('updated')) {
-        button.html(`<span>Boost</span>`);
+        button.html(`<span class="boost-text">BOOST</span>`);
         button.removeClass('partial');
 
         const newModifier = isPartial ? currentModifier : currentModifier - 1;
-        modifierElement.text(`+${newModifier}`);
+        modifierElement.text(
+          newModifier >= 0 ? `+${newModifier}` : newModifier
+        );
         button.removeClass('updated');
       } else {
-        modifierElement.text(`+${currentModifier}`);
+        modifierElement.text(
+          currentModifier >= 0 ? `+${currentModifier}` : currentModifier
+        );
       }
 
       // Disable non-selected buttons when 4 are selected
