@@ -14,8 +14,8 @@
       "discord": "Zumanzo#8754"
     }
   ],
-  "esmodules": ["scripts/pf2e-level-up-wizard.js"],
-  "styles": ["styles/pf2e-level-up-wizard.css"],
+  "esmodules": ["scripts/main.js"],
+  "styles": ["styles/main.css"],
   "languages": [
     {
       "lang": "en",

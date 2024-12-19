@@ -1,4 +1,4 @@
-import { module_name } from './pf2e-level-up-wizard.js';
+import { module_name } from './main.js';
 import { renderLevelUpButton } from './actor.js';
 
 const rerenderCharacterSheet = () => {
