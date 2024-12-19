@@ -14,7 +14,7 @@
       "discord": "Zumanzo#8754"
     }
   ],
-  "esmodules": ["scripts/main.js"],
+  "esmodules": ["src/main.js"],
   "styles": ["styles/main.css"],
   "languages": [
     {

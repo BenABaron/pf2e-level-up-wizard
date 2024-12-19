@@ -1,0 +1,21 @@
+{
+  "name": "pf2e-level-up-wizard",
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "type": "module",
+  "author": "Zumanzo",
+  "homepage": "https://github.com/BenABaron/pf2e-level-up-wizard#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BenABaron/pf2e-level-up-wizard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/BenABaron/pf2e-level-up-wizard/issues"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "eslint": "^9.17.0",
+    "globals": "^15.14.0"
+  }
+}
