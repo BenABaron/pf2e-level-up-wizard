@@ -1,19 +1,27 @@
 import { module_name } from './main.js';
+
+// @Helpers
+import { normalizeString } from './helpers/utility.js';
+import { getFeatsForLevel } from './helpers/featsHelpers.js';
 import {
-  normalizeString,
-  getFeatsForLevel,
-  getFeaturesForLevel,
+  detectPartialBoosts,
+  getFeaturesForLevel
+} from './helpers/classFeaturesHelpers.js';
+import {
+  attachArchetypeCheckboxHandler,
+  attachAttributeBoostHandlers,
+  attachValidationHandlers
+} from './helpers/formHelpers.js';
+import {
   getSkillsForLevel,
+  skillProficiencyRanks
+} from './helpers/skillsHelpers.js';
+import {
+  confirmChanges,
   createGlobalLevelMessage,
   createPersonalLevelMessage,
-  skillProficiencyRanks,
-  confirmChanges,
-  attachValidationHandlers,
-  attachAttributeBoostHandlers,
-  attachArchetypeCheckboxHandler,
-  detectPartialBoosts,
   getClassJournal
-} from './helpers.js';
+} from './helpers/foundryHelpers.js';
 
 export class PF2eLevelUpWizardConfig extends FormApplication {
   constructor(actorData, triggeredByManualLevelUp = false) {
