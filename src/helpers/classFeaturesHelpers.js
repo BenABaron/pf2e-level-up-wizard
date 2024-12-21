@@ -3,6 +3,13 @@ const newSpellRankLevels = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19];
 
 const stripParagraphTags = (html) => html?.replace(/^<p>|<\/p>$/g, '') || '';
 
+const replaceUUIDsWithLinks = (description) => {
+  const uuidRegex = /@UUID\[([^\]]+)\]\{([^}]+)\}/g;
+  return description.replace(uuidRegex, (match, uuid, name) => {
+    return `<a class="content-link" data-link data-uuid="${uuid}"><i class="fas fa-file-lines"></i>${name}</a>`;
+  });
+};
+
 export const getClassSpecificDescription = (description, characterClass) => {
   if (!description || !characterClass) return description;
 
@@ -30,9 +37,13 @@ const mapFeaturesWithDetails = async (features, characterClass) => {
         characterClass
       );
 
+      const enrichedDescription = replaceUUIDsWithLinks(
+        stripParagraphTags(filteredDescription)
+      );
+
       return {
         name: feature.name,
-        description: stripParagraphTags(filteredDescription),
+        description: enrichedDescription,
         img: feature.img || item.img,
         uuid: feature.uuid
       };
