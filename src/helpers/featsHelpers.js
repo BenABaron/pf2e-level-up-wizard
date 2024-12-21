@@ -14,9 +14,12 @@ const getCachedFeats = async () => {
   return cachedFeats;
 };
 
-const filterFeats = async (searchQuery, targetLevel, existingFeats) => {
+const filterFeats = async (searchQueries, targetLevel, existingFeats) => {
   const feats = await getCachedFeats();
-  const normalizedQuery = normalizeString(searchQuery);
+
+  const normalizedQueries = Array.isArray(searchQueries)
+    ? searchQueries.map(normalizeString)
+    : [normalizeString(searchQueries)];
 
   return feats.filter((feat) => {
     const traits = feat.system.traits.value.map(normalizeString);
@@ -24,7 +27,7 @@ const filterFeats = async (searchQuery, targetLevel, existingFeats) => {
     const maxTakable = feat.system.maxTakable;
 
     return (
-      traits.includes(normalizedQuery) &&
+      normalizedQueries.some((query) => traits.includes(query)) &&
       feat.system.level.value <= targetLevel &&
       !(isTaken && maxTakable === 1)
     );
@@ -89,7 +92,20 @@ export const getFeatsForLevel = async (
     archetype: 'archetype'
   };
 
-  const searchQuery = queryMap[type];
+  let searchQuery = queryMap[type];
+  if (type === 'ancestry') {
+    const heritage = characterData?.heritage?.name;
+    if (heritage) {
+      searchQuery = [characterData?.ancestry?.name, heritage];
+
+      // Handle special cases for versatile heritages
+      if (heritage === 'Aiuvarin') {
+        searchQuery.push('Elf');
+      } else if (heritage === 'Dromaar') {
+        searchQuery.push('Orc');
+      }
+    }
+  }
   if (!searchQuery) {
     console.error(`Unknown feat type: ${type}`);
     return;
