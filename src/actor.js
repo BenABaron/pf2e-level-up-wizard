@@ -1,9 +1,7 @@
 import { module_name } from './main.js';
-import { PF2eLevelUpWizardConfig } from './levelUpWizard.js';
+import { renderWizard } from './helpers/foundryHelpers.js';
 
 export const renderLevelUpButton = (sheet, html) => {
-  if (!sheet.actor.isOwner) return;
-
   const title = game.i18n.localize('PF2E_LEVEL_UP_WIZARD.button-tooltip');
 
   html.find('.level-up-icon-button').remove();
@@ -27,9 +25,7 @@ export const renderLevelUpButton = (sheet, html) => {
       </button>`
     );
 
-    button.on('click', () =>
-      new PF2eLevelUpWizardConfig(sheet.actor).render(true)
-    );
+    button.on('click', () => renderWizard(sheet.actor));
 
     html.find('section.char-level').prepend(button);
   }
@@ -39,9 +35,7 @@ export const renderLevelUpButton = (sheet, html) => {
       `<a class="level-up-wizard" title="Level Up Wizard"><i class="fas fa-hat-wizard"></i>${title}</a>`
     );
 
-    button.on('click', () =>
-      new PF2eLevelUpWizardConfig(sheet.actor).render(true)
-    );
+    button.on('click', () => renderWizard(sheet.actor));
 
     html.find('.window-title').after(button);
   }
@@ -62,9 +56,11 @@ export const renderWizardOnLevelUp = (actor, updateData, options, userId) => {
 
   if (!newLevel) return;
 
-  ui.notifications.info(
-    game.i18n.localize('PF2E_LEVEL_UP_WIZARD.notifications.wizardStartup')
-  );
+  if (actor.class) {
+    ui.notifications.info(
+      game.i18n.localize('PF2E_LEVEL_UP_WIZARD.notifications.wizardStartup')
+    );
+  }
 
-  new PF2eLevelUpWizardConfig(actor, true).render(true);
+  renderWizard(actor);
 };

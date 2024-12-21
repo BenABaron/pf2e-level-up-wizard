@@ -11,6 +11,7 @@ export default [
         ...globals.browser,
         $: 'readonly',
         jQuery: 'readonly',
+        CONFIG: 'readonly',
         ui: 'readonly',
         game: 'readonly',
         Hooks: 'readonly',

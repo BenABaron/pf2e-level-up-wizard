@@ -1,4 +1,13 @@
+import { PF2eLevelUpWizardConfig } from '../levelUpWizard.js';
 import { module_name } from '../main.js';
+
+export const renderWizard = (actor) => {
+  actor.class
+    ? new PF2eLevelUpWizardConfig(actor).render(true)
+    : ui.notifications.info(
+        game.i18n.localize('PF2E_LEVEL_UP_WIZARD.notifications.missingClass')
+      );
+};
 
 export const confirmChanges = async () => {
   return Dialog.confirm({
@@ -78,15 +87,29 @@ export const createPersonalLevelMessage = (formData, playerId, actorName) => {
 export const getClassJournal = async (actor) => {
   const characterClass = actor?.class?.name.toLowerCase();
 
+  if (!characterClass) return null;
+
+  const classNames = characterClass.includes('-')
+    ? characterClass
+        .split('-')
+        .map((className) => className.trim().toLowerCase())
+    : [characterClass];
+
   const classesJournal = game.packs
     .get('pf2e.journals')
     ?.index.find((entry) => entry.name === 'Classes');
 
+  if (!classesJournal) return null;
+
   const classesJournalEntry = await fromUuid(classesJournal.uuid);
 
-  const classSpecificJournal = classesJournalEntry.pages.contents.find(
-    (page) => page.name.toLowerCase() === characterClass
+  const classSpecificJournals = classNames.map((className) =>
+    classesJournalEntry.pages.contents.find(
+      (page) => page.name.toLowerCase() === className
+    )
   );
 
-  return classSpecificJournal;
+  const validJournals = classSpecificJournals.filter(Boolean);
+
+  return validJournals;
 };

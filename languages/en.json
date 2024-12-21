@@ -16,7 +16,7 @@
         "placeholder": "Make a Selection"
       },
       "classFeats": {
-        "header": "Class Feats",
+        "header": "{className} Class Feats",
         "label": "New Class Feat Available:",
         "checkbox": "Include Archetype Feats"
       },
@@ -126,7 +126,8 @@
     "notifications": {
       "levelUpStart": "Updating {actorName} to level {targetLevel}...",
       "levelUpComplete": "{actorName} level up complete!",
-      "wizardStartup": "Starting up Level-Up Wizard..."
+      "wizardStartup": "Starting up Level-Up Wizard...",
+      "missingClass": "Cannot start up Level-Up Wizard until Class is selected."
     }
   }
 }

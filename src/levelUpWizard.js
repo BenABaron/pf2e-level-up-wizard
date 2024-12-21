@@ -98,12 +98,30 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
       'show-feat-prerequisites'
     );
 
+    const classNames = this.actorData.class?.name
+      .split('-')
+      .map((cls) => cls.trim());
+
+    let primaryClass = classNames[0];
+    let secondaryClass = classNames[1] || null;
+
     const classFeats = await getFeatsForLevel(
       this.actorData,
       'class',
       targetLevel,
-      this.includeArchetypeFeats
+      this.includeArchetypeFeats,
+      primaryClass
     );
+    let dualClassFeats = [];
+    if (secondaryClass) {
+      dualClassFeats = await getFeatsForLevel(
+        this.actorData,
+        'class',
+        targetLevel,
+        this.includeArchetypeFeats,
+        secondaryClass
+      );
+    }
     const ancestryFeats = await getFeatsForLevel(
       this.actorData,
       'ancestry',
@@ -129,7 +147,7 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
     const abilities = detectPartialBoosts(this.actorData);
     const features = await getFeaturesForLevel(this.actorData, targetLevel);
     const skills = getSkillsForLevel(this.actorData, targetLevel);
-    const classJournal = await getClassJournal(this.actorData);
+    const classJournals = await getClassJournal(this.actorData);
 
     const hasFeaturesToDisplay = !!(
       features.featuresForLevel.length > 0 ||
@@ -138,7 +156,10 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
     );
 
     return {
+      primaryClass,
       classFeats,
+      secondaryClass,
+      dualClassFeats,
       freeArchetypeFeats,
       ancestryFeats,
       ancestryParagonFeats,
@@ -152,10 +173,7 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
       targetLevel,
       includeArchetypeFeats: this.includeArchetypeFeats || false,
       showFeatPrerequisites,
-      classJournal: {
-        uuid: classJournal.uuid,
-        name: classJournal.name
-      }
+      classJournals
     };
   }
 
@@ -194,6 +212,7 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
 
     const featEntries = Object.entries({
       classFeats: formData.classFeats,
+      dualClassFeats: formData.dualClassFeats,
       ancestryFeats: formData.ancestryFeats,
       skillFeats: formData.skillFeats,
       generalFeats: formData.generalFeats,
@@ -214,6 +233,7 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
 
     const featGroupMap = {
       classFeats: 'class',
+      dualClassFeats: 'xdy_dualclass',
       ancestryFeats: 'ancestry',
       skillFeats: 'skill',
       generalFeats: 'general',

@@ -61,7 +61,8 @@ export const getFeatsForLevel = async (
   characterData,
   type,
   targetLevel,
-  includeArchetypeFeats = false
+  includeArchetypeFeats = false,
+  dualClassName
 ) => {
   let levelsArray = [];
 
@@ -80,7 +81,7 @@ export const getFeatsForLevel = async (
   if (!levelsArray.includes(targetLevel)) return;
 
   const queryMap = {
-    class: characterData?.class?.name,
+    class: dualClassName || characterData?.class?.name,
     ancestry: characterData?.ancestry?.name,
     ancestryParagon: characterData?.ancestry?.name,
     general: 'general',

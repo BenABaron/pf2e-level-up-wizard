@@ -8,12 +8,14 @@
       }}
     </h1>
     <p>{{localize 'PF2E_LEVEL_UP_WIZARD.menu.header.description'}}</p>
-    {{#if classJournal}}
+    {{#if classJournals}}
       <p>
         {{localize 'PF2E_LEVEL_UP_WIZARD.menu.notes.classJournal'}}
-        <a class="content-link" data-link data-uuid="{{classJournal.uuid}}">
-          <i class="fas fa-file-lines"></i>{{classJournal.name}}
+        {{#each classJournals}}
+        <a class="content-link" data-link data-uuid="{{uuid}}">
+          <i class="fas fa-file-lines"></i>{{name}}
         </a>
+        {{/each}}
       </p>
     {{/if}}
     {{#if showFeatPrerequisites}}
@@ -34,6 +36,7 @@
       headerKey='PF2E_LEVEL_UP_WIZARD.menu.classFeats.header'
       labelKey='PF2E_LEVEL_UP_WIZARD.menu.classFeats.label'
       showFeatPrerequisites=showFeatPrerequisites
+      className=primaryClass
     }}
     <div class='checkbox-row'>
       <label for='includeArchetypeFeats'>
@@ -48,6 +51,19 @@
       />
     </div>
   {{/if}}
+
+  {{! Dual Class Feats }}
+  {{#if dualClassFeats}}
+    {{> featDropdown
+      name="dualClassFeats"
+      feats=dualClassFeats
+      headerKey='PF2E_LEVEL_UP_WIZARD.menu.classFeats.header'
+      labelKey='PF2E_LEVEL_UP_WIZARD.menu.classFeats.label'
+      showFeatPrerequisites=showFeatPrerequisites
+      className=secondaryClass
+    }}
+  {{/if}}
+
 
   {{! Free Archetype Feats }}
   {{#if freeArchetypeFeats}}
