@@ -62,5 +62,5 @@ export const renderWizardOnLevelUp = (actor, updateData, options, userId) => {
     );
   }
 
-  renderWizard(actor);
+  renderWizard(actor, true);
 };
