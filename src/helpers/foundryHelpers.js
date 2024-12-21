@@ -1,9 +1,9 @@
 import { PF2eLevelUpWizardConfig } from '../levelUpWizard.js';
 import { module_name } from '../main.js';
 
-export const renderWizard = (actor) => {
+export const renderWizard = (actor, manualLevelUp) => {
   actor.class
-    ? new PF2eLevelUpWizardConfig(actor).render(true)
+    ? new PF2eLevelUpWizardConfig(actor, manualLevelUp).render(true)
     : ui.notifications.info(
         game.i18n.localize('PF2E_LEVEL_UP_WIZARD.notifications.missingClass')
       );
