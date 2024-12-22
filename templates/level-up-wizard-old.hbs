@@ -1,4 +1,3 @@
-{{log 'level-up-wizard' this}}
 <form>
   <div class="header-container">
     <h1 class='fancy-font'>
@@ -31,51 +30,93 @@
 
   {{! Class Feats }}
   {{#if classFeats}}
-    {{> featSelector
-      id="classFeats"
+    {{> featDropdown
+      name="classFeats"
+      feats=classFeats
+      headerKey='PF2E_LEVEL_UP_WIZARD.menu.classFeats.header'
+      labelKey='PF2E_LEVEL_UP_WIZARD.menu.classFeats.label'
+      showFeatPrerequisites=showFeatPrerequisites
+      className=primaryClass
     }}
+    <div class='checkbox-row'>
+      <label for='includeArchetypeFeats'>
+        {{localize 'PF2E_LEVEL_UP_WIZARD.menu.classFeats.checkbox'}}
+      </label>
+      <input
+        type='checkbox'
+        id='includeArchetypeFeats'
+        name='includeArchetypeFeats'
+        class='form-checkbox'
+        {{checked includeArchetypeFeats}}
+      />
+    </div>
   {{/if}}
 
   {{! Dual Class Feats }}
   {{#if dualClassFeats}}
-    {{> featSelector
-      id="dualClassFfeats"
+    {{> featDropdown
+      name="dualClassFeats"
+      feats=dualClassFeats
+      headerKey='PF2E_LEVEL_UP_WIZARD.menu.classFeats.header'
+      labelKey='PF2E_LEVEL_UP_WIZARD.menu.classFeats.label'
+      showFeatPrerequisites=showFeatPrerequisites
+      className=secondaryClass
     }}
   {{/if}}
 
 
   {{! Free Archetype Feats }}
   {{#if freeArchetypeFeats}}
-    {{> featSelector
-      id="freeArchetypeFeats"
+    {{> featDropdown
+      name="freeArchetypeFeats"
+      feats=freeArchetypeFeats
+      headerKey='PF2E_LEVEL_UP_WIZARD.menu.freeArchetypeFeats.header'
+      labelKey='PF2E_LEVEL_UP_WIZARD.menu.freeArchetypeFeats.label'
+      showFeatPrerequisites=showFeatPrerequisites
     }}
   {{/if}}
 
   {{! Ancestry Feats }}
   {{#if ancestryFeats}}
-    {{> featSelector
-      id="ancestryFeats"
+    {{> featDropdown
+      name="ancestryFeats"
+      feats=ancestryFeats
+      headerKey='PF2E_LEVEL_UP_WIZARD.menu.ancestryFeats.header'
+      labelKey='PF2E_LEVEL_UP_WIZARD.menu.ancestryFeats.label'
+      showFeatPrerequisites=showFeatPrerequisites
     }}
   {{/if}}
 
   {{! Ancestry Paragon Feats }}
   {{#if ancestryParagonFeats}}
-    {{> featSelector
-      id="ancestryParagonFeats"
+    {{> featDropdown
+      name="ancestryParagonFeats"
+      feats=ancestryParagonFeats
+      headerKey='PF2E_LEVEL_UP_WIZARD.menu.ancestryParagonFeats.header'
+      labelKey='PF2E_LEVEL_UP_WIZARD.menu.ancestryParagonFeats.label'
+      showFeatPrerequisites=showFeatPrerequisites
     }}
   {{/if}}
 
   {{! Skill Feats }}
   {{#if skillFeats}}
-    {{> featSelector
-      id="skillFeats"
+    {{> featDropdown
+      name="skillFeats"
+      feats=skillFeats
+      headerKey='PF2E_LEVEL_UP_WIZARD.menu.skillFeats.header'
+      labelKey='PF2E_LEVEL_UP_WIZARD.menu.skillFeats.label'
+      showFeatPrerequisites=showFeatPrerequisites
     }}
   {{/if}}
 
   {{! General Feats }}
   {{#if generalFeats}}
-    {{> featSelector
-      id="generalFeats"
+    {{> featDropdown
+      name="generalFeats"
+      feats=generalFeats
+      headerKey='PF2E_LEVEL_UP_WIZARD.menu.generalFeats.header'
+      labelKey='PF2E_LEVEL_UP_WIZARD.menu.generalFeats.label'
+      showFeatPrerequisites=showFeatPrerequisites
     }}
   {{/if}}
 

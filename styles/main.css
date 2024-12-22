@@ -15,6 +15,11 @@
   font-size: 24px;
 }
 
+#level-up-wizard .window-content {
+  overflow-x: visible;
+  overflow-y: visible;
+}
+
 .level-up-icon-button:hover,
 .level-up-icon-button:focus {
   box-shadow: none;
@@ -144,4 +149,107 @@
 
 .boost-text {
   padding-top: 2px;
+}
+
+/* General styles for the feat selector container */
+.feat-selector {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 300px;
+}
+
+/* Button to toggle the feat selector menu */
+.feat-selector-toggle {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  text-align: left;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.feat-selector-toggle:hover {
+  background-color: #eee;
+}
+
+.feat-selector-toggle:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+/* Dropdown menu */
+.feat-selector-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  border-radius: 4px;
+  padding: 0.5rem;
+}
+
+/* Hidden class for toggling visibility */
+.feat-selector-menu.hidden {
+  display: none;
+}
+
+/* Filters section */
+.feat-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.feat-filters input,
+.feat-filters select {
+  flex: 1;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.feat-filters input::placeholder {
+  color: #aaa;
+}
+
+/* Feat list */
+.feat-list {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0.5rem;
+  background-color: #f9f9f9;
+}
+
+.feat-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.feat-list::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+/* Feat card */
+.feat-list .feat-card {
+  padding: 0.5rem;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.feat-list .feat-card:last-child {
+  border-bottom: none;
+}
+
+.feat-list .feat-card:hover {
+  background-color: #f0f0f0;
 }

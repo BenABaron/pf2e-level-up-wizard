@@ -10,6 +10,11 @@ Hooks.on('init', async () => {
   const featDropdownPath = `modules/${module_name}/templates/partials/feat-dropdown.hbs`;
   const featDropdownTemplate = await getTemplate(featDropdownPath);
   Handlebars.registerPartial('featDropdown', featDropdownTemplate);
+  const featSelectorPath = `modules/${module_name}/templates/partials/feat-selector.hbs`;
+  const featSelectorTemplate = await getTemplate(featSelectorPath);
+  Handlebars.registerPartial('featSelector', featSelectorTemplate);
+
+  CONFIG.debug.hooks = true;
 });
 
 Hooks.on('ready', () => {

@@ -22,6 +22,7 @@ import {
   createPersonalLevelMessage,
   getClassJournal
 } from './helpers/foundryHelpers.js';
+import { FeatSelector } from './featSelector.js';
 
 export class PF2eLevelUpWizardConfig extends FormApplication {
   constructor(actorData, triggeredByManualLevelUp = false) {
@@ -45,7 +46,7 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
   render(force = false, options = {}) {
     super.render(force, options);
 
-    Hooks.once('renderPF2eLevelUpWizardConfig', () => {
+    Hooks.once('renderPF2eLevelUpWizardConfig', (_app, html, data) => {
       const form = this.element.find('form');
       const submitButton = this.element.find('button[type="submit"]');
       const attributeButtons = form.find('.attribute-boosts-button');
@@ -69,6 +70,13 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
       attachArchetypeCheckboxHandler(archetypeCheckbox, (isChecked) => {
         this.includeArchetypeFeats = isChecked; // Update state
         this.render(true); // Re-render the form
+      });
+
+      html.find('.feat-selector').each((_, container) => {
+        const id = $(container).data('id'); // Use jQuery's `.data()` method
+        if (id) {
+          new FeatSelector(container, data[id]);
+        }
       });
     });
   }
