@@ -19,8 +19,6 @@ export class FeatSelector {
 
     // Attach event listeners
     this.attachEventListeners();
-
-    console.log('featSelector init', this.allFeats);
   }
 
   render() {
@@ -35,6 +33,27 @@ export class FeatSelector {
       `);
       listContainer.append(featElement);
     });
+  }
+
+  selectFeat(uuid) {
+    const selectedFeat = this.allFeats.find((feat) => feat.uuid === uuid);
+
+    if (!selectedFeat) {
+      console.error(`Feat with UUID ${uuid} not found.`);
+      return;
+    }
+
+    // Update UI to reflect the selected feat
+    const toggleButton = this.container.querySelector('.feat-selector-toggle');
+    toggleButton.textContent = `${selectedFeat.name} (Level ${selectedFeat.system.level.value})`;
+
+    // Optionally close the menu
+    const menu = this.container.querySelector('.feat-selector-menu');
+    menu.classList.add('hidden');
+
+    console.log('Selected Feat:', selectedFeat);
+
+    // Trigger any additional logic, e.g., updating actor data
   }
 
   attachEventListeners() {
@@ -76,6 +95,16 @@ export class FeatSelector {
       .on('change', (e) => {
         this.filters.sort = e.target.value;
         this.updateFilteredFeats();
+      });
+
+    // Event: Select Feat
+    $(this.container)
+      .find('.feat-list')
+      .on('click', (e) => {
+        const target = event.target.closest('.feat-option');
+        if (target) {
+          this.selectFeat(target.dataset.uuid);
+        }
       });
   }
 

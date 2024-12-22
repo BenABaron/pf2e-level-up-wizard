@@ -156,15 +156,13 @@
   position: relative;
   display: inline-block;
   width: 100%;
-  max-width: 300px;
 }
 
 /* Button to toggle the feat selector menu */
 .feat-selector-toggle {
-  width: 100%;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  text-align: left;
+  height: calc(var(--form-field-height) + 1px);
+  width: 50%;
+  padding: 0 0 4px 0;
   border: 1px solid #ccc;
   background-color: #f9f9f9;
   cursor: pointer;
@@ -182,16 +180,19 @@
 
 /* Dropdown menu */
 .feat-selector-menu {
+  margin-top: -16px;
   position: absolute;
   top: 100%;
-  left: 0;
-  width: 100%;
+  right: 0;
+  width: 500px;
+  height: 400px;
   background-color: #fff;
   border: 1px solid #ccc;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   border-radius: 4px;
   padding: 0.5rem;
+  display: flex;
 }
 
 /* Hidden class for toggling visibility */
@@ -202,19 +203,21 @@
 /* Filters section */
 .feat-filters {
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   gap: 0.5rem;
   margin-bottom: 1rem;
+  width: 150px;
 }
 
-.feat-filters input,
+/* .feat-filters input,
 .feat-filters select {
   flex: 1;
   padding: 0.5rem;
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 4px;
-}
+} */
 
 .feat-filters input::placeholder {
   color: #aaa;
@@ -222,7 +225,6 @@
 
 /* Feat list */
 .feat-list {
-  max-height: 300px;
   overflow-y: auto;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -239,17 +241,17 @@
   border-radius: 4px;
 }
 
-/* Feat card */
-.feat-list .feat-card {
+/* Feat option */
+.feat-list .feat-option {
   padding: 0.5rem;
   border-bottom: 1px solid #ddd;
   cursor: pointer;
 }
 
-.feat-list .feat-card:last-child {
+.feat-list .feat-option:last-child {
   border-bottom: none;
 }
 
-.feat-list .feat-card:hover {
+.feat-list .feat-option:hover {
   background-color: #f0f0f0;
 }

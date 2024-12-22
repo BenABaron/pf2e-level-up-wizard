@@ -1,21 +1,29 @@
 <div class="feat-selector" data-id="{{id}}" data-feats='{{feats}}'>
-  <button type="button" class="feat-selector-toggle">
-    {{localize 'Select a Feat'}}
-  </button>
-  <div class="feat-selector-menu hidden">
-    <div class="feat-filters">
-      <input type="number" id="min-level" placeholder="Min Level">
-      <input type="number" id="max-level" placeholder="Max Level">
-      <input type="text" id="search-feats" placeholder="Search by name">
-      <div class="feat-sort">
-        <select id="sort-options">
-          <option value="level-desc">Level (High to Low)</option>
-          <option value="level-asc">Level (Low to High)</option>
-          <option value="alpha-asc">Alphabetical (A-Z)</option>
-          <option value="alpha-desc">Alphabetical (Z-A)</option>
-        </select>
+  <h3>
+    <strong>
+      {{localize headerKey className=className}}
+    </strong>
+  </h3>
+  <div class='selection-row'>
+    <div>{{localize labelKey}}</div>
+    <button type="button" class="feat-selector-toggle">
+      {{localize 'Select a Feat'}}
+    </button>
+    <div class="feat-selector-menu hidden">
+      <div class="feat-filters">
+        <input type="number" id="min-level" placeholder="Min Level">
+        <input type="number" id="max-level" placeholder="Max Level">
+        <input type="text" id="search-feats" placeholder="Search by name">
+        <div class="feat-sort">
+          <select id="sort-options">
+            <option value="level-desc">Level (High to Low)</option>
+            <option value="level-asc">Level (Low to High)</option>
+            <option value="alpha-asc">Alphabetical (A-Z)</option>
+            <option value="alpha-desc">Alphabetical (Z-A)</option>
+          </select>
+        </div>
       </div>
+      <div class="feat-list"></div>
     </div>
-    <div class="feat-list"></div>
   </div>
 </div>
