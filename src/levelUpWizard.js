@@ -53,14 +53,27 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
       const attributeButtons = form.find('.attribute-boosts-button');
       const archetypeCheckbox = form.find('#includeArchetypeFeats');
       const partialBoosts = detectPartialBoosts(this.actorData);
-
       const selectedBoosts = new Set();
+
+      const requiredFeats = [];
+      html.find('.feat-selector').each((_, container) => {
+        const id = $(container).data('id'); // Use jQuery's `.data()` method
+        if (id) {
+          requiredFeats.push(id);
+          new FeatSelector(container, data[id]);
+        }
+
+        container.addEventListener('featSelected', (event) => {
+          this.featsData[id] = event.detail.selectedFeat.uuid; // Save the UUID
+        });
+      });
 
       const validateForm = attachValidationHandlers(
         form,
         submitButton,
         attributeButtons,
-        selectedBoosts
+        selectedBoosts,
+        requiredFeats
       );
       attachAttributeBoostHandlers(
         attributeButtons,
@@ -72,23 +85,13 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
         this.includeArchetypeFeats = isChecked; // Update state
         this.render(true); // Re-render the form
       });
-
-      html.find('.feat-selector').each((_, container) => {
-        const id = $(container).data('id'); // Use jQuery's `.data()` method
-        if (id) {
-          new FeatSelector(container, data[id]);
-        }
-
-        container.addEventListener('featSelected', (event) => {
-          this.featsData[id] = event.detail.selectedFeat.uuid; // Save the UUID
-        });
-      });
     });
   }
 
   close(options) {
     const form = this.element.find('form');
     form.off('change', '[data-required="true"]');
+    $(document).off('click');
     return super.close(options);
   }
 

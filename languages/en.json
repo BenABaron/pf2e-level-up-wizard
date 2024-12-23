@@ -86,11 +86,12 @@
       },
       "sortMethod": {
         "name": "Feat Sorting Method",
-        "hint": "Choose how feats should be sorted in dropdowns: by level or alphabetically.",
+        "hint": "Choose how feats should be sorted by default.",
         "options": {
           "levelDesc": "By Level (High to Low)",
           "levelAsc": "By Level (Low to High)",
-          "alphabetical": "Alphabetical (A-Z)"
+          "alphaAsc": "Alphabetical (A-Z)",
+          "alphaDesc": "Alphabetical (Z-A)"
         }
       },
       "featPrereqs": {

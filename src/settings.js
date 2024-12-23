@@ -64,8 +64,11 @@ export const registerSettings = () => {
       LEVEL_ASC: game.i18n.localize(
         'PF2E_LEVEL_UP_WIZARD.settings.sortMethod.options.levelAsc'
       ),
-      ALPHABETICAL: game.i18n.localize(
-        'PF2E_LEVEL_UP_WIZARD.settings.sortMethod.options.alphabetical'
+      ALPHA_DESC: game.i18n.localize(
+        'PF2E_LEVEL_UP_WIZARD.settings.sortMethod.options.alphaDesc'
+      ),
+      ALPHA_ASC: game.i18n.localize(
+        'PF2E_LEVEL_UP_WIZARD.settings.sortMethod.options.alphaAsc'
       )
     }
   });

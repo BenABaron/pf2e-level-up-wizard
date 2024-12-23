@@ -2,7 +2,8 @@ export const attachValidationHandlers = (
   form,
   submitButton,
   attributeButtons,
-  selectedBoosts
+  selectedBoosts,
+  requiredFeats
 ) => {
   const validateForm = () => {
     const requiredFields = form.find('[data-required="true"]');
@@ -10,11 +11,17 @@ export const attachValidationHandlers = (
       (field) => field.value.trim() !== ''
     );
 
+    const featsValid = requiredFeats.every((id) => {
+      const selector = form.find(`[data-id="${id}"]`);
+      const featSelected = selector.find('.feat-selector-toggle').text().trim();
+      return featSelected && featSelected !== 'Make a Selection';
+    });
+
     const boostsValid = attributeButtons.length
       ? selectedBoosts.size === 4
       : true;
 
-    const allValid = allRequiredValid && boostsValid;
+    const allValid = allRequiredValid && boostsValid && featsValid;
 
     submitButton.prop('disabled', !allValid);
   };
@@ -22,6 +29,9 @@ export const attachValidationHandlers = (
   validateForm();
 
   form.on('change', '[data-required="true"]', validateForm);
+  form.find('.feat-selector').each((_, container) => {
+    $(container).on('featSelected', validateForm);
+  });
 
   return validateForm;
 };

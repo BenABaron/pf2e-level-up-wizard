@@ -3,28 +3,29 @@ import { module_name } from './main.js';
 
 export class FeatSelector {
   constructor(container, feats) {
-    this.container = container; // The DOM element for this component
-    this.allFeats = feats; // The full list of feats
-    this.filteredFeats = [...feats]; // Current filtered list
+    this.container = container;
+    this.allFeats = feats;
+    this.filteredFeats = [...feats];
+
+    const defaultSort = game.settings.get(module_name, 'feat-sort-method');
+    const [sortMethod, sortOrder] = defaultSort.toLowerCase().split('_');
+
     this.filters = {
       minLevel: null,
       maxLevel: null,
       search: '',
-      sortMethod: 'level',
-      sortOrder: 'desc'
+      sortMethod: sortMethod,
+      sortOrder: sortOrder
     };
 
     this.init();
   }
 
   init() {
-    // Update filtered feats to ensure initial sorting and filtering
     this.updateFilteredFeats();
 
-    // Render the initial UI
     this.render();
 
-    // Attach event listeners
     this.attachEventListeners();
   }
 
@@ -34,10 +35,24 @@ export class FeatSelector {
 
     const templatePath = `modules/${module_name}/templates/partials/feat-option.hbs`;
 
+    const showPrerequisites = game.settings.get(
+      module_name,
+      'show-feat-prerequisites'
+    );
+
     this.filteredFeats.forEach(async (feat) => {
+      if (showPrerequisites && feat.system.prerequisites?.value?.length) {
+        feat.displayName = `${feat.name}*`;
+      } else {
+        feat.displayName = feat.name;
+      }
+
       const html = await renderTemplate(templatePath, feat);
       listContainer.append(html);
     });
+
+    const sortDropdown = $(this.container).find('#sort-options');
+    sortDropdown.val(this.filters.sortMethod);
   }
 
   selectFeat(uuid) {
@@ -66,7 +81,14 @@ export class FeatSelector {
 
     // Toggle menu visibility
     toggleButton.on('click', () => {
-      menu.toggleClass('hidden'); // Toggle the 'hidden' class to show/hide the menu
+      menu.toggleClass('hidden');
+    });
+
+    // Close menu when clicking outside
+    $(document).on('click', (e) => {
+      if (!this.container.contains(e.target)) {
+        menu.addClass('hidden'); // Ensure the menu is hidden
+      }
     });
 
     // Event: Min Level
@@ -135,7 +157,6 @@ export class FeatSelector {
       .on('click', '[data-action="send-to-chat"]', async (e) => {
         const container = $(e.currentTarget).closest('.feat-option');
         const uuid = container.data('uuid');
-        console.log(container, uuid);
         if (uuid) {
           const feat = await fromUuid(uuid);
           if (feat) {
@@ -248,7 +269,6 @@ export class FeatSelector {
   sortFeats() {
     const button = $(this.container).find('#order-button').children('i');
 
-    // Define mapping of sort states to icon classes
     const iconMapping = {
       'alpha-asc': 'fa-solid fa-sort-alpha-up',
       'alpha-desc': 'fa-solid fa-sort-alpha-down-alt',
@@ -256,10 +276,8 @@ export class FeatSelector {
       'level-desc': 'fa-solid fa-sort-numeric-down-alt'
     };
 
-    // Determine the current sort state
     const sortMethod = `${this.filters.sortMethod}-${this.filters.sortOrder}`;
 
-    // Update the button icon class
     button.removeClass().addClass(iconMapping[sortMethod] || '');
 
     this.filteredFeats.sort((a, b) => {

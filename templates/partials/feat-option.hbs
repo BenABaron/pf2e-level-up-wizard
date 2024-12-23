@@ -4,7 +4,9 @@
     <i class="fa-solid fa-message" data-action="send-to-chat"></i>
   </div>
    <div class="feat-name">
-    <a class="feat-link" data-link data-uuid="{{uuid}}">{{name}}</a>
+    <a class="feat-link" data-link data-uuid="{{uuid}}">
+      {{displayName}}
+    </a>
   </div>
   <div class="feat-rarity">
     {{#if (notEqual system.traits.rarity 'common')}}
