@@ -177,19 +177,32 @@
   right: 0;
   width: 600px;
   height: 450px;
-  background: url(/ui/parchment.jpg) repeat;
   border: 1px solid var(--color-border-dark);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   border-radius: 3px;
-  padding: 0.5rem;
-  display: flex;
 
   --color-result-list-odd: rgba(0, 0, 0, 0.12);
 }
 
 .feat-selector-menu.hidden {
   display: none;
+}
+
+.feat-selector-header {
+  display: flex;
+  justify-content: flex-end;
+  background: url(/ui/denim075.png) repeat;
+  color: var(--text-light);
+}
+
+.feat-selector-body {
+  display: flex;
+  height: calc(100% - 30px);
+  padding: 0.5rem;
+  background: url(/ui/parchment.jpg) repeat;
+  border-bottom: 1px solid var(--color-border-dark);
+  border-radius: 0 0 3px 3px;
 }
 
 .feat-filters {
@@ -255,9 +268,15 @@
   display: flex;
   min-height: 2rem;
   justify-content: center;
+  --inset-shadow-length: 0.25rem;
+  border: none;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px var(--tertiary), 0 0 0 2px #9f725b,
+    inset 0 0 var(--inset-shadow-length) rgba(0, 0, 0, 0.5);
 
   > img {
     max-width: 2rem;
+    border-radius: 2px;
   }
 }
 

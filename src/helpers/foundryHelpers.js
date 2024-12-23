@@ -1,5 +1,6 @@
 import { PF2eLevelUpWizardConfig } from '../levelUpWizard.js';
 import { module_name } from '../main.js';
+import { capitalize } from './utility.js';
 
 export const renderWizard = (actor, manualLevelUp) => {
   actor.class
@@ -112,4 +113,87 @@ export const getClassJournal = async (actor) => {
   const validJournals = classSpecificJournals.filter(Boolean);
 
   return validJournals;
+};
+
+export const createFeatChatMessage = (feat) => {
+  const actorId = game.user.character?.id;
+  const itemId = feat._id;
+  const traits = feat.system.traits.value || [];
+  const rarity = feat.system.traits.rarity || 'common';
+
+  const getActionGlyph = (actionType, actions) => {
+    if (actionType === 'passive') return '';
+
+    let glyphValue;
+
+    switch (actionType) {
+      case 'reaction':
+        glyphValue = 'R';
+        break;
+      case 'free':
+        glyphValue = 'F';
+        break;
+      case 'action':
+        glyphValue = actions;
+        break;
+      default:
+        glyphValue = '';
+    }
+
+    return glyphValue ? `<span class="action-glyph">${glyphValue}</span>` : '';
+  };
+
+  const actionGlyph = getActionGlyph(
+    feat.system.actionType?.value,
+    feat.system.actions?.value
+  );
+
+  const getRarityTag = (rarity) => {
+    if (rarity !== 'common') {
+      return `<span class="tag rarity ${rarity}" data-trait="${rarity}" data-tooltip="PF2E.TraitDescription${capitalize(
+        rarity
+      )}">${capitalize(rarity)}</span>`;
+    }
+    return '';
+  };
+
+  const rarityTag = getRarityTag(rarity);
+
+  const traitsTags = traits
+    .map(
+      (trait) =>
+        `<span class="tag" data-trait data-tooltip="PF2E.TraitDescription${capitalize(
+          trait
+        )}">${capitalize(trait)}</span>`
+    )
+    .join('');
+
+  const chatContent = `
+    <div class="pf2e chat-card item-card" data-actor-id="${actorId}" data-item-id="${itemId}">
+        <header class="card-header flexrow">
+            <img src="${feat.img}" alt="${feat.name}" />
+            <h3>${feat.name} ${actionGlyph}</h3>
+        </header>
+
+        <div class="tags paizo-style" data-tooltip-class="pf2e">
+            ${rarityTag}
+            ${traitsTags}
+        </div>
+
+        <div class="card-content">
+            ${feat.system.description.value}
+        </div>
+
+        <footer>
+            <span>${game.i18n.localize(
+              'PF2E_LEVEL_UP_WIZARD.messages.global.feat'
+            )} ${feat.system.level.value}</span>
+        </footer>
+    </div>
+  `;
+
+  ChatMessage.create({
+    user: game.user.id,
+    content: chatContent
+  });
 };

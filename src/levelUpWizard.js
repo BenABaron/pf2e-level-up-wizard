@@ -91,7 +91,6 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
   close(options) {
     const form = this.element.find('form');
     form.off('change', '[data-required="true"]');
-    $(document).off('click');
     return super.close(options);
   }
 

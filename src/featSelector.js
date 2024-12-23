@@ -1,4 +1,4 @@
-import { capitalize } from './helpers/utility.js';
+import { createFeatChatMessage } from './helpers/foundryHelpers.js';
 import { module_name } from './main.js';
 
 export class FeatSelector {
@@ -59,7 +59,7 @@ export class FeatSelector {
     const selectedFeat = this.allFeats.find((feat) => feat.uuid === uuid);
 
     const toggleButton = this.container.querySelector('.feat-selector-toggle');
-    // toggleButton.textContent = `${selectedFeat.name} (Level ${selectedFeat.system.level.value})`;
+
     toggleButton.textContent = game.i18n.format(
       'PF2E_LEVEL_UP_WIZARD.menu.featButtonContent',
       { name: selectedFeat.name, level: selectedFeat.system.level.value }
@@ -83,12 +83,10 @@ export class FeatSelector {
       menu.toggleClass('hidden');
     });
 
-    // Close menu when clicking outside
-    $(document).on('click', (e) => {
-      if (!this.container.contains(e.target)) {
-        menu.addClass('hidden'); // Ensure the menu is hidden
-      }
-    });
+    // Event: Close Menu
+    $(this.container)
+      .find('.feat-header-button')
+      .on('click', () => menu.toggleClass('hidden'));
 
     // Event: Min Level
     $(this.container)
@@ -151,6 +149,7 @@ export class FeatSelector {
         }
       });
 
+    // Event: Send Feat to Chat
     $(this.container)
       .find('.feat-list')
       .on('click', '[data-action="send-to-chat"]', async (e) => {
@@ -159,86 +158,7 @@ export class FeatSelector {
         if (uuid) {
           const feat = await fromUuid(uuid);
           if (feat) {
-            const actorId = game.user.character?.id; // If an actor is associated with the user
-            const itemId = feat._id;
-            const traits = feat.system.traits.value || [];
-            const rarity = feat.system.traits.rarity || 'common';
-
-            const getActionGlyph = (actionType, actions) => {
-              if (actionType === 'passive') return '';
-
-              let glyphValue;
-
-              switch (actionType) {
-                case 'reaction':
-                  glyphValue = 'R';
-                  break;
-                case 'free':
-                  glyphValue = 'F';
-                  break;
-                case 'action':
-                  glyphValue = actions;
-                  break;
-                default:
-                  glyphValue = '';
-              }
-
-              return glyphValue
-                ? `<span class="action-glyph">${glyphValue}</span>`
-                : '';
-            };
-
-            const actionGlyph = getActionGlyph(
-              feat.system.actionType?.value,
-              feat.system.actions?.value
-            );
-
-            const getRarityTag = (rarity) => {
-              if (rarity !== 'common') {
-                return `<span class="tag rarity ${rarity}" data-trait="${rarity}" data-tooltip="PF2E.TraitDescription${capitalize(
-                  rarity
-                )}">${capitalize(rarity)}</span>`;
-              }
-              return '';
-            };
-
-            const rarityTag = getRarityTag(rarity);
-
-            const traitsTags = traits
-              .map(
-                (trait) =>
-                  `<span class="tag" data-trait data-tooltip="PF2E.TraitDescription${capitalize(
-                    trait
-                  )}">${capitalize(trait)}</span>`
-              )
-              .join('');
-
-            const chatContent = `
-              <div class="pf2e chat-card item-card" data-actor-id="${actorId}" data-item-id="${itemId}">
-                  <header class="card-header flexrow">
-                      <img src="${feat.img}" alt="${feat.name}" />
-                      <h3>${feat.name} ${actionGlyph}</h3>
-                  </header>
-      
-                  <div class="tags paizo-style" data-tooltip-class="pf2e">
-                      ${rarityTag}
-                      ${traitsTags}
-                  </div>
-      
-                  <div class="card-content">
-                      ${feat.system.description.value}
-                  </div>
-      
-                  <footer>
-                      <span>Feat ${feat.system.level.value}</span>
-                  </footer>
-              </div>
-            `;
-
-            ChatMessage.create({
-              user: game.user.id,
-              content: chatContent
-            });
+            createFeatChatMessage(feat);
           }
         }
       });

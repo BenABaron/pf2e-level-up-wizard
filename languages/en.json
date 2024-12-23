@@ -7,6 +7,7 @@
         "name": "{actorName} leveled up to {targetLevel}!",
         "description": "Here's an overview of your new features. Please make selections where prompted!"
       },
+      "close": "Close",
       "notes": {
         "note": "Note:",
         "featsPrereq": "Feats with prerequisites are marked with an asterisk (*)",
@@ -122,7 +123,8 @@
         "header": "{actorName} has leveled up to level {targetLevel}!",
         "feats": "Selected Feats:",
         "noFeats": "No Feats selected.",
-        "skills": "Skill Increase:"
+        "skills": "Skill Increase:",
+        "feat": "Feat"
       },
       "personal": {
         "header": "{actorName} Manual Updates Needed",
