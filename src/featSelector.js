@@ -1,3 +1,6 @@
+import { capitalize } from './helpers/utility.js';
+import { module_name } from './main.js';
+
 export class FeatSelector {
   constructor(container, feats) {
     this.container = container; // The DOM element for this component
@@ -25,13 +28,11 @@ export class FeatSelector {
     const listContainer = $(this.container).find('.feat-list');
     listContainer.empty();
 
-    this.filteredFeats.forEach((feat) => {
-      const featElement = $(`
-        <div class="feat-option" data-uuid="${feat.uuid}">
-          <strong>${feat.name}</strong> (Level ${feat.system.level.value})
-        </div>
-      `);
-      listContainer.append(featElement);
+    const templatePath = `modules/${module_name}/templates/partials/feat-option.hbs`;
+
+    this.filteredFeats.forEach(async (feat) => {
+      const html = await renderTemplate(templatePath, feat);
+      listContainer.append(html);
     });
   }
 
@@ -43,17 +44,16 @@ export class FeatSelector {
       return;
     }
 
-    // Update UI to reflect the selected feat
     const toggleButton = this.container.querySelector('.feat-selector-toggle');
     toggleButton.textContent = `${selectedFeat.name} (Level ${selectedFeat.system.level.value})`;
 
-    // Optionally close the menu
     const menu = this.container.querySelector('.feat-selector-menu');
     menu.classList.add('hidden');
 
-    console.log('Selected Feat:', selectedFeat);
-
-    // Trigger any additional logic, e.g., updating actor data
+    const event = new CustomEvent('featSelected', {
+      detail: { id: this.container.dataset.id, selectedFeat }
+    });
+    this.container.dispatchEvent(event);
   }
 
   attachEventListeners() {
@@ -101,15 +101,114 @@ export class FeatSelector {
     $(this.container)
       .find('.feat-list')
       .on('click', (e) => {
-        const target = event.target.closest('.feat-option');
+        if (
+          $(e.target).hasClass('feat-link') ||
+          $(e.target).closest('[data-action="send-to-chat"]').length
+        ) {
+          return;
+        }
+
+        const target = e.target.closest('.feat-option');
         if (target) {
           this.selectFeat(target.dataset.uuid);
+        }
+      });
+
+    $(this.container)
+      .find('.feat-list')
+      .on('click', '[data-action="send-to-chat"]', async (e) => {
+        const container = $(e.currentTarget).closest('.feat-option');
+        const uuid = container.data('uuid');
+        console.log(container, uuid);
+        if (uuid) {
+          const feat = await fromUuid(uuid);
+          if (feat) {
+            const actorId = game.user.character?.id; // If an actor is associated with the user
+            const itemId = feat._id;
+            const traits = feat.system.traits.value || [];
+            const rarity = feat.system.traits.rarity || 'common';
+
+            const getActionGlyph = (actionType, actions) => {
+              if (actionType === 'passive') return '';
+
+              let glyphValue;
+
+              switch (actionType) {
+                case 'reaction':
+                  glyphValue = 'R';
+                  break;
+                case 'free':
+                  glyphValue = 'F';
+                  break;
+                case 'action':
+                  glyphValue = actions;
+                  break;
+                default:
+                  glyphValue = '';
+              }
+
+              return glyphValue
+                ? `<span class="action-glyph">${glyphValue}</span>`
+                : '';
+            };
+
+            const actionGlyph = getActionGlyph(
+              feat.system.actionType?.value,
+              feat.system.actions?.value
+            );
+
+            const getRarityTag = (rarity) => {
+              if (rarity !== 'common') {
+                return `<span class="tag rarity ${rarity}" data-trait="${rarity}" data-tooltip="PF2E.TraitDescription${capitalize(
+                  rarity
+                )}">${capitalize(rarity)}</span>`;
+              }
+              return '';
+            };
+
+            const rarityTag = getRarityTag(rarity);
+
+            const traitsTags = traits
+              .map(
+                (trait) =>
+                  `<span class="tag" data-trait data-tooltip="PF2E.TraitDescription${capitalize(
+                    trait
+                  )}">${capitalize(trait)}</span>`
+              )
+              .join('');
+
+            const chatContent = `
+              <div class="pf2e chat-card item-card" data-actor-id="${actorId}" data-item-id="${itemId}">
+                  <header class="card-header flexrow">
+                      <img src="${feat.img}" alt="${feat.name}" />
+                      <h3>${feat.name} ${actionGlyph}</h3>
+                  </header>
+      
+                  <div class="tags paizo-style" data-tooltip-class="pf2e">
+                      ${rarityTag}
+                      ${traitsTags}
+                  </div>
+      
+                  <div class="card-content">
+                      ${feat.system.description.value}
+                  </div>
+      
+                  <footer>
+                      <span>Feat ${feat.system.level.value}</span>
+                  </footer>
+              </div>
+            `;
+
+            ChatMessage.create({
+              user: game.user.id,
+              content: chatContent
+            });
+          }
         }
       });
   }
 
   updateFilteredFeats() {
-    // Apply filters
     this.filteredFeats = this.allFeats.filter((feat) => {
       const matchesMinLevel =
         this.filters.minLevel === null ||
@@ -123,10 +222,7 @@ export class FeatSelector {
       return matchesMinLevel && matchesMaxLevel && matchesSearch;
     });
 
-    // Apply sorting
     this.sortFeats();
-
-    // Re-render the list
     this.render();
   }
 

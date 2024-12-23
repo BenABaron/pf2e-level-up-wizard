@@ -14,6 +14,14 @@ Hooks.on('init', async () => {
   const featSelectorTemplate = await getTemplate(featSelectorPath);
   Handlebars.registerPartial('featSelector', featSelectorTemplate);
 
+  await loadTemplates([
+    `modules/${module_name}/templates/partials/feat-option.hbs`
+  ]);
+
+  Handlebars.registerHelper('notEqual', function (a, b) {
+    return a !== b;
+  });
+
   CONFIG.debug.hooks = true;
 });
 

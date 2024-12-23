@@ -178,29 +178,28 @@
   border-color: #007bff;
 }
 
-/* Dropdown menu */
 .feat-selector-menu {
   margin-top: -16px;
   position: absolute;
   top: 100%;
   right: 0;
-  width: 500px;
-  height: 400px;
-  background-color: #fff;
-  border: 1px solid #ccc;
+  width: 600px;
+  height: 450px;
+  background: url(/ui/parchment.jpg) repeat;
+  border: 1px solid var(--color-border-dark);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   border-radius: 4px;
   padding: 0.5rem;
   display: flex;
+
+  --color-result-list-odd: rgba(0, 0, 0, 0.12);
 }
 
-/* Hidden class for toggling visibility */
 .feat-selector-menu.hidden {
   display: none;
 }
 
-/* Filters section */
 .feat-filters {
   display: flex;
   flex-direction: column;
@@ -210,48 +209,109 @@
   width: 150px;
 }
 
-/* .feat-filters input,
-.feat-filters select {
-  flex: 1;
-  padding: 0.5rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-} */
-
 .feat-filters input::placeholder {
   color: #aaa;
 }
 
-/* Feat list */
 .feat-list {
   overflow-y: auto;
   border: 1px solid #ccc;
   border-radius: 4px;
-  padding: 0.5rem;
-  background-color: #f9f9f9;
+  padding: 0;
+  margin: 0;
+  width: 100%;
 }
 
-.feat-list::-webkit-scrollbar {
-  width: 8px;
+.feat-option {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  font-family: var(--font-primary);
+  font-size: var(--font-size-14);
+  padding: 0.125rem 0.25rem;
+  gap: 0.25rem;
+  align-items: center;
 }
 
-.feat-list::-webkit-scrollbar-thumb {
-  background-color: #ccc;
-  border-radius: 4px;
+.feat-option:nth-of-type(odd) {
+  background: var(--color-result-list-odd);
 }
 
-/* Feat option */
-.feat-list .feat-option {
-  padding: 0.5rem;
-  border-bottom: 1px solid #ddd;
+.feat-option:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.feat-chat-image-container {
+  position: relative;
+  align-items: center;
+  display: flex;
+  min-height: 2rem;
+  justify-content: center;
+
+  > img {
+    max-width: 2rem;
+  }
+}
+
+.feat-chat-image {
+  box-sizing: border-box;
+  border: 1px solid var(--color-border-dark);
+  border-radius: 2px;
+  max-width: 100%;
+}
+
+.feat-chat-image-container .fa-solid {
+  position: absolute;
+  font-size: 1.2rem;
   cursor: pointer;
+  opacity: 0;
 }
 
-.feat-list .feat-option:last-child {
-  border-bottom: none;
+.feat-chat-image-container:hover .fa-solid {
+  opacity: 1;
 }
 
-.feat-list .feat-option:hover {
-  background-color: #f0f0f0;
+.feat-chat-image-container:hover .feat-chat-image {
+  opacity: 0;
+}
+
+.feat-option .feat-name {
+  flex: 5;
+}
+
+.feat-option .feat-rarity {
+  flex: 2;
+  text-align: center;
+}
+
+.feat-option .feat-level {
+  text-align: center;
+  flex-grow: 1;
+  font-weight: 900;
+  max-width: 1.5em;
+}
+
+.feat-option .feat-rarity-tag {
+  border: solid var(--color-border-trait);
+  border-radius: 0;
+  background-color: var(--color-rarity-uncommon);
+  text-transform: uppercase;
+  font-family: var(--sans-serif);
+  font-size: var(--font-size-10);
+  letter-spacing: 0.05em;
+  border-radius: 2px;
+  color: var(--color-text-trait);
+  display: inline-flex;
+  font-weight: 500;
+  padding: 0.3em;
+  border-width: 1px 2px 1px 1px;
+}
+
+.feat-option .feat-rarity-tag.uncommon {
+  background-color: var(--color-rarity-uncommon);
+}
+
+.feat-option .feat-rarity-tag.rare {
+  background-color: var(--color-rarity-rare);
 }

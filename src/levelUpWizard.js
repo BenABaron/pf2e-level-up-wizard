@@ -1,4 +1,5 @@
 import { module_name } from './main.js';
+import { FeatSelector } from './featSelector.js';
 
 // @Helpers
 import { normalizeString } from './helpers/utility.js';
@@ -22,13 +23,13 @@ import {
   createPersonalLevelMessage,
   getClassJournal
 } from './helpers/foundryHelpers.js';
-import { FeatSelector } from './featSelector.js';
 
 export class PF2eLevelUpWizardConfig extends FormApplication {
   constructor(actorData, triggeredByManualLevelUp = false) {
     super();
     this.actorData = actorData;
     this.triggeredByManualLevelUp = triggeredByManualLevelUp;
+    this.featsData = {};
   }
 
   static get defaultOptions() {
@@ -77,6 +78,10 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
         if (id) {
           new FeatSelector(container, data[id]);
         }
+
+        container.addEventListener('featSelected', (event) => {
+          this.featsData[id] = event.detail.selectedFeat.uuid; // Save the UUID
+        });
       });
     });
   }
@@ -186,6 +191,7 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
   }
 
   async _updateObject(event, formData) {
+    const finalData = { ...formData, ...this.featsData };
     const confirmed = await confirmChanges();
 
     if (!confirmed) return;
@@ -200,10 +206,10 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
 
     const data = await this.getData();
 
-    formData.abilityScoreIncreaseLevel =
+    finalData.abilityScoreIncreaseLevel =
       data.features.abilityScoreIncreaseLevel;
-    formData.spellcasting = data.features.spellcasting;
-    formData.newSpellRankLevel = data.features.newSpellRankLevel;
+    finalData.spellcasting = data.features.spellcasting;
+    finalData.newSpellRankLevel = data.features.newSpellRankLevel;
 
     if (!this.triggeredByManualLevelUp) {
       ui.notifications.info(
@@ -219,13 +225,13 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
     }
 
     const featEntries = Object.entries({
-      classFeats: formData.classFeats,
-      dualClassFeats: formData.dualClassFeats,
-      ancestryFeats: formData.ancestryFeats,
-      skillFeats: formData.skillFeats,
-      generalFeats: formData.generalFeats,
-      freeArchetypeFeats: formData.freeArchetypeFeats,
-      ancestryParagonFeats: formData.ancestryParagonFeats
+      classFeats: finalData.classFeats,
+      dualClassFeats: finalData.dualClassFeats,
+      ancestryFeats: finalData.ancestryFeats,
+      skillFeats: finalData.skillFeats,
+      generalFeats: finalData.generalFeats,
+      freeArchetypeFeats: finalData.freeArchetypeFeats,
+      ancestryParagonFeats: finalData.ancestryParagonFeats
     });
 
     const validFeatEntries = featEntries.filter(([, uuid]) => uuid);
@@ -261,8 +267,8 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
     await actor.createEmbeddedDocuments('Item', itemsToCreate);
 
     let skillIncreaseMessage = '';
-    if (formData.skills) {
-      const skill = formData.skills;
+    if (finalData.skills) {
+      const skill = finalData.skills;
       const normalizedSkill = normalizeString(skill);
       const skillRankPath = `system.skills.${normalizedSkill}.rank`;
       const updatedRank = actor.system.skills[normalizedSkill].rank + 1;
@@ -287,21 +293,21 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
       .map(({ feat }) => `@UUID[${feat.uuid}]`)
       .join(', ');
 
-    if (formData.abilityScoreIncreaseLevel) {
+    if (finalData.abilityScoreIncreaseLevel) {
       const attributeBoosts = this.element.find(
         '.attribute-boosts-button.selected'
       );
-      formData.abilityBoosts = Array.from(attributeBoosts).map((button) =>
+      finalData.abilityBoosts = Array.from(attributeBoosts).map((button) =>
         $(button).data('value')
       );
 
-      if (formData.abilityBoosts.length !== 4) {
+      if (finalData.abilityBoosts.length !== 4) {
         ui.notifications.error(game.i18n.localize('invalid boost selection'));
         return;
       }
 
       const boostPath = `system.build.attributes.boosts.${targetLevel}`;
-      const updateData = { [boostPath]: formData.abilityBoosts };
+      const updateData = { [boostPath]: finalData.abilityBoosts };
 
       await actor.update(updateData);
     }
@@ -313,7 +319,7 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
       skillIncreaseMessage
     );
 
-    createPersonalLevelMessage(formData, playerId, actorName);
+    createPersonalLevelMessage(finalData, playerId, actorName);
 
     ui.notifications.info(
       game.i18n.format('PF2E_LEVEL_UP_WIZARD.notifications.levelUpComplete', {

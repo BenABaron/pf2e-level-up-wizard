@@ -21,7 +21,9 @@ export default [
         ChatMessage: 'readonly',
         fromUuid: 'readonly',
         foundry: 'readonly',
-        getTemplate: 'readonly'
+        getTemplate: 'readonly',
+        loadTemplates: 'readonly',
+        renderTemplate: 'readonly'
       }
     },
     rules: {
