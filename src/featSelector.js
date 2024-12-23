@@ -10,13 +10,17 @@ export class FeatSelector {
       minLevel: null,
       maxLevel: null,
       search: '',
-      sort: 'level-desc'
+      sortMethod: 'level',
+      sortOrder: 'desc'
     };
 
     this.init();
   }
 
   init() {
+    // Update filtered feats to ensure initial sorting and filtering
+    this.updateFilteredFeats();
+
     // Render the initial UI
     this.render();
 
@@ -93,7 +97,19 @@ export class FeatSelector {
     $(this.container)
       .find('#sort-options')
       .on('change', (e) => {
-        this.filters.sort = e.target.value;
+        this.filters.sortMethod = e.target.value;
+        this.updateFilteredFeats();
+      });
+
+    // Event: Sort
+    $(this.container)
+      .find('#order-button')
+      .on('click', () => {
+        if (this.filters.sortOrder === 'desc') {
+          this.filters.sortOrder = 'asc';
+        } else {
+          this.filters.sortOrder = 'desc';
+        }
         this.updateFilteredFeats();
       });
 
@@ -213,12 +229,15 @@ export class FeatSelector {
       const matchesMinLevel =
         this.filters.minLevel === null ||
         feat.system.level.value >= this.filters.minLevel;
+
       const matchesMaxLevel =
         this.filters.maxLevel === null ||
         feat.system.level.value <= this.filters.maxLevel;
+
       const matchesSearch = feat.name
         .toLowerCase()
         .includes(this.filters.search);
+
       return matchesMinLevel && matchesMaxLevel && matchesSearch;
     });
 
@@ -227,7 +246,21 @@ export class FeatSelector {
   }
 
   sortFeats() {
-    const sortMethod = this.filters.sort;
+    const button = $(this.container).find('#order-button').children('i');
+
+    // Define mapping of sort states to icon classes
+    const iconMapping = {
+      'alpha-asc': 'fa-solid fa-sort-alpha-up',
+      'alpha-desc': 'fa-solid fa-sort-alpha-down-alt',
+      'level-asc': 'fa-solid fa-sort-numeric-up',
+      'level-desc': 'fa-solid fa-sort-numeric-down-alt'
+    };
+
+    // Determine the current sort state
+    const sortMethod = `${this.filters.sortMethod}-${this.filters.sortOrder}`;
+
+    // Update the button icon class
+    button.removeClass().addClass(iconMapping[sortMethod] || '');
 
     this.filteredFeats.sort((a, b) => {
       if (sortMethod === 'level-desc')

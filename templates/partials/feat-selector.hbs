@@ -7,21 +7,23 @@
   <div class='selection-row'>
     <div>{{localize labelKey}}</div>
     <button type="button" class="feat-selector-toggle">
-      {{localize 'Select a Feat'}}
+      {{localize 'Make a Selection'}}
     </button>
     <div class="feat-selector-menu hidden">
       <div class="feat-filters">
         <input type="text" id="search-feats" placeholder="Search by name">
-        <input type="number" id="min-level" placeholder="Min Level">
-        <input type="number" id="max-level" placeholder="Max Level">
+        <p class="feat-sort-text">Order by:</p>
         <div class="feat-sort">
           <select id="sort-options">
-            <option value="level-desc">Level (High to Low)</option>
-            <option value="level-asc">Level (Low to High)</option>
-            <option value="alpha-asc">Alphabetical (A-Z)</option>
-            <option value="alpha-desc">Alphabetical (Z-A)</option>
+            <option value="level">Level</option>
+            <option value="alpha">Name</option>
           </select>
+          <button id="order-button" type="button">
+            <i class="fa-solid fa-sort-numeric-down-alt"></i>
+          </button>
         </div>
+        <input type="number" id="min-level" placeholder="Min Level">
+        <input type="number" id="max-level" placeholder="Max Level">
       </div>
       <ul class="feat-list"></ul>
     </div>
