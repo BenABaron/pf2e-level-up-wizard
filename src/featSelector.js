@@ -24,14 +24,15 @@ export class FeatSelector {
   init() {
     this.updateFilteredFeats();
 
-    this.render();
-
     this.attachEventListeners();
   }
 
   render() {
     const listContainer = $(this.container).find('.feat-list');
     listContainer.empty();
+
+    const sortDropdown = $(this.container).find('#sort-options');
+    sortDropdown.val(this.filters.sortMethod);
 
     const templatePath = `modules/${module_name}/templates/partials/feat-option.hbs`;
 
@@ -50,9 +51,6 @@ export class FeatSelector {
       const html = await renderTemplate(templatePath, feat);
       listContainer.append(html);
     });
-
-    const sortDropdown = $(this.container).find('#sort-options');
-    sortDropdown.val(this.filters.sortMethod);
   }
 
   selectFeat(uuid) {
