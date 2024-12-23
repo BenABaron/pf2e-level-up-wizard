@@ -7,16 +7,22 @@
   <div class='selection-row'>
     <div>{{localize labelKey}}</div>
     <button type="button" class="feat-selector-toggle">
-      {{localize 'Make a Selection'}}
+      {{localize 'PF2E_LEVEL_UP_WIZARD.menu.dropdown.placeholder'}}
     </button>
     <div class="feat-selector-menu hidden">
       <div class="feat-filters">
         <input type="text" id="search-feats" placeholder="Search by name">
-        <p class="feat-sort-text">Order by:</p>
+        <p class="feat-sort-text">
+          {{localize 'PF2E_LEVEL_UP_WIZARD.menu.filters.orderBy'}}
+        </p>
         <div class="feat-sort">
           <select id="sort-options">
-            <option value="level">Level</option>
-            <option value="alpha">Name</option>
+            <option value="level">
+              {{localize 'PF2E_LEVEL_UP_WIZARD.menu.filters.level'}}
+            </option>
+            <option value="alpha">
+              {{localize 'PF2E_LEVEL_UP_WIZARD.menu.filters.name'}}
+            </option>
           </select>
           <button id="order-button" type="button">
             <i class="fa-solid fa-sort-numeric-down-alt"></i>

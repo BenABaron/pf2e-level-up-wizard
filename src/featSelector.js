@@ -58,13 +58,12 @@ export class FeatSelector {
   selectFeat(uuid) {
     const selectedFeat = this.allFeats.find((feat) => feat.uuid === uuid);
 
-    if (!selectedFeat) {
-      console.error(`Feat with UUID ${uuid} not found.`);
-      return;
-    }
-
     const toggleButton = this.container.querySelector('.feat-selector-toggle');
-    toggleButton.textContent = `${selectedFeat.name} (Level ${selectedFeat.system.level.value})`;
+    // toggleButton.textContent = `${selectedFeat.name} (Level ${selectedFeat.system.level.value})`;
+    toggleButton.textContent = game.i18n.format(
+      'PF2E_LEVEL_UP_WIZARD.menu.featButtonContent',
+      { name: selectedFeat.name, level: selectedFeat.system.level.value }
+    );
 
     const menu = this.container.querySelector('.feat-selector-menu');
     menu.classList.add('hidden');

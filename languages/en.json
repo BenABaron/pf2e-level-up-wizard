@@ -68,7 +68,13 @@
       "confirmDialog": {
         "title": "Confirm Changes",
         "content": "Are you sure you want to apply these level-up changes?"
-      }
+      },
+      "filters": {
+        "orderBy": "Order by:",
+        "level": "Level",
+        "name": "Name"
+      },
+      "featButtonContent": "{name} | {level}"
     },
     "settings": {
       "showButton": {

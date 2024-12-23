@@ -57,14 +57,14 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
 
       const requiredFeats = [];
       html.find('.feat-selector').each((_, container) => {
-        const id = $(container).data('id'); // Use jQuery's `.data()` method
+        const id = $(container).data('id');
         if (id) {
           requiredFeats.push(id);
           new FeatSelector(container, data[id]);
         }
 
         container.addEventListener('featSelected', (event) => {
-          this.featsData[id] = event.detail.selectedFeat.uuid; // Save the UUID
+          this.featsData[id] = event.detail.selectedFeat.uuid;
         });
       });
 
@@ -82,8 +82,8 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
         partialBoosts
       );
       attachArchetypeCheckboxHandler(archetypeCheckbox, (isChecked) => {
-        this.includeArchetypeFeats = isChecked; // Update state
-        this.render(true); // Re-render the form
+        this.includeArchetypeFeats = isChecked;
+        this.render(true);
       });
     });
   }
