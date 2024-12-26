@@ -208,12 +208,16 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  width: 175px;
+  width: 195px;
   overflow-y: scroll;
   padding: 0.5rem 0 0 0.5rem;
 
-  input {
-    line-height: 26px;
+  input[type='text'] {
+    flex: none;
+  }
+
+  input[type='number'] {
+    flex: none;
   }
 
   input[type='checkbox'] {

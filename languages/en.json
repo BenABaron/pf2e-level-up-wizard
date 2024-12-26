@@ -73,7 +73,15 @@
       "filters": {
         "orderBy": "Order by:",
         "level": "Level",
-        "name": "Name"
+        "name": "Name",
+        "skills": "Filter by Skills",
+        "archetypeFeats": "Archetype Feats",
+        "placeholder": {
+          "nameSearch": "Search by Name",
+          "minLevel": "Min Level",
+          "maxLevel": "Max Level",
+          "dedicationSearch": "Search by Dedication"
+        }
       },
       "featButtonContent": "{name} | {level}"
     },

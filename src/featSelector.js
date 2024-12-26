@@ -268,9 +268,13 @@ export class FeatSelector {
 
       const matchesDedicationSearch =
         !this.filters.dedicationSearch ||
-        feat.system.prerequisites?.value?.some((prereq) =>
-          prereq.value.toLowerCase().includes(this.filters.dedicationSearch)
-        );
+        feat.system.prerequisites?.value?.some((prereq) => {
+          const prerequisiteValue = prereq.value.toLowerCase();
+          return (
+            prerequisiteValue.includes(this.filters.dedicationSearch) &&
+            prerequisiteValue.includes('dedication')
+          );
+        });
 
       return (
         matchesMinLevel &&

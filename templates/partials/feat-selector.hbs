@@ -17,7 +17,8 @@
       </div>
       <div class="feat-selector-body">
         <div class="feat-filters">
-          <input type="text" id="search-feats" placeholder="Search by name">
+          <input type="text" id="search-feats" 
+            placeholder="{{localize 'PF2E_LEVEL_UP_WIZARD.menu.filters.placeholder.nameSearch'}}">
           <p class="feat-sort-text">
             {{localize 'PF2E_LEVEL_UP_WIZARD.menu.filters.orderBy'}}
           </p>
@@ -34,12 +35,14 @@
               <i class="fa-solid fa-sort-numeric-down-alt"></i>
             </button>
           </div>
-          <input type="number" id="min-level" placeholder="Min Level">
-          <input type="number" id="max-level" placeholder="Max Level">
+          <input type="number" id="min-level" 
+            placeholder="{{localize 'PF2E_LEVEL_UP_WIZARD.menu.filters.placeholder.minLevel'}}">
+          <input type="number" id="max-level" 
+            placeholder="{{localize 'PF2E_LEVEL_UP_WIZARD.menu.filters.placeholder.maxLevel'}}">
           {{#if (eq id 'skillFeats')}}
             <div class="skill-filter-container">
               <label for="skill-filter" class="skill-filter-label">
-                Filter by Skills
+                {{localize 'PF2E_LEVEL_UP_WIZARD.menu.filters.skills'}}
                 <i class="fa-solid fa-chevron-down"></i>
               </label>
               <div id="skill-filter" class="skill-filter-options hidden"></div>
@@ -48,10 +51,13 @@
           {{#if (eq id 'classFeats')}}
             <div class="archetype-feats-container">
               <input type="checkbox" id="show-archetype-feats">
-              <label for="show-archetype-feats">Archetype Feats</label>
+              <label for="show-archetype-feats">
+                {{localize 'PF2E_LEVEL_UP_WIZARD.menu.filters.archetypeFeats'}}
+              </label>
             </div>
           {{/if}}
-          <input type="text" id="search-dedications" class="hidden" placeholder="Search by Dedication">
+          <input type="text" id="search-dedications" class="hidden" 
+            placeholder="{{localize 'PF2E_LEVEL_UP_WIZARD.menu.filters.placeholder.dedicationSearch'}}">
         </div>
         <ul class="feat-list"></ul>
       </div>
