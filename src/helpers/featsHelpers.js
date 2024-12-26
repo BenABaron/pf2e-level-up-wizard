@@ -64,7 +64,6 @@ export const getFeatsForLevel = async (
   characterData,
   type,
   targetLevel,
-  includeArchetypeFeats = false,
   dualClassName
 ) => {
   let levelsArray = [];
@@ -114,9 +113,10 @@ export const getFeatsForLevel = async (
   const existingFeats = getExistingFeats(characterData);
   const feats = await filterFeats(searchQuery, targetLevel, existingFeats);
 
-  const archetypeFeats = includeArchetypeFeats
-    ? await filterFeats('archetype', targetLevel, existingFeats)
-    : [];
+  const archetypeFeats =
+    type === 'class'
+      ? await filterFeats('archetype', targetLevel, existingFeats)
+      : [];
 
   const allFeats = [...feats, ...archetypeFeats];
 

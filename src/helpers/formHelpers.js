@@ -120,12 +120,3 @@ export const attachAttributeBoostHandlers = (
 
   updateButtonStates();
 };
-
-export const attachArchetypeCheckboxHandler = (
-  archetypeCheckbox,
-  reRenderCallback
-) => {
-  archetypeCheckbox.on('change', (event) => {
-    reRenderCallback(event.target.checked);
-  });
-};

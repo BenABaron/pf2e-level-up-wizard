@@ -46,11 +46,12 @@
             </div>
           {{/if}}
           {{#if (eq id 'classFeats')}}
-          <div class="archetype-feats-container">
-            <input type="checkbox" id="show-archetype-feats">
-            <label for="show-archetype-feats">Archetype Feats</label>
-          </div>
+            <div class="archetype-feats-container">
+              <input type="checkbox" id="show-archetype-feats">
+              <label for="show-archetype-feats">Archetype Feats</label>
+            </div>
           {{/if}}
+          <input type="text" id="search-dedications" class="hidden" placeholder="Search by Dedication">
         </div>
         <ul class="feat-list"></ul>
       </div>

@@ -18,7 +18,9 @@ export class FeatSelector {
       search: '',
       sortMethod: sortMethod,
       sortOrder: sortOrder,
-      skills: []
+      skills: [],
+      includeArchetypeFeats: false,
+      dedicationSearch: ''
     };
 
     this.init();
@@ -66,6 +68,10 @@ export class FeatSelector {
       const html = await renderTemplate(templatePath, feat);
       listContainer.append(html);
     });
+
+    if (this.container.dataset.id === 'freeArchetypeFeats') {
+      $(this.container).find('#search-dedications').removeClass('hidden');
+    }
   }
 
   selectFeat(uuid) {
@@ -177,6 +183,31 @@ export class FeatSelector {
       this.updateFilteredFeats();
     });
 
+    // Event: Include Archetype Feats
+    const archetypeCheckbox = $(this.container).find('#show-archetype-feats');
+    if (archetypeCheckbox.length) {
+      archetypeCheckbox.on('change', (e) => {
+        const isChecked = e.target.checked;
+        this.filters.includeArchetypeFeats = isChecked;
+        this.updateFilteredFeats();
+        const dedicationSearch = $(this.container).find('#search-dedications');
+
+        if (isChecked) {
+          dedicationSearch.removeClass('hidden');
+        } else {
+          dedicationSearch.addClass('hidden');
+        }
+      });
+    }
+
+    // Event: Dedication Search
+    $(this.container)
+      .find('#search-dedications')
+      .on('input', (e) => {
+        this.filters.dedicationSearch = e.target.value.toLowerCase();
+        this.updateFilteredFeats();
+      });
+
     // Event: Select Feat
     $(this.container)
       .find('.feat-list')
@@ -210,6 +241,9 @@ export class FeatSelector {
   }
 
   updateFilteredFeats() {
+    const includeArchetypeFeats =
+      this.container.dataset.id === 'freeArchetypeFeats' ||
+      this.filters.includeArchetypeFeats;
     this.filteredFeats = this.allFeats.filter((feat) => {
       const matchesMinLevel =
         this.filters.minLevel === null ||
@@ -228,8 +262,23 @@ export class FeatSelector {
         this.filters.skills.length === 0 || // No skill filter applied
         this.filters.skills.some((skill) => associatedSkills.includes(skill));
 
+      const matchesArchetype =
+        includeArchetypeFeats ||
+        !feat.system.traits.value.includes('archetype');
+
+      const matchesDedicationSearch =
+        !this.filters.dedicationSearch ||
+        feat.system.prerequisites?.value?.some((prereq) =>
+          prereq.value.toLowerCase().includes(this.filters.dedicationSearch)
+        );
+
       return (
-        matchesMinLevel && matchesMaxLevel && matchesSearch && matchesSkills
+        matchesMinLevel &&
+        matchesMaxLevel &&
+        matchesSearch &&
+        matchesSkills &&
+        matchesArchetype &&
+        matchesDedicationSearch
       );
     });
 

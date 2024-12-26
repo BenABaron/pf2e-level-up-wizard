@@ -9,7 +9,6 @@ import {
   getFeaturesForLevel
 } from './helpers/classFeaturesHelpers.js';
 import {
-  attachArchetypeCheckboxHandler,
   attachAttributeBoostHandlers,
   attachValidationHandlers
 } from './helpers/formHelpers.js';
@@ -51,7 +50,6 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
       const form = this.element.find('form');
       const submitButton = this.element.find('button[type="submit"]');
       const attributeButtons = form.find('.attribute-boosts-button');
-      const archetypeCheckbox = form.find('#includeArchetypeFeats');
       const partialBoosts = detectPartialBoosts(this.actorData);
       const selectedBoosts = new Set();
 
@@ -81,10 +79,6 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
         validateForm,
         partialBoosts
       );
-      attachArchetypeCheckboxHandler(archetypeCheckbox, (isChecked) => {
-        this.includeArchetypeFeats = isChecked;
-        this.render(true);
-      });
     });
   }
 
@@ -124,7 +118,6 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
       this.actorData,
       'class',
       targetLevel,
-      this.includeArchetypeFeats,
       primaryClass
     );
     let dualClassFeats = [];
@@ -133,7 +126,6 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
         this.actorData,
         'class',
         targetLevel,
-        this.includeArchetypeFeats,
         secondaryClass
       );
     }
@@ -186,7 +178,6 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
       hasFeaturesToDisplay,
       actorName,
       targetLevel,
-      includeArchetypeFeats: this.includeArchetypeFeats || false,
       showFeatPrerequisites,
       classJournals
     };
