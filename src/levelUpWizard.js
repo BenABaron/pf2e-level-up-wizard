@@ -52,18 +52,39 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
       const attributeButtons = form.find('.attribute-boosts-button');
       const partialBoosts = detectPartialBoosts(this.actorData);
       const selectedBoosts = new Set();
+      const actorName = this.actorData.name;
+      const currentLevel = this.actorData.system.details.level.value;
+      const targetLevel = this.triggeredByManualLevelUp
+        ? currentLevel
+        : currentLevel + 1;
 
       const requiredFeats = [];
-      html.find('.feat-selector').each((_, container) => {
-        const id = $(container).data('id');
+      const featButtons = {};
+
+      html.find('.feat-selector-toggle').each((_, button) => {
+        const id = $(button).attr('id');
         if (id) {
           requiredFeats.push(id);
-          new FeatSelector(container, data[id]);
+          featButtons[id] = $(button);
+          $(button).on('click', () => {
+            new FeatSelector(data[id], id, actorName, targetLevel).render(true);
+          });
         }
+      });
 
-        container.addEventListener('featSelected', (event) => {
-          this.featsData[id] = event.detail.selectedFeat.uuid;
-        });
+      window.addEventListener('featSelected', (event) => {
+        const { featType, selectedFeat } = event.detail;
+        const button = featButtons[featType];
+        if (button) {
+          button.text(
+            game.i18n.format('PF2E_LEVEL_UP_WIZARD.menu.featButtonContent', {
+              name: selectedFeat.name,
+              level: selectedFeat.system.level.value
+            })
+          );
+        }
+        this.featsData[featType] = event.detail.selectedFeat.uuid;
+        validateForm();
       });
 
       const validateForm = attachValidationHandlers(

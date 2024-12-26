@@ -11,9 +11,9 @@ export const attachValidationHandlers = (
       (field) => field.value.trim() !== ''
     );
 
-    const featsValid = requiredFeats.every((id) => {
-      const selector = form.find(`[data-id="${id}"]`);
-      const featSelected = selector.find('.feat-selector-toggle').text().trim();
+    const featsValid = requiredFeats.every((featType) => {
+      const button = form.find(`#${featType}`); // Use the button's ID
+      const featSelected = button.text().trim();
       return featSelected && featSelected !== 'Make a Selection';
     });
 
@@ -29,9 +29,6 @@ export const attachValidationHandlers = (
   validateForm();
 
   form.on('change', '[data-required="true"]', validateForm);
-  form.find('.feat-selector').each((_, container) => {
-    $(container).on('featSelected', validateForm);
-  });
 
   return validateForm;
 };

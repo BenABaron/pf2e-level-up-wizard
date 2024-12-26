@@ -151,10 +151,8 @@
   padding-top: 2px;
 }
 
-.feat-selector {
-  position: relative;
-  display: inline-block;
-  width: 100%;
+.feat-selector .window-content {
+  padding: 0;
 }
 
 .feat-selector-toggle {
@@ -169,46 +167,23 @@
 }
 
 .feat-selector-menu {
-  margin-top: -16px;
-  position: absolute;
-  top: 100%;
-  right: 0;
-  width: 600px;
-  height: 500px;
-  border: 1px solid var(--color-border-dark);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  border-radius: 3px;
-
-  --color-result-list-odd: rgba(0, 0, 0, 0.12);
-}
-
-.feat-selector-menu.hidden {
-  display: none;
-}
-
-.feat-selector-header {
-  display: flex;
-  justify-content: flex-end;
-  background: url(/ui/denim075.png) repeat;
-  color: var(--text-light);
+  height: 462px;
 }
 
 .feat-selector-body {
   display: flex;
-  height: calc(100% - 30px);
-  background: url(/ui/parchment.jpg) repeat;
-  border-bottom: 1px solid var(--color-border-dark);
-  border-radius: 0 0 3px 3px;
+  height: inherit;
 }
 
 .feat-filters {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  width: 195px;
-  overflow-y: scroll;
-  padding: 0.5rem 0 0 0.5rem;
+  width: 220px;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  margin-top: 0.5rem;
+  padding: 0.2rem 0.3rem 0 0.5rem;
 
   input[type='text'] {
     flex: none;
@@ -223,6 +198,10 @@
   }
 }
 
+.feat-sort {
+  display: flex;
+}
+
 .feat-sort #order-button {
   height: 2em;
   width: 2em;
@@ -231,23 +210,33 @@
   margin-left: 1em;
 }
 
+.feat-sort #order-button:hover {
+  background: var(--button-hover-background-color);
+}
+
 .feat-sort-text {
   margin: 0;
   text-align: center;
   padding-right: 4px;
 }
 
-.feat-filters input::placeholder {
-  color: #aaa;
-}
-
 .feat-list {
   overflow-y: auto;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  padding: 0;
-  margin: 0;
   width: 100%;
+  margin: 0.5rem 0 0 0.2rem !important;
+  padding: 0 !important;
+}
+
+.theme-dark .feat-selector {
+  --color-result-list-odd: var(--color-dark-2);
+}
+
+.feat-selector {
+  --color-result-list-odd: rgba(0, 0, 0, 0.12);
+}
+
+.feat-option:nth-of-type(odd) {
+  background: var(--color-result-list-odd);
 }
 
 .feat-option {
@@ -261,10 +250,6 @@
   gap: 0.25rem;
   align-items: center;
   cursor: pointer;
-}
-
-.feat-option:nth-of-type(odd) {
-  background: var(--color-result-list-odd);
 }
 
 .feat-option:hover {
@@ -356,7 +341,7 @@
   width: 100%;
   padding: 4px;
   gap: 4px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #bbb;
   cursor: pointer;
 }
 

@@ -30,68 +30,108 @@
 
   {{! Class Feats }}
   {{#if classFeats}}
-    {{> featSelector
-      id="classFeats"
-      headerKey='PF2E_LEVEL_UP_WIZARD.menu.classFeats.header'
-      labelKey='PF2E_LEVEL_UP_WIZARD.menu.classFeats.label'
-      className=primaryClass
-    }}
+    <h3>
+      <strong>
+        {{localize 'PF2E_LEVEL_UP_WIZARD.menu.classFeats.header' className=primaryClass}}
+      </strong>
+    </h3>
+    <div class='selection-row'>
+      <div>{{localize 'PF2E_LEVEL_UP_WIZARD.menu.classFeats.label'}}</div>
+      <button type="button" class="feat-selector-toggle" id="classFeats">
+        {{localize 'PF2E_LEVEL_UP_WIZARD.menu.dropdown.placeholder'}}
+      </button>
+    </div>
   {{/if}}
 
   {{! Dual Class Feats }}
   {{#if dualClassFeats}}
-    {{> featSelector
-      id="dualClassFeats"
-      headerKey='PF2E_LEVEL_UP_WIZARD.menu.classFeats.header'
-      labelKey='PF2E_LEVEL_UP_WIZARD.menu.classFeats.label'
-      className=secondaryClass
-    }}
+    <h3>
+      <strong>
+        {{localize 'PF2E_LEVEL_UP_WIZARD.menu.classFeats.header' className=secondaryClass}}
+      </strong>
+    </h3>
+    <div class='selection-row'>
+      <div>{{localize 'PF2E_LEVEL_UP_WIZARD.menu.classFeats.label'}}</div>
+      <button type="button" class="feat-selector-toggle" id="dualClassFeats">
+        {{localize 'PF2E_LEVEL_UP_WIZARD.menu.dropdown.placeholder'}}
+      </button>
+    </div>
   {{/if}}
 
 
   {{! Free Archetype Feats }}
   {{#if freeArchetypeFeats}}
-    {{> featSelector
-      id="freeArchetypeFeats"
-      headerKey='PF2E_LEVEL_UP_WIZARD.menu.freeArchetypeFeats.header'
-      labelKey='PF2E_LEVEL_UP_WIZARD.menu.freeArchetypeFeats.label'
-    }}
+    <h3>
+      <strong>
+        {{localize 'PF2E_LEVEL_UP_WIZARD.menu.freeArchetypeFeats.header'}}
+      </strong>
+    </h3>
+    <div class='selection-row'>
+      <div>{{localize 'PF2E_LEVEL_UP_WIZARD.menu.freeArchetypeFeats.label'}}</div>
+      <button type="button" class="feat-selector-toggle" id="freeArchetypeFeats">
+        {{localize 'PF2E_LEVEL_UP_WIZARD.menu.dropdown.placeholder'}}
+      </button>
+    </div>
   {{/if}}
 
   {{! Ancestry Feats }}
   {{#if ancestryFeats}}
-    {{> featSelector
-      id="ancestryFeats"
-      headerKey='PF2E_LEVEL_UP_WIZARD.menu.ancestryFeats.header'
-      labelKey='PF2E_LEVEL_UP_WIZARD.menu.ancestryFeats.label'
-    }}
+    <h3>
+      <strong>
+        {{localize 'PF2E_LEVEL_UP_WIZARD.menu.ancestryFeats.header'}}
+      </strong>
+    </h3>
+    <div class='selection-row'>
+      <div>{{localize 'PF2E_LEVEL_UP_WIZARD.menu.ancestryFeats.label'}}</div>
+      <button type="button" class="feat-selector-toggle" id="ancestryFeats">
+        {{localize 'PF2E_LEVEL_UP_WIZARD.menu.dropdown.placeholder'}}
+      </button>
+    </div>
   {{/if}}
 
   {{! Ancestry Paragon Feats }}
   {{#if ancestryParagonFeats}}
-    {{> featSelector
-      id="ancestryParagonFeats"
-      headerKey='PF2E_LEVEL_UP_WIZARD.menu.ancestryParagonFeats.header'
-      labelKey='PF2E_LEVEL_UP_WIZARD.menu.ancestryParagonFeats.label'
-    }}
+    <h3>
+      <strong>
+        {{localize 'PF2E_LEVEL_UP_WIZARD.menu.ancestryParagonFeats.header'}}
+      </strong>
+    </h3>
+    <div class='selection-row'>
+      <div>{{localize 'PF2E_LEVEL_UP_WIZARD.menu.ancestryParagonFeats.label'}}</div>
+      <button type="button" class="feat-selector-toggle" id="ancestryParagonFeats">
+        {{localize 'PF2E_LEVEL_UP_WIZARD.menu.dropdown.placeholder'}}
+      </button>
+    </div>
   {{/if}}
 
   {{! Skill Feats }}
   {{#if skillFeats}}
-    {{> featSelector
-      id="skillFeats"
-      headerKey='PF2E_LEVEL_UP_WIZARD.menu.skillFeats.header'
-      labelKey='PF2E_LEVEL_UP_WIZARD.menu.skillFeats.label'
-    }}
+    <h3>
+      <strong>
+        {{localize 'PF2E_LEVEL_UP_WIZARD.menu.skillFeats.header'}}
+      </strong>
+    </h3>
+    <div class='selection-row'>
+      <div>{{localize 'PF2E_LEVEL_UP_WIZARD.menu.skillFeats.label'}}</div>
+      <button type="button" class="feat-selector-toggle" id="skillFeats">
+        {{localize 'PF2E_LEVEL_UP_WIZARD.menu.dropdown.placeholder'}}
+      </button>
+    </div>
   {{/if}}
 
   {{! General Feats }}
   {{#if generalFeats}}
-    {{> featSelector
-      id="generalFeats"
-      headerKey='PF2E_LEVEL_UP_WIZARD.menu.generalFeats.header'
-      labelKey='PF2E_LEVEL_UP_WIZARD.menu.generalFeats.label'
-    }}
+    <h3>
+      <strong>
+        {{localize 'PF2E_LEVEL_UP_WIZARD.menu.generalFeats.header'}}
+      </strong>
+    </h3>
+    <div class='selection-row'>
+      <div>{{localize 'PF2E_LEVEL_UP_WIZARD.menu.generalFeats.label'}}</div>
+      <button type="button" class="feat-selector-toggle" id="generalFeats">
+        {{localize 'PF2E_LEVEL_UP_WIZARD.menu.dropdown.placeholder'}}
+      </button>
+    </div>
   {{/if}}
 
   {{! Skill Increases }}

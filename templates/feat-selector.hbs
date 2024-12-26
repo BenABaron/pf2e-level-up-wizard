@@ -1,0 +1,65 @@
+<div class="feat-selector-menu">
+  <div class="feat-selector-body">
+    <div class="feat-filters">
+      <input type="text" id="search-feats" 
+        placeholder="{{localize 'PF2E_LEVEL_UP_WIZARD.menu.filters.placeholder.nameSearch'}}">
+      <p class="feat-sort-text">
+        {{localize 'PF2E_LEVEL_UP_WIZARD.menu.filters.orderBy'}}
+      </p>
+      <div class="feat-sort">
+        <select id="sort-options">
+          <option value="level">
+            {{localize 'PF2E_LEVEL_UP_WIZARD.menu.filters.level'}}
+          </option>
+          <option value="alpha">
+            {{localize 'PF2E_LEVEL_UP_WIZARD.menu.filters.name'}}
+          </option>
+        </select>
+        <button id="order-button" type="button">
+          <i class="fa-solid fa-sort-numeric-down-alt"></i>
+        </button>
+      </div>
+      <input type="number" id="min-level" 
+        placeholder="{{localize 'PF2E_LEVEL_UP_WIZARD.menu.filters.placeholder.minLevel'}}">
+      <input type="number" id="max-level" 
+        placeholder="{{localize 'PF2E_LEVEL_UP_WIZARD.menu.filters.placeholder.maxLevel'}}">
+      {{#if (eq featType 'skillFeats')}}
+        <div class="skill-filter-container">
+          <label for="skill-filter" class="skill-filter-label">
+            {{localize 'PF2E_LEVEL_UP_WIZARD.menu.filters.skills'}}
+            <i class="fa-solid fa-chevron-down"></i>
+          </label>
+          <div id="skill-filter" class="skill-filter-options hidden">
+            {{#each skills}}
+              <div class="skill-option">
+                <input type="checkbox" id="skill-{{key}}" value="{{key}}" />
+                <label for="skill-{{key}}">{{label}}</label>
+              </div>
+            {{/each}}
+          </div>
+        </div>
+      {{/if}}
+      {{#if (eq featType 'classFeats')}}
+        <div class="archetype-feats-container">
+          <input type="checkbox" id="show-archetype-feats" name="show-archetype-feats" {{checked show-archetype-feats}}>
+          <label for="show-archetype-feats">
+            {{localize 'PF2E_LEVEL_UP_WIZARD.menu.filters.archetypeFeats'}}
+          </label>
+        </div>
+      {{/if}}
+      <input type="text" id="search-dedications" class="hidden" 
+        placeholder="{{localize 'PF2E_LEVEL_UP_WIZARD.menu.filters.placeholder.dedicationSearch'}}">
+    </div>
+    <ul class="feat-list">
+      {{#each feats}}
+        {{> featOption
+          uuid=uuid
+          displayName=displayName
+          rarity=rarity
+          level=level
+        }}
+      {{/each}}
+    </ul>
+  </div>
+</div>
+

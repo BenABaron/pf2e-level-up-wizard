@@ -1,15 +1,20 @@
 import { createFeatChatMessage } from './helpers/foundryHelpers.js';
 import { getAssociatedSkills, SKILLS } from './helpers/skillsHelpers.js';
 import { capitalize } from './helpers/utility.js';
-import { module_name } from './main.js';
 
-export class FeatSelector {
-  constructor(container, feats) {
-    this.container = container;
+export class FeatSelector extends foundry.applications.api.ApplicationV2 {
+  constructor(feats, featType, actorName, targetLevel, options) {
+    super(options);
+    this.featType = featType;
+    this.actorName = actorName;
+    this.targetLevel = targetLevel;
     this.allFeats = feats;
     this.filteredFeats = [...feats];
 
-    const defaultSort = game.settings.get(module_name, 'feat-sort-method');
+    const defaultSort = game.settings.get(
+      'pf2e-level-up-wizard',
+      'feat-sort-method'
+    );
     const [sortMethod, sortOrder] = defaultSort.toLowerCase().split('_');
 
     this.filters = {
@@ -22,96 +27,93 @@ export class FeatSelector {
       includeArchetypeFeats: false,
       dedicationSearch: ''
     };
-
-    this.init();
   }
 
-  init() {
-    this.updateFilteredFeats();
+  static DEFAULT_OPTIONS = {
+    id: 'feat-selector',
+    classes: ['feat-selector'],
+    position: {
+      width: 600,
+      height: 500
+    }
+  };
 
-    this.attachEventListeners();
+  static PARTS = {
+    div: {
+      template: `modules/pf2e-level-up-wizard/templates/feat-selector.hbs`
+    }
+  };
 
-    const skillFilter = $(this.container).find('#skill-filter');
-    skillFilter.empty();
+  get title() {
+    const featTypeMapping = {
+      classFeats: 'Class Feats',
+      dualClassFeats: 'Class Feats',
+      freeArchetypeFeats: 'Free Archetype Feats',
+      skillFeats: 'Skill Feats',
+      generalFeats: 'General Feats',
+      ancestryFeats: 'Ancestry Feats',
+      ancestryParagonFeats: 'Ancestry Paragon Feats'
+    };
 
-    SKILLS.forEach((skill) => {
-      const localizedSkill = game.i18n.localize(
-        `PF2E.Skill.${capitalize(skill)}`
-      );
-      skillFilter.append(`
-        <div class="skill-option">
-          <input type="checkbox" id="skill-${skill}" value="${skill}" />
-          <label for="skill-${skill}">${localizedSkill}</label>
-        </div>
-      `);
-    });
+    const featTypeName = featTypeMapping[this.featType] || 'Feats';
+
+    return `${this.actorName} ${featTypeName} | Level ${this.targetLevel}`;
   }
 
-  render() {
-    const listContainer = $(this.container).find('.feat-list');
-    listContainer.empty();
-
-    const sortDropdown = $(this.container).find('#sort-options');
-    sortDropdown.val(this.filters.sortMethod);
-
-    const templatePath = `modules/${module_name}/templates/partials/feat-option.hbs`;
-
+  _prepareContext() {
     const showPrerequisites = game.settings.get(
-      module_name,
+      'pf2e-level-up-wizard',
       'show-feat-prerequisites'
     );
+    const localizedSkills = SKILLS.map((skill) => ({
+      key: skill,
+      label: game.i18n.localize(`PF2E.Skill.${capitalize(skill)}`)
+    }));
 
-    this.filteredFeats.forEach(async (feat) => {
+    this.filteredFeats.forEach((feat) => {
       if (showPrerequisites && feat.system.prerequisites?.value?.length) {
         feat.displayName = `${feat.name}*`;
       } else {
         feat.displayName = feat.name;
       }
-
-      const html = await renderTemplate(templatePath, feat);
-      listContainer.append(html);
     });
 
-    if (this.container.dataset.id === 'freeArchetypeFeats') {
-      $(this.container).find('#search-dedications').removeClass('hidden');
+    return {
+      feats: this.filteredFeats,
+      filters: this.filters,
+      skills: localizedSkills,
+      featType: this.featType
+    };
+  }
+
+  _onRender() {
+    const dedicationSearch = $(this.element).find('#search-dedications');
+    if (this.featType === 'freeArchetypeFeats') {
+      $(dedicationSearch).removeClass('hidden');
     }
+
+    this.updateFilteredFeats();
   }
 
-  selectFeat(uuid) {
-    const selectedFeat = this.allFeats.find((feat) => feat.uuid === uuid);
-
-    const toggleButton = this.container.querySelector('.feat-selector-toggle');
-
-    toggleButton.textContent = game.i18n.format(
-      'PF2E_LEVEL_UP_WIZARD.menu.featButtonContent',
-      { name: selectedFeat.name, level: selectedFeat.system.level.value }
+  // Handle rendering of HTML for the application
+  async _renderHTML(context) {
+    return renderTemplate(
+      `modules/pf2e-level-up-wizard/templates/feat-selector.hbs`,
+      context
     );
-
-    const menu = this.container.querySelector('.feat-selector-menu');
-    menu.classList.add('hidden');
-
-    const event = new CustomEvent('featSelected', {
-      detail: { id: this.container.dataset.id, selectedFeat }
-    });
-    this.container.dispatchEvent(event);
   }
 
-  attachEventListeners() {
-    const toggleButton = $(this.container).find('.feat-selector-toggle');
-    const menu = $(this.container).find('.feat-selector-menu');
+  // Handle HTML replacement during rendering
+  _replaceHTML(element, html) {
+    const div = document.createElement('div');
+    div.innerHTML = element;
+    html.replaceChildren(div);
+    this.activateListeners(html);
+  }
 
-    // Toggle menu visibility
-    toggleButton.on('click', () => {
-      menu.toggleClass('hidden');
-    });
-
-    // Event: Close Menu
-    $(this.container)
-      .find('.feat-header-button')
-      .on('click', () => menu.toggleClass('hidden'));
-
+  activateListeners(html) {
     // Event: Min Level
-    $(this.container)
+    $(html)
       .find('#min-level')
       .on('input', (e) => {
         this.filters.minLevel = parseInt(e.target.value, 10) || null;
@@ -119,7 +121,7 @@ export class FeatSelector {
       });
 
     // Event: Max Level
-    $(this.container)
+    $(html)
       .find('#max-level')
       .on('input', (e) => {
         this.filters.maxLevel = parseInt(e.target.value, 10) || null;
@@ -127,7 +129,7 @@ export class FeatSelector {
       });
 
     // Event: Search
-    $(this.container)
+    $(html)
       .find('#search-feats')
       .on('input', (e) => {
         this.filters.search = e.target.value.toLowerCase();
@@ -135,7 +137,7 @@ export class FeatSelector {
       });
 
     // Event: Sort
-    $(this.container)
+    $(html)
       .find('#sort-options')
       .on('change', (e) => {
         this.filters.sortMethod = e.target.value;
@@ -143,7 +145,7 @@ export class FeatSelector {
       });
 
     // Event: Sort
-    $(this.container)
+    $(html)
       .find('#order-button')
       .on('click', () => {
         if (this.filters.sortOrder === 'desc') {
@@ -154,14 +156,14 @@ export class FeatSelector {
         this.updateFilteredFeats();
       });
 
-    const skillFilter = $(this.container).find('#skill-filter');
     // Event: Skill Dropdown
-    $(this.container)
+    const skillFilter = $(html).find('#skill-filter');
+    $(html)
       .find('.skill-filter-label')
       .on('click', () => {
         skillFilter.toggleClass('hidden');
 
-        const skillLabelIcon = $(this.container)
+        const skillLabelIcon = $(html)
           .find('.skill-filter-label')
           .children('i');
         skillLabelIcon
@@ -187,13 +189,14 @@ export class FeatSelector {
     });
 
     // Event: Include Archetype Feats
-    const archetypeCheckbox = $(this.container).find('#show-archetype-feats');
+    const archetypeCheckbox = $(html).find('#show-archetype-feats');
+    const dedicationSearch = $(html).find('#search-dedications');
+
     if (archetypeCheckbox.length) {
       archetypeCheckbox.on('change', (e) => {
         const isChecked = e.target.checked;
         this.filters.includeArchetypeFeats = isChecked;
         this.updateFilteredFeats();
-        const dedicationSearch = $(this.container).find('#search-dedications');
 
         if (isChecked) {
           dedicationSearch.removeClass('hidden');
@@ -204,7 +207,7 @@ export class FeatSelector {
     }
 
     // Event: Dedication Search
-    $(this.container)
+    $(html)
       .find('#search-dedications')
       .on('input', (e) => {
         this.filters.dedicationSearch = e.target.value.toLowerCase();
@@ -212,7 +215,7 @@ export class FeatSelector {
       });
 
     // Event: Select Feat
-    $(this.container)
+    $(html)
       .find('.feat-list')
       .on('click', (e) => {
         if (
@@ -229,7 +232,7 @@ export class FeatSelector {
       });
 
     // Event: Send Feat to Chat
-    $(this.container)
+    $(html)
       .find('.feat-list')
       .on('click', '[data-action="send-to-chat"]', async (e) => {
         const container = $(e.currentTarget).closest('.feat-option');
@@ -243,9 +246,25 @@ export class FeatSelector {
       });
   }
 
+  selectFeat(uuid) {
+    const selectedFeat = this.allFeats.find((feat) => feat.uuid === uuid);
+
+    if (!selectedFeat) {
+      console.error(`Feat with UUID ${uuid} not found.`);
+      return;
+    }
+
+    const event = new CustomEvent('featSelected', {
+      detail: { featType: this.featType, selectedFeat }
+    });
+    window.dispatchEvent(event);
+
+    this.close();
+  }
+
   updateFilteredFeats() {
     const includeArchetypeFeats =
-      this.container.dataset.id === 'freeArchetypeFeats' ||
+      this.featType === 'freeArchetypeFeats' ||
       this.filters.includeArchetypeFeats;
     this.filteredFeats = this.allFeats.filter((feat) => {
       const matchesMinLevel =
@@ -290,11 +309,11 @@ export class FeatSelector {
     });
 
     this.sortFeats();
-    this.render();
+    this.updateFeatList();
   }
 
   sortFeats() {
-    const button = $(this.container).find('#order-button').children('i');
+    const button = $(this.element).find('#order-button').children('i');
 
     const iconMapping = {
       'alpha-asc': 'fa-solid fa-sort-alpha-up',
@@ -315,5 +334,19 @@ export class FeatSelector {
       if (sortMethod === 'alpha-asc') return a.name.localeCompare(b.name);
       if (sortMethod === 'alpha-desc') return b.name.localeCompare(a.name);
     });
+  }
+
+  async updateFeatList() {
+    const listContainer = this.element.querySelector('.feat-list');
+    if (!listContainer) return;
+
+    listContainer.innerHTML = ''; // Clear the current list
+
+    const templatePath = `modules/pf2e-level-up-wizard/templates/partials/feat-option.hbs`;
+
+    for (const feat of this.filteredFeats) {
+      const html = await renderTemplate(templatePath, feat);
+      listContainer.insertAdjacentHTML('beforeend', html);
+    }
   }
 }
