@@ -1,0 +1,150 @@
+{
+  "PF2E_LEVEL_UP_WIZARD": {
+    "button-tooltip": "Awans!",
+    "menu": {
+      "title": "Level-Up Wizard",
+      "header": {
+        "name": "{actorName} awansował na {targetLevel}!",
+        "description": "Oto przegląd nowych funkcji. Dokonaj wyboru tam, gdzie jest to wymagane!"
+      },
+      "close": "Zamknij",
+      "notes": {
+        "note": "Uwaga:",
+        "featsPrereq": "Atuty z wymaganiami wstępnymi są oznaczone gwiazdką (*)",
+        "classJournal": "Dowiedz się więcej o swojej klasie:"
+      },
+      "dropdown": {
+        "placeholder": "Dokonaj wyboru"
+      },
+      "classFeats": {
+        "header": "Atuty klasowe {className}",
+        "label": "Dostępny jest nowy atut klasy:",
+        "checkbox": "Dołącz atuty archetypu"
+      },
+      "freeArchetypeFeats": {
+        "header": "Darmowe atuty archetypu",
+        "label": "Dostępny jest nowy darmowy atut archetypu:"
+      },
+      "ancestryFeats": {
+        "header": "Atuty pochodzenia",
+        "label": "Dostępny jest nowy atut pochodzenia:"
+      },
+      "ancestryParagonFeats": {
+        "header": "Atuty wzorcowe pochodzenia",
+        "label": "Dostępny jest nowy atut wzorcowy pochodzenia:"
+      },
+      "skillFeats": {
+        "header": "Atuty umiejętności",
+        "label": "Dostępny jest nowy atut umiejętności:"
+      },
+      "generalFeats": {
+        "header": "Atuty ogólne",
+        "label": "Dostępny jest nowy atut ogólny:"
+      },
+      "skillIncreases": {
+        "header": "Zwiększenie umiejętności",
+        "label": "Dostępne zwiększenie umiejętności:"
+      },
+      "attributeBoosts": {
+        "header": "Wzmocnienia atrybutów",
+        "label": "Wybierz cztery różne atrybuty do wzmocnienia:",
+        "boost": "PRZYROST",
+        "partial": "CZĘŚĆ"
+      },
+      "features": {
+        "class": {
+          "header": "Nowe klasowe zdolności",
+          "noAction": "Nie są wymagane żadne działania"
+        },
+        "manual": {
+          "update": "Zaktualizuj to ręcznie w",
+          "spellcasting": "Rzucanie zaklęć",
+          "sheet": "na karcie twojej postaci."
+        },
+        "spellcasting": {
+          "rank": "Dostępna nowa Ranga i miejsca na zaklęcia:",
+          "slots": "Nowe miejsca na zaklęcia:"
+        }
+      },
+      "confirmDialog": {
+        "title": "Potwierdź zmiany",
+        "content": "Czy na pewno chcesz zastosować te zmiany?"
+      },
+      "filters": {
+        "orderBy": "Sortuj według:",
+        "level": "Poziom",
+        "name": "Nazwa",
+        "skills": "Filtruj według umiejętności",
+        "archetypeFeats": "Atuty archetypu",
+        "placeholder": {
+          "nameSearch": "Szukaj według nazwy",
+          "minLevel": "Poziom min.",
+          "maxLevel": "Poziom maks.",
+          "dedicationSearch": "Wyszukiwanie według archetypu"
+        }
+      },
+      "featButtonContent": "{name} | {level}"
+    },
+    "settings": {
+      "showButton": {
+        "name": "Włącz przycisk zwiększania poziomu",
+        "hint": "Wybierz, czy na kartach postaci ma być wyświetlany przycisk podnoszenia poziomu. Gdy przycisk jest wyłączony, kreator podnoszenia poziomu aktywuje się automatycznie po ręcznym zaktualizowaniu poziomu postaci."
+      },
+      "buttonPlacement": {
+        "name": "Rozmieszczenie przycisku zwiększania poziomu",
+        "hint": "Wybierz miejsce, w którym pojawi się przycisk podnoszenia poziomu: obok poziomu postaci lub na pasku tytułowym u góry karty postaci.",
+        "options": {
+          "charHeaderSmall": "Obok poziomu - Mały",
+          "charHeaderLarge": "Obok poziomu - Duży",
+          "windowHeader": "Pasek tytułowy"
+        }
+      },
+      "sortMethod": {
+        "name": "Metoda sortowania atutów",
+        "hint": "Wybierz domyślny sposób sortowania atutów.",
+        "options": {
+          "levelDesc": "Według poziomu (od wysokiego do niskiego)",
+          "levelAsc": "Według poziomu (od niskiego do wysokiego)",
+          "alphaAsc": "Alfabetycznie (A-Z)",
+          "alphaDesc": "Alfabetycznie (Z-A)"
+        }
+      },
+      "featPrereqs": {
+        "name": "Wyświetlanie wymagań wstępnych atutu",
+        "hint": "Włączenie wyświetlania gwiazdki (*) obok atutów z wymaganiami wstępnymi w listach rozwijanych."
+      },
+      "disableLevelInput": {
+        "name": "Wyłączenie ręcznej edycji poziomu",
+        "hint": "Jeśli ta opcja jest włączona, domyślne wprowadzanie poziomu na karcie postaci zostanie wyłączone, aby zachęcić do korzystania z kreatora awansu na wyższy poziom. To ustawienie nie ma wpływu, jeśli opcja „Włącz przycisk podnoszenia poziomu” jest wyłączona."
+      },
+      "sendGMWhispers": {
+        "name": "Wysyłanie szeptów aktualizacji do MG",
+        "hint": "Po włączeniu tej opcji, szepty o wymaganych ręcznych aktualizacjach (takich jak zwiększenie wyniku umiejętności lub aktualizacja zaklęć) będą również wysyłane do MG oprócz gracza."
+      }
+    },
+    "messages": {
+      "skillIncrease": {
+        "rankName": "Ranga {updatedRank}",
+        "rankIncrease": "Biegłość umiejętności {skill} została zwiększona do {rankName}."
+      },
+      "global": {
+        "header": "{actorName} awansował na poziom {targetLevel}!",
+        "feats": "Wybrane atuty:",
+        "noFeats": "Nie wybrano żadnych atutów.",
+        "skills": "Zwiększenie umiejętności:",
+        "feat": "Atut"
+      },
+      "personal": {
+        "header": "{actorName} wymaga ręcznej aktualizacji",
+        "spellRank": "Nowa ranga i miejsca na zaklęcia (zakładka Rzucanie zaklęć)",
+        "spellSlots": "Nowe miejsca na zaklęcia (zakładka Rzucanie zaklęć)"
+      }
+    },
+    "notifications": {
+      "levelUpStart": "Aktualizacja {actorName} do poziomu {targetLevel}...",
+      "levelUpComplete": "Aktualizacja poziomu {actorName} zakończona!",
+      "wizardStartup": "Uruchamianie Level-Up Wizard...",
+      "missingClass": "Level-Up Wizard nie może zostać uruchomiony, dopóki nie zostanie wybrana klasa."
+    }
+  }
+}
