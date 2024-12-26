@@ -21,6 +21,11 @@
       "lang": "en",
       "name": "English",
       "path": "languages/en.json"
+    },    
+    {
+      "lang": "pl",
+      "name": "Polski",
+      "path": "languages/pl.json"
     }
   ],
   "url": "https://github.com/BenABaron/pf2e-level-up-wizard",
