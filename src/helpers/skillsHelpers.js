@@ -23,6 +23,25 @@ const getSkillRankClass = (rank) => {
   }
 };
 
+export const SKILLS = [
+  'acrobatics',
+  'arcana',
+  'athletics',
+  'crafting',
+  'deception',
+  'diplomacy',
+  'intimidation',
+  'medicine',
+  'nature',
+  'occultism',
+  'performance',
+  'religion',
+  'society',
+  'stealth',
+  'survival',
+  'thievery'
+];
+
 export const getMaxSkillProficiency = (level) => {
   if (level >= 15) return 4; // Legendary
   if (level >= 7) return 3; // Master
@@ -39,4 +58,20 @@ export const getSkillsForLevel = (characterData, targetLevel) => {
   return Object.values(characterData?.skills)
     .filter((skill) => skill.rank < maxProficiency)
     .map((skill) => ({ ...skill, class: getSkillRankClass(skill.rank) }));
+};
+
+export const getAssociatedSkills = (prerequisites) => {
+  if (!prerequisites || !Array.isArray(prerequisites.value)) {
+    return [];
+  }
+
+  return prerequisites.value
+    .flatMap((prereq) => {
+      // Use a regex to match any skill name in the string
+      const matches = SKILLS.filter((skill) =>
+        new RegExp(`\\b${skill}\\b`, 'i').test(prereq.value)
+      );
+      return matches; // Return all matches
+    })
+    .filter(Boolean); // Remove nulls or undefined
 };

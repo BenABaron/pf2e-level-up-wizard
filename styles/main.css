@@ -176,7 +176,7 @@
   top: 100%;
   right: 0;
   width: 600px;
-  height: 450px;
+  height: 500px;
   border: 1px solid var(--color-border-dark);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 1000;
@@ -208,10 +208,17 @@
 .feat-filters {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
   gap: 0.5rem;
-  margin-bottom: 1rem;
-  width: 150px;
+  width: 175px;
+  overflow-y: scroll;
+
+  input {
+    line-height: 26px;
+  }
+
+  input[type='checkbox'] {
+    margin-left: 0;
+  }
 }
 
 .feat-sort #order-button {
@@ -340,4 +347,27 @@
 
 .feat-option .feat-rarity-tag.rare {
   background-color: var(--color-rarity-rare);
+}
+
+.skill-filter-label {
+  display: flex;
+  width: 100%;
+  padding: 4px;
+  gap: 4px;
+  border-bottom: 1px solid black;
+  cursor: pointer;
+}
+
+.skill-filter-options {
+  padding-top: 4px;
+}
+
+.skill-option {
+  display: flex;
+  align-items: center;
+}
+
+.archetype-feats-container {
+  display: flex;
+  align-items: center;
 }

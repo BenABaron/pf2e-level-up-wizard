@@ -15,9 +15,8 @@ Hooks.on('init', async () => {
     `modules/${module_name}/templates/partials/feat-option.hbs`
   ]);
 
-  Handlebars.registerHelper('notEqual', function (a, b) {
-    return a !== b;
-  });
+  Handlebars.registerHelper('notEqual', (a, b) => a !== b);
+  Handlebars.registerHelper('eq', (a, b) => a === b);
 });
 
 Hooks.on('ready', () => {

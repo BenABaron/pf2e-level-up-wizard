@@ -1,4 +1,6 @@
 import { createFeatChatMessage } from './helpers/foundryHelpers.js';
+import { getAssociatedSkills, SKILLS } from './helpers/skillsHelpers.js';
+import { capitalize } from './helpers/utility.js';
 import { module_name } from './main.js';
 
 export class FeatSelector {
@@ -15,7 +17,8 @@ export class FeatSelector {
       maxLevel: null,
       search: '',
       sortMethod: sortMethod,
-      sortOrder: sortOrder
+      sortOrder: sortOrder,
+      skills: []
     };
 
     this.init();
@@ -25,6 +28,18 @@ export class FeatSelector {
     this.updateFilteredFeats();
 
     this.attachEventListeners();
+
+    const skillFilter = $(this.container).find('#skill-filter');
+    skillFilter.empty();
+
+    SKILLS.forEach((skill) => {
+      skillFilter.append(`
+        <div class="skill-option">
+          <input type="checkbox" id="skill-${skill}" value="${skill}" />
+          <label for="skill-${skill}">${capitalize(skill)}</label>
+        </div>
+      `);
+    });
   }
 
   render() {
@@ -130,6 +145,38 @@ export class FeatSelector {
         this.updateFilteredFeats();
       });
 
+    const skillFilter = $(this.container).find('#skill-filter');
+    // Event: Skill Dropdown
+    $(this.container)
+      .find('.skill-filter-label')
+      .on('click', () => {
+        skillFilter.toggleClass('hidden');
+
+        const skillLabelIcon = $(this.container)
+          .find('.skill-filter-label')
+          .children('i');
+        skillLabelIcon
+          .removeClass()
+          .addClass(
+            skillFilter.hasClass('hidden')
+              ? 'fa-solid fa-chevron-down'
+              : 'fa-solid fa-chevron-up'
+          );
+      });
+
+    // Event: Select Skill
+    skillFilter.on('change', 'input[type="checkbox"]', (e) => {
+      const skill = e.target.value;
+
+      if (e.target.checked) {
+        this.filters.skills.push(skill);
+      } else {
+        this.filters.skills = this.filters.skills.filter((s) => s !== skill);
+      }
+
+      this.updateFilteredFeats();
+    });
+
     // Event: Select Feat
     $(this.container)
       .find('.feat-list')
@@ -176,7 +223,14 @@ export class FeatSelector {
         .toLowerCase()
         .includes(this.filters.search);
 
-      return matchesMinLevel && matchesMaxLevel && matchesSearch;
+      const associatedSkills = getAssociatedSkills(feat.system.prerequisites);
+      const matchesSkills =
+        this.filters.skills.length === 0 || // No skill filter applied
+        this.filters.skills.some((skill) => associatedSkills.includes(skill));
+
+      return (
+        matchesMinLevel && matchesMaxLevel && matchesSearch && matchesSkills
+      );
     });
 
     this.sortFeats();

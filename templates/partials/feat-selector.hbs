@@ -36,6 +36,21 @@
           </div>
           <input type="number" id="min-level" placeholder="Min Level">
           <input type="number" id="max-level" placeholder="Max Level">
+          {{#if (eq id 'skillFeats')}}
+            <div class="skill-filter-container">
+              <label for="skill-filter" class="skill-filter-label">
+                Filter by Skills
+                <i class="fa-solid fa-chevron-down"></i>
+              </label>
+              <div id="skill-filter" class="skill-filter-options hidden"></div>
+            </div>
+          {{/if}}
+          {{#if (eq id 'classFeats')}}
+          <div class="archetype-feats-container">
+            <input type="checkbox" id="show-archetype-feats">
+            <label for="show-archetype-feats">Archetype Feats</label>
+          </div>
+          {{/if}}
         </div>
         <ul class="feat-list"></ul>
       </div>
