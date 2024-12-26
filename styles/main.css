@@ -371,6 +371,10 @@
   align-items: center;
 }
 
+.skill-option:last-of-type {
+  padding-bottom: 4px;
+}
+
 .archetype-feats-container {
   display: flex;
   align-items: center;

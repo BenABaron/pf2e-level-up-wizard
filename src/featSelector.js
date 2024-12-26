@@ -35,10 +35,13 @@ export class FeatSelector {
     skillFilter.empty();
 
     SKILLS.forEach((skill) => {
+      const localizedSkill = game.i18n.localize(
+        `PF2E.Skill.${capitalize(skill)}`
+      );
       skillFilter.append(`
         <div class="skill-option">
           <input type="checkbox" id="skill-${skill}" value="${skill}" />
-          <label for="skill-${skill}">${capitalize(skill)}</label>
+          <label for="skill-${skill}">${localizedSkill}</label>
         </div>
       `);
     });
