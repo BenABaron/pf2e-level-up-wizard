@@ -1,4 +1,7 @@
-const abilityScoreIncreaseLevels = [5, 10, 15, 20];
+const attributeBoostLevels = [5, 10, 15, 20];
+const gradualBoostLevels = [
+  2, 3, 4, 5, 7, 8, 9, 10, 12, 13, 14, 15, 17, 18, 19, 20
+];
 const newSpellRankLevels = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19];
 
 const stripParagraphTags = (html) => html?.replace(/^<p>|<\/p>$/g, '') || '';
@@ -104,7 +107,11 @@ const mapFeaturesWithDetails = async (features, characterClass) => {
   ).then((results) => results.filter((feature) => feature));
 };
 
-export const getFeaturesForLevel = async (characterData, targetLevel) => {
+export const getFeaturesForLevel = async (
+  characterData,
+  targetLevel,
+  gradualBoosts
+) => {
   const characterClass = characterData?.class?.name;
   const spellcasting = characterData?.class?.system?.spellcasting;
   const featuresArray = Object.values(characterData?.class?.system?.items);
@@ -118,15 +125,37 @@ export const getFeaturesForLevel = async (characterData, targetLevel) => {
     characterClass
   );
 
+  const currentBoostSet = attributeBoostLevels.find(
+    (level) => level >= targetLevel
+  );
+  let allowedBoostsForSet =
+    characterData.system.build.attributes.allowedBoosts[currentBoostSet];
+
+  if (gradualBoosts && gradualBoostLevels.includes(targetLevel)) {
+    if (
+      currentBoostSet &&
+      targetLevel !== characterData.system.details.level.value
+    ) {
+      allowedBoostsForSet = (allowedBoostsForSet || 0) + 1;
+    }
+  } else {
+    // Default to 4 if not using gradualBoosts
+    allowedBoostsForSet = 4;
+  }
+
   return {
     featuresForLevel: featuresWithDetails,
-    abilityScoreIncreaseLevel: abilityScoreIncreaseLevels.includes(targetLevel),
+    attributeBoostLevel: gradualBoosts
+      ? gradualBoostLevels.includes(targetLevel)
+      : attributeBoostLevels.includes(targetLevel),
+    allowedBoostsForSet,
+    currentBoostSet,
     newSpellRankLevel: newSpellRankLevels.includes(targetLevel) && spellcasting,
     spellcasting
   };
 };
 
-export const detectPartialBoosts = (actor) => {
+export const detectPartialBoosts = (actor, boostsForCurrentSet) => {
   const abilities = actor.system.abilities;
   const buildData = actor.system.build.attributes;
 
@@ -140,6 +169,10 @@ export const detectPartialBoosts = (actor) => {
     } else if (key === 'class' && typeof value === 'string') {
       boostCounts[value] = (boostCounts[value] || 0) + 1;
     }
+  });
+
+  boostsForCurrentSet.forEach((boost) => {
+    boostCounts[boost] = (boostCounts[boost] || 0) - 1;
   });
 
   Object.values(buildData.flaws).forEach((flawArray) => {

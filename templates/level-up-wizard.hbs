@@ -161,15 +161,21 @@
     </div>
   {{/if}}
 
-  {{#if features.abilityScoreIncreaseLevel}}
+  {{#if attributeBoostLevel}}
     <h3>
       <strong>
         {{localize 'PF2E_LEVEL_UP_WIZARD.menu.attributeBoosts.header'}}
       </strong>
     </h3>
-    <p>{{localize 'PF2E_LEVEL_UP_WIZARD.menu.attributeBoosts.label'}}</p>
+    <p>
+      {{#if gradualBoosts}}
+        {{localize 'PF2E_LEVEL_UP_WIZARD.menu.attributeBoosts.gradualBoostLabel'}}
+      {{else}}
+        {{localize 'PF2E_LEVEL_UP_WIZARD.menu.attributeBoosts.label'}}
+      {{/if}}
+    </p>
     <div class="attribute-boosts">
-      {{#each abilities}}
+      {{#each attributes}}
         <div class="attribute-boosts-column">
           <label for="boost-{{key}}" class="attribute-boosts-label">
             {{localize (concat 'PF2E.AbilityId.' key)}}

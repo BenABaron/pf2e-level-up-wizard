@@ -50,8 +50,17 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
       const form = this.element.find('form');
       const submitButton = this.element.find('button[type="submit"]');
       const attributeButtons = form.find('.attribute-boosts-button');
-      const partialBoosts = detectPartialBoosts(this.actorData);
+
+      const allowedBoostsForSet = data.allowedBoostsForSet;
+      const currentBoostSet = data.currentBoostSet;
+      const boostsForCurrentSet =
+        this.actorData.system.build.attributes.boosts[currentBoostSet];
+      const partialBoosts = detectPartialBoosts(
+        this.actorData,
+        boostsForCurrentSet
+      );
       const selectedBoosts = new Set();
+
       const actorName = this.actorData.name;
       const currentLevel = this.actorData.system.details.level.value;
       const targetLevel = this.triggeredByManualLevelUp
@@ -92,13 +101,17 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
         submitButton,
         attributeButtons,
         selectedBoosts,
-        requiredFeats
+        requiredFeats,
+        allowedBoostsForSet
       );
+
       attachAttributeBoostHandlers(
         attributeButtons,
         selectedBoosts,
         validateForm,
-        partialBoosts
+        partialBoosts,
+        allowedBoostsForSet,
+        boostsForCurrentSet
       );
     });
   }
@@ -172,15 +185,28 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
       ancestryParagon &&
       (await getFeatsForLevel(this.actorData, 'ancestryParagon', targetLevel));
 
-    const abilities = detectPartialBoosts(this.actorData);
-    const features = await getFeaturesForLevel(this.actorData, targetLevel);
+    const gradualBoosts = game.settings.get('pf2e', 'gradualBoostsVariant');
+
+    const {
+      featuresForLevel,
+      attributeBoostLevel,
+      allowedBoostsForSet,
+      currentBoostSet,
+      newSpellRankLevel,
+      spellcasting
+    } = await getFeaturesForLevel(this.actorData, targetLevel, gradualBoosts);
+
+    const boostsForCurrentSet =
+      this.actorData.system.build.attributes.boosts[currentBoostSet];
+
+    const attributes = detectPartialBoosts(this.actorData, boostsForCurrentSet);
     const skills = getSkillsForLevel(this.actorData, targetLevel);
     const classJournals = await getClassJournal(this.actorData);
 
     const hasFeaturesToDisplay = !!(
-      features.featuresForLevel.length > 0 ||
-      features.newSpellRankLevel ||
-      features.spellcasting
+      featuresForLevel.length > 0 ||
+      newSpellRankLevel ||
+      spellcasting
     );
 
     return {
@@ -193,8 +219,14 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
       ancestryParagonFeats,
       skillFeats,
       generalFeats,
-      features,
-      abilities,
+      gradualBoosts,
+      featuresForLevel,
+      attributeBoostLevel,
+      allowedBoostsForSet,
+      currentBoostSet,
+      newSpellRankLevel,
+      spellcasting,
+      attributes,
       skills,
       hasFeaturesToDisplay,
       actorName,
@@ -220,10 +252,11 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
 
     const data = await this.getData();
 
-    finalData.abilityScoreIncreaseLevel =
-      data.features.abilityScoreIncreaseLevel;
-    finalData.spellcasting = data.features.spellcasting;
-    finalData.newSpellRankLevel = data.features.newSpellRankLevel;
+    finalData.attributeBoostLevel = data.attributeBoostLevel;
+    finalData.allowedBoostsForSet = data.allowedBoostsForSet;
+    finalData.spellcasting = data.spellcasting;
+    finalData.newSpellRankLevel = data.newSpellRankLevel;
+    finalData.currentBoostSet = data.currentBoostSet;
 
     if (!this.triggeredByManualLevelUp) {
       ui.notifications.info(
@@ -307,21 +340,22 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
       .map(({ feat }) => `@UUID[${feat.uuid}]`)
       .join(', ');
 
-    if (finalData.abilityScoreIncreaseLevel) {
+    if (finalData.attributeBoostLevel) {
       const attributeBoosts = this.element.find(
         '.attribute-boosts-button.selected'
       );
-      finalData.abilityBoosts = Array.from(attributeBoosts).map((button) =>
+      finalData.attributeBoosts = Array.from(attributeBoosts).map((button) =>
         $(button).data('value')
       );
 
-      if (finalData.abilityBoosts.length !== 4) {
+      if (finalData.attributeBoosts.length !== finalData.allowedBoostsForSet) {
         ui.notifications.error(game.i18n.localize('invalid boost selection'));
         return;
       }
 
-      const boostPath = `system.build.attributes.boosts.${targetLevel}`;
-      const updateData = { [boostPath]: finalData.abilityBoosts };
+      const boostPath = `system.build.attributes.boosts.${finalData.currentBoostSet}`;
+
+      const updateData = { [boostPath]: finalData.attributeBoosts };
 
       await actor.update(updateData);
     }

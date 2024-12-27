@@ -124,11 +124,11 @@
 }
 
 .attribute-boosts-button.selected {
-  background-color: var(--button-color);
+  background: var(--button-color) !important;
   color: var(--text-light);
 
   &.partial {
-    background: var(--color-boost-dark);
+    background: var(--color-boost-dark) !important;
   }
 }
 

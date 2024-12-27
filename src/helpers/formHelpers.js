@@ -3,7 +3,8 @@ export const attachValidationHandlers = (
   submitButton,
   attributeButtons,
   selectedBoosts,
-  requiredFeats
+  requiredFeats,
+  allowedBoostsForSet
 ) => {
   const validateForm = () => {
     const requiredFields = form.find('[data-required="true"]');
@@ -18,7 +19,7 @@ export const attachValidationHandlers = (
     });
 
     const boostsValid = attributeButtons.length
-      ? selectedBoosts.size === 4
+      ? selectedBoosts.size === allowedBoostsForSet
       : true;
 
     const allValid = allRequiredValid && boostsValid && featsValid;
@@ -37,7 +38,9 @@ export const attachAttributeBoostHandlers = (
   attributeButtons,
   selectedBoosts,
   validateForm,
-  partialBoosts
+  partialBoosts,
+  allowedBoostsForSet,
+  boostsForCurrentSet
 ) => {
   const updateButtonStates = () => {
     attributeButtons.each((_, buttonElement) => {
@@ -49,6 +52,7 @@ export const attachAttributeBoostHandlers = (
         (boost) => boost.key === attribute
       );
       const isPartial = partialBoostEntry?.isPartial || false;
+      const isPreSelected = boostsForCurrentSet.includes(attribute);
 
       const modifierElement = $(`#modifier-${attribute}`);
       const currentModifier = parseInt(modifierElement.text(), 10);
@@ -67,7 +71,8 @@ export const attachAttributeBoostHandlers = (
         );
         button.toggleClass('partial', isPartial);
 
-        const newModifier = isPartial ? currentModifier : currentModifier + 1;
+        const newModifier =
+          isPreSelected || isPartial ? currentModifier : currentModifier + 1;
         modifierElement.text(
           newModifier >= 0 ? `+${newModifier}` : newModifier
         );
@@ -80,7 +85,8 @@ export const attachAttributeBoostHandlers = (
         );
         button.removeClass('partial');
 
-        const newModifier = isPartial ? currentModifier : currentModifier - 1;
+        const newModifier =
+          isPreSelected || isPartial ? currentModifier : currentModifier - 1;
         modifierElement.text(
           newModifier >= 0 ? `+${newModifier}` : newModifier
         );
@@ -91,7 +97,10 @@ export const attachAttributeBoostHandlers = (
         );
       }
 
-      if (selectedBoosts.size >= 4 && !isSelected) {
+      if (
+        (selectedBoosts.size >= allowedBoostsForSet && !isSelected) ||
+        isPreSelected
+      ) {
         button.prop('disabled', true);
       } else {
         button.prop('disabled', false);
@@ -113,6 +122,14 @@ export const attachAttributeBoostHandlers = (
 
     updateButtonStates();
     validateForm();
+  });
+
+  boostsForCurrentSet.forEach((boost) => {
+    selectedBoosts.add(boost);
+    const relevantButton = attributeButtons.filter(
+      (_, button) => $(button).data('value') === boost
+    );
+    relevantButton.addClass('selected');
   });
 
   updateButtonStates();

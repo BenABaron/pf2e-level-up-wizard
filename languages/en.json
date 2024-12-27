@@ -48,6 +48,7 @@
       "attributeBoosts": {
         "header": "Attribute Boosts",
         "label": "Select four different Attributes to boost:",
+        "gradualBoostLabel": "Select one Attribute to boost:",
         "boost": "BOOST",
         "partial": "PARTIAL"
       },
@@ -119,7 +120,7 @@
       },
       "sendGMWhispers": {
         "name": "Send Manual Update Whispers to GM",
-        "hint": "When enabled, whispers about required manual updates (such as ability score increases or spell updates) will also be sent to the GM in addition to the player."
+        "hint": "When enabled, whispers about required manual updates (such as spell updates) will also be sent to the GM in addition to the player."
       }
     },
     "messages": {
