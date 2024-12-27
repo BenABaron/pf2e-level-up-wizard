@@ -7,10 +7,6 @@ Hooks.on('init', async () => {
   console.log('PF2e Level-Up Wizard | Module Initialized');
   registerSettings();
 
-  const featOptionPath = `modules/${module_name}/templates/partials/feat-option.hbs`;
-  const featOptionTemplate = await getTemplate(featOptionPath);
-  Handlebars.registerPartial('featOption', featOptionTemplate);
-
   Handlebars.registerHelper('notEqual', (a, b) => a !== b);
   Handlebars.registerHelper('eq', (a, b) => a === b);
 });
