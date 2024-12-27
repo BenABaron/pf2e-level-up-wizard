@@ -17,8 +17,6 @@ export default [
         Hooks: 'readonly',
         Handlebars: 'readonly',
         FormApplication: 'readonly',
-        ApplicationV2: 'readonly',
-        Dialog: 'readonly',
         ChatMessage: 'readonly',
         fromUuid: 'readonly',
         foundry: 'readonly',

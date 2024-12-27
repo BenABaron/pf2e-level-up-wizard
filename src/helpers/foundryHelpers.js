@@ -11,11 +11,14 @@ export const renderWizard = (actor, manualLevelUp) => {
 };
 
 export const confirmChanges = async () => {
-  return Dialog.confirm({
-    title: game.i18n.localize('PF2E_LEVEL_UP_WIZARD.menu.confirmDialog.title'),
+  return foundry.applications.api.DialogV2.confirm({
+    window: {
+      title: game.i18n.localize('PF2E_LEVEL_UP_WIZARD.menu.confirmDialog.title')
+    },
     content: `<p>${game.i18n.localize(
       'PF2E_LEVEL_UP_WIZARD.menu.confirmDialog.content'
-    )}</p>`
+    )}</p>`,
+    modal: true
   });
 };
 
