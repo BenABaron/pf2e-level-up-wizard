@@ -48,6 +48,7 @@
       "attributeBoosts": {
         "header": "Wzmocnienia atrybutów",
         "label": "Wybierz cztery różne atrybuty do wzmocnienia:",
+        "gradualBoostLabel": "Wybierz jeden atrybut do wzmocnienia:",
         "boost": "PRZYROST",
         "partial": "CZĘŚĆ"
       },
@@ -119,7 +120,7 @@
       },
       "sendGMWhispers": {
         "name": "Wysyłanie szeptów aktualizacji do MG",
-        "hint": "Po włączeniu tej opcji, szepty o wymaganych ręcznych aktualizacjach (takich jak zwiększenie wyniku umiejętności lub aktualizacja zaklęć) będą również wysyłane do MG oprócz gracza."
+        "hint": "Po włączeniu tej opcji, szepty o wymaganych ręcznych aktualizacjach (takich jak aktualizacje zaklęć) będą również wysyłane do MG oprócz gracza."
       }
     },
     "messages": {
