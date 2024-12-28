@@ -13,7 +13,7 @@ export const attachValidationHandlers = (
     );
 
     const featsValid = requiredFeats.every((featType) => {
-      const button = form.find(`#${featType}`); // Use the button's ID
+      const button = form.find(`#${featType}`);
       const featSelected = button.text().trim();
       return featSelected && featSelected !== 'Make a Selection';
     });

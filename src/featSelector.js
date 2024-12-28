@@ -95,7 +95,6 @@ export class FeatSelector extends foundry.applications.api.ApplicationV2 {
     this.updateFilteredFeats();
   }
 
-  // Handle rendering of HTML for the application
   async _renderHTML(context) {
     return renderTemplate(
       `modules/pf2e-level-up-wizard/templates/feat-selector.hbs`,
@@ -103,7 +102,6 @@ export class FeatSelector extends foundry.applications.api.ApplicationV2 {
     );
   }
 
-  // Handle HTML replacement during rendering
   _replaceHTML(element, html) {
     const div = document.createElement('div');
     div.innerHTML = element;
@@ -281,7 +279,7 @@ export class FeatSelector extends foundry.applications.api.ApplicationV2 {
 
       const associatedSkills = getAssociatedSkills(feat.system.prerequisites);
       const matchesSkills =
-        this.filters.skills.length === 0 || // No skill filter applied
+        this.filters.skills.length === 0 ||
         this.filters.skills.some((skill) => associatedSkills.includes(skill));
 
       const matchesArchetype =
@@ -340,7 +338,7 @@ export class FeatSelector extends foundry.applications.api.ApplicationV2 {
     const listContainer = this.element.querySelector('.feat-list');
     if (!listContainer) return;
 
-    listContainer.innerHTML = ''; // Clear the current list
+    listContainer.innerHTML = '';
 
     const templatePath = `modules/pf2e-level-up-wizard/templates/partials/feat-option.hbs`;
 

@@ -139,7 +139,6 @@ export const getFeaturesForLevel = async (
       allowedBoostsForSet = (allowedBoostsForSet || 0) + 1;
     }
   } else {
-    // Default to 4 if not using gradualBoosts
     allowedBoostsForSet = 4;
   }
 

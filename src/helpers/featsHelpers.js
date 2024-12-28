@@ -97,7 +97,6 @@ export const getFeatsForLevel = async (
     if (heritage) {
       searchQuery = [characterData?.ancestry?.name, heritage];
 
-      // Handle special cases for versatile heritages
       if (heritage === 'Aiuvarin') {
         searchQuery.push('Elf');
       } else if (heritage === 'Dromaar') {
