@@ -23,7 +23,8 @@ import {
   getClassJournal
 } from './helpers/foundryHelpers.js';
 
-export class PF2eLevelUpWizardConfig extends FormApplication {
+export class PF2eLevelUpWizardConfig extends foundry.applications.api
+  .ApplicationV2 {
   constructor(actorData, triggeredByManualLevelUp = false) {
     super();
     this.actorData = actorData;
@@ -31,98 +32,119 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
     this.featsData = {};
   }
 
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      height: 'auto',
-      width: 525,
-      resizable: true,
-      id: 'level-up-wizard',
-      template: './modules/pf2e-level-up-wizard/templates/level-up-wizard.hbs',
-      title: game.i18n.localize('PF2E_LEVEL_UP_WIZARD.menu.title'),
+  static DEFAULT_OPTIONS = {
+    id: 'level-up-wizard',
+    position: {
+      height: 800,
+      width: 600
+    },
+    window: {
+      resizable: true
+    },
+    tag: 'form',
+    form: {
+      handler: PF2eLevelUpWizardConfig.onSubmit,
       closeOnSubmit: false
-    });
+    }
+  };
+
+  static PARTS = {
+    levelUpWizard: {
+      template: './modules/pf2e-level-up-wizard/templates/level-up-wizard.hbs'
+    }
+  };
+
+  get title() {
+    return game.i18n.localize('PF2E_LEVEL_UP_WIZARD.menu.title');
   }
 
-  render(force = false, options = {}) {
-    super.render(force, options);
+  _onRender(context) {
+    const html = $(this.element);
 
-    Hooks.once('renderPF2eLevelUpWizardConfig', (_app, html, data) => {
-      const form = this.element.find('form');
-      const submitButton = this.element.find('button[type="submit"]');
-      const attributeButtons = form.find('.attribute-boosts-button');
+    const { actorName, targetLevel, allowedBoostsForSet, currentBoostSet } =
+      context;
 
-      const allowedBoostsForSet = data.allowedBoostsForSet;
-      const currentBoostSet = data.currentBoostSet;
-      const boostsForCurrentSet =
-        this.actorData.system.build.attributes.boosts[currentBoostSet];
-      const partialBoosts = detectPartialBoosts(
-        this.actorData,
-        boostsForCurrentSet
-      );
-      const selectedBoosts = new Set();
+    const requiredFeats = [];
+    const featButtons = {};
 
-      const actorName = this.actorData.name;
-      const currentLevel = this.actorData.system.details.level.value;
-      const targetLevel = this.triggeredByManualLevelUp
-        ? currentLevel
-        : currentLevel + 1;
-
-      const requiredFeats = [];
-      const featButtons = {};
-
-      html.find('.feat-selector-toggle').each((_, button) => {
-        const id = $(button).attr('id');
-        if (id) {
-          requiredFeats.push(id);
-          featButtons[id] = $(button);
-          $(button).on('click', () => {
-            new FeatSelector(data[id], id, actorName, targetLevel).render(true);
-          });
-        }
-      });
-
-      window.addEventListener('featSelected', (event) => {
-        const { featType, selectedFeat } = event.detail;
-        const button = featButtons[featType];
-        if (button) {
-          button.text(
-            game.i18n.format('PF2E_LEVEL_UP_WIZARD.menu.featButtonContent', {
-              name: selectedFeat.name,
-              level: selectedFeat.system.level.value
-            })
+    html.find('.feat-selector-toggle').each((_, button) => {
+      const id = $(button).attr('id');
+      if (id) {
+        requiredFeats.push(id);
+        featButtons[id] = $(button);
+        $(button).on('click', () => {
+          new FeatSelector(context[id], id, actorName, targetLevel).render(
+            true
           );
-        }
-        this.featsData[featType] = event.detail.selectedFeat.uuid;
-        validateForm();
-      });
-
-      const validateForm = attachValidationHandlers(
-        form,
-        submitButton,
-        attributeButtons,
-        selectedBoosts,
-        requiredFeats,
-        allowedBoostsForSet
-      );
-
-      attachAttributeBoostHandlers(
-        attributeButtons,
-        selectedBoosts,
-        validateForm,
-        partialBoosts,
-        allowedBoostsForSet,
-        boostsForCurrentSet
-      );
+        });
+      }
     });
+
+    window.addEventListener('featSelected', (event) => {
+      const { featType, selectedFeat } = event.detail;
+      const button = featButtons[featType];
+      if (button) {
+        button.text(
+          game.i18n.format('PF2E_LEVEL_UP_WIZARD.menu.featButtonContent', {
+            name: selectedFeat.name,
+            level: selectedFeat.system.level.value
+          })
+        );
+      }
+      this.featsData[featType] = event.detail.selectedFeat.uuid;
+      validateForm();
+    });
+
+    const submitButton = html.find('button[type="submit"]');
+    const attributeButtons = html.find('.attribute-boosts-button');
+    const selectedBoosts = new Set();
+
+    const validateForm = attachValidationHandlers(
+      html,
+      submitButton,
+      attributeButtons,
+      selectedBoosts,
+      requiredFeats,
+      allowedBoostsForSet
+    );
+
+    const boostsForCurrentSet =
+      this.actorData.system.build.attributes.boosts[currentBoostSet];
+    const partialBoosts = detectPartialBoosts(
+      this.actorData,
+      boostsForCurrentSet
+    );
+
+    attachAttributeBoostHandlers(
+      attributeButtons,
+      selectedBoosts,
+      validateForm,
+      partialBoosts,
+      allowedBoostsForSet,
+      boostsForCurrentSet
+    );
+  }
+
+  async _renderHTML(context) {
+    return renderTemplate(
+      './modules/pf2e-level-up-wizard/templates/level-up-wizard.hbs',
+      context
+    );
+  }
+
+  _replaceHTML(element, html) {
+    const div = document.createElement('div');
+    div.innerHTML = element;
+    html.replaceChildren(div);
   }
 
   close(options) {
-    const form = this.element.find('form');
+    const form = $(this.element).find('form');
     form.off('change', '[data-required="true"]');
     return super.close(options);
   }
 
-  async getData() {
+  async _prepareContext() {
     const actorName = this.actorData.name;
     const currentLevel = this.actorData.system.details.level.value;
     const targetLevel = this.triggeredByManualLevelUp
@@ -236,8 +258,8 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
     };
   }
 
-  async _updateObject(event, formData) {
-    const finalData = { ...formData, ...this.featsData };
+  static async onSubmit(event, form, formData) {
+    const finalData = { ...formData.object, ...this.featsData };
     const confirmed = await confirmChanges();
 
     if (!confirmed) return;
@@ -250,7 +272,7 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
     const playerId = game.user.id;
     const actorName = actor.name;
 
-    const data = await this.getData();
+    const data = await this._prepareContext();
 
     finalData.attributeBoostLevel = data.attributeBoostLevel;
     finalData.allowedBoostsForSet = data.allowedBoostsForSet;
@@ -341,7 +363,7 @@ export class PF2eLevelUpWizardConfig extends FormApplication {
       .join(', ');
 
     if (finalData.attributeBoostLevel) {
-      const attributeBoosts = this.element.find(
+      const attributeBoosts = $(this.element).find(
         '.attribute-boosts-button.selected'
       );
       finalData.attributeBoosts = Array.from(attributeBoosts).map((button) =>

@@ -16,8 +16,19 @@
 }
 
 #level-up-wizard .window-content {
-  overflow-x: visible;
-  overflow-y: visible;
+  overflow-y: auto;
+}
+
+#level-up-wizard .window-content h1 {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  text-shadow: none;
+}
+
+#level-up-wizard .window-content h3 {
+  margin-top: 1.5rem;
+  color: var(--color-text-primary);
+  text-shadow: none;
 }
 
 .level-up-icon-button:hover,
@@ -27,41 +38,40 @@
 }
 
 .skill-option-untrained {
-  color: var(--text-light);
-  background-color: var(--color-proficiency-untrained);
+  color: var(--text-light) !important;
+  background-color: var(--color-proficiency-untrained) !important;
 }
 
 .skill-option-trained {
-  color: var(--text-light);
-  background-color: var(--color-proficiency-trained);
+  color: var(--text-light) !important;
+  background-color: var(--color-proficiency-trained) !important;
 }
 
 .skill-option-expert {
-  color: var(--text-light);
-  background-color: var(--color-proficiency-expert);
+  color: var(--text-light) !important;
+  background-color: var(--color-proficiency-expert) !important;
 }
 
 .skill-option-master {
-  color: var(--text-light);
-  background-color: var(--color-proficiency-master);
+  color: var(--text-light) !important;
+  background-color: var(--color-proficiency-master) !important;
 }
 
 .skill-option-legendary {
-  color: var(--text-light);
-  background-color: var(--color-proficiency-legendary);
-}
-
-.header-container p:last-of-type {
-  padding-bottom: 8px;
+  color: var(--text-light) !important;
+  background-color: var(--color-proficiency-legendary) !important;
 }
 
 .selection-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 4px 0 1rem 0;
 
   > label {
+    flex: 2;
+  }
+
+  > div {
     flex: 2;
   }
 }
@@ -72,17 +82,8 @@
   justify-content: flex-end;
 }
 
-.form-select-feat {
-  flex: 2 !important;
-}
-
 .form-select-skill {
-  flex: 1 !important;
-}
-
-.fancy-font {
-  font-family: var(--serif);
-  font-weight: 600;
+  flex: 1;
 }
 
 .attribute-boosts {
@@ -101,26 +102,12 @@
 
 .attribute-boosts-label {
   font: 400 var(--font-size-24) var(--serif-condensed);
-  width: 100%;
   text-align: center;
 }
 
 .attribute-boosts-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--button-color);
-  border: 1px solid var(--button-color);
-  font-size: var(--font-size-12);
   height: 1.5em;
-  outline: none;
   width: 6em;
-  border-radius: 3px;
-}
-
-.attribute-boosts-button:hover,
-.attribute-boosts-button:focus {
-  box-shadow: 0 0 5px var(--button-color);
 }
 
 .attribute-boosts-button.selected {
@@ -156,14 +143,8 @@
 }
 
 .feat-selector-toggle {
-  height: calc(var(--form-field-height) + 1px);
-  width: 50%;
-  padding: 0 0 4px 0;
-  border: 1px solid #ccc;
-  cursor: pointer;
-  border-radius: 3px;
-  background: rgba(0, 0, 0, 0.05);
-  border: 1px solid var(--color-border-light-tertiary);
+  flex: 1;
+  text-wrap: nowrap;
 }
 
 .feat-selector-menu {
@@ -206,7 +187,6 @@
   height: 2em;
   width: 2em;
   border: unset;
-  background: unset;
   margin-left: 1em;
 }
 

@@ -39,7 +39,7 @@ export class FeatSelector extends foundry.applications.api.ApplicationV2 {
   };
 
   static PARTS = {
-    div: {
+    featSelector: {
       template: `modules/pf2e-level-up-wizard/templates/feat-selector.hbs`
     }
   };
