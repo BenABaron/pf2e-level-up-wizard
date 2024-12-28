@@ -35,7 +35,7 @@ export class PF2eLevelUpWizardConfig extends foundry.applications.api
   static DEFAULT_OPTIONS = {
     id: 'level-up-wizard',
     position: {
-      height: 800,
+      height: 'auto',
       width: 600
     },
     window: {

@@ -15,6 +15,10 @@
   font-size: 24px;
 }
 
+#level-up-wizard {
+  max-height: 800px;
+}
+
 #level-up-wizard .window-content {
   overflow-y: auto;
 }
