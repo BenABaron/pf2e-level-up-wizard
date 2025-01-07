@@ -145,7 +145,8 @@
       "levelUpStart": "Updating {actorName} to level {targetLevel}...",
       "levelUpComplete": "{actorName} level up complete!",
       "wizardStartup": "Starting up Level-Up Wizard...",
-      "missingClass": "Level-Up Wizard cannot start until a class is selected."
+      "missingClass": "Level-Up Wizard cannot start until a class is selected.",
+      "translatedDualClassError": "Level-Up Wizard cannot be used with translated dual classes"
     }
   }
 }

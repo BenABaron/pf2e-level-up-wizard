@@ -145,7 +145,8 @@
       "levelUpStart": "Aktualizacja {actorName} do poziomu {targetLevel}...",
       "levelUpComplete": "Aktualizacja poziomu {actorName} zakończona!",
       "wizardStartup": "Uruchamianie Level-Up Wizard...",
-      "missingClass": "Level-Up Wizard nie może zostać uruchomiony, dopóki nie zostanie wybrana klasa."
+      "missingClass": "Level-Up Wizard nie może zostać uruchomiony, dopóki nie zostanie wybrana klasa.",
+      "translatedDualClassError": "Level-Up nie może być używany z przetłumaczonymi klasami dualnymi"
     }
   }
 }

@@ -167,6 +167,11 @@ export class PF2eLevelUpWizardConfig extends foundry.applications.api
       .split('-')
       .map((cls) => cls.trim());
 
+    // use the original english class name for determining the feats, if the name was translated with babele
+    let originalClassName;
+    if(this.actorData.class?.flags?.babele?.translated) {
+        originalClassName = this.actorData.class.flags.babele.originalName;
+    }
     let primaryClass = classNames[0];
     let secondaryClass = classNames[1] || null;
 
@@ -174,7 +179,7 @@ export class PF2eLevelUpWizardConfig extends foundry.applications.api
       this.actorData,
       'class',
       targetLevel,
-      primaryClass
+      originalClassName || primaryClass
     );
     let dualClassFeats = [];
     if (secondaryClass) {

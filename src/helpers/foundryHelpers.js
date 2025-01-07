@@ -3,12 +3,27 @@ import { module_name } from '../main.js';
 import { capitalize } from './utility.js';
 
 export const renderWizard = (actor, manualLevelUp) => {
-  actor.class
-    ? new PF2eLevelUpWizardConfig(actor, manualLevelUp).render(true)
-    : ui.notifications.info(
-        game.i18n.localize('PF2E_LEVEL_UP_WIZARD.notifications.missingClass')
-      );
+  if(validateActor(actor)) {
+    new PF2eLevelUpWizardConfig(actor, manualLevelUp).render(true);
+  }
 };
+
+export const validateActor = (actor) => {
+  if(!actor.class) {
+    ui.notifications.info(
+      game.i18n.localize('PF2E_LEVEL_UP_WIZARD.notifications.missingClass')
+    );
+    return false;
+  }
+  // If the actor has a dual class translated with babele, there seems to be no way to properly filter the class feats
+  if (actor.class.flags.babele?.translated && actor.class.name.indexOf('-') > -1) {
+    ui.notifications.error(
+      game.i18n.localize('PF2E_LEVEL_UP_WIZARD.notifications.translatedDualClassError')
+    );
+    return false;
+  }
+  return true;
+}
 
 export const confirmChanges = async () => {
   return foundry.applications.api.DialogV2.confirm({
