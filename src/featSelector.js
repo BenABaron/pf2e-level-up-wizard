@@ -288,14 +288,15 @@ export class FeatSelector extends foundry.applications.api.ApplicationV2 {
       const matchesArchetype =
         includeArchetypeFeats ||
         !feat.system.traits.value.includes('archetype');
-      const matchesDedicationSearch =
+      
+      const dedicationTranslated= game.i18n.localize('PF2E.TraitDedication').toLowerCase();
+      const matchesDedicationSearch = 
         !this.filters.dedicationSearch ||
         feat.system.prerequisites?.value?.some((prereq) => {
           const prerequisiteValue = prereq.value.toLowerCase();
           return (
             prerequisiteValue.includes(this.filters.dedicationSearch) &&
-            // TODO: This could become ugly if more languages are coming. Should maybe just be removed? Or alternatively look for a way to get the translation for 'dedication' from the system...
-            (prerequisiteValue.includes('dedication') || prerequisiteValue.includes('zugang'))
+            (prerequisiteValue.includes('dedication') || prerequisiteValue.includes(dedicationTranslated))
           );
         });
 
