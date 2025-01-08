@@ -1,3 +1,4 @@
+import { capitalize } from './utility.js';
 export const skillProficiencyRanks = {
   0: 'Untrained',
   1: 'Trained',
@@ -42,10 +43,21 @@ export const SKILLS = [
   'thievery'
 ];
 
+
+
 export const getMaxSkillProficiency = (level) => {
   if (level >= 15) return 4; // Legendary
   if (level >= 7) return 3; // Master
   return 2; // Expert
+};
+
+const SKILL_TRANSLATIONS_MAP = {};
+
+export const getSkillTranslation= (skill) => {
+  if(!SKILL_TRANSLATIONS_MAP[skill]) {
+    SKILL_TRANSLATIONS_MAP[skill] = game.i18n.localize(`PF2E.Skill.${capitalize(skill)}`);
+  }
+  return  SKILL_TRANSLATIONS_MAP[skill];
 };
 
 export const getSkillsForLevel = (characterData, targetLevel) => {
@@ -69,6 +81,7 @@ export const getAssociatedSkills = (prerequisites) => {
     .flatMap((prereq) => {
       const matches = SKILLS.filter((skill) =>
         new RegExp(`\\b${skill}\\b`, 'i').test(prereq.value)
+        || new RegExp(`\\b${getSkillTranslation(skill)}\\b`, 'i').test(prereq.value)
       );
       return matches;
     })

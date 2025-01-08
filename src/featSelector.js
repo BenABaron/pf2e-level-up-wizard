@@ -1,5 +1,5 @@
 import { createFeatChatMessage } from './helpers/foundryHelpers.js';
-import { getAssociatedSkills, SKILLS } from './helpers/skillsHelpers.js';
+import { getAssociatedSkills, getSkillTranslation, SKILLS } from './helpers/skillsHelpers.js';
 import { capitalize } from './helpers/utility.js';
 
 export class FeatSelector extends foundry.applications.api.ApplicationV2 {
@@ -67,7 +67,7 @@ export class FeatSelector extends foundry.applications.api.ApplicationV2 {
     );
     const localizedSkills = SKILLS.map((skill) => ({
       key: skill,
-      label: game.i18n.localize(`PF2E.Skill.${capitalize(skill)}`)
+      label: getSkillTranslation(skill)
     }));
 
     this.filteredFeats.forEach((feat) => {
@@ -176,7 +176,7 @@ export class FeatSelector extends foundry.applications.api.ApplicationV2 {
     // Event: Select Skill
     skillFilter.on('change', 'input[type="checkbox"]', (e) => {
       const skill = e.target.value;
-
+      
       if (e.target.checked) {
         this.filters.skills.push(skill);
       } else {
