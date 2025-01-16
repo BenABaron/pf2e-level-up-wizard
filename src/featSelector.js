@@ -1,6 +1,5 @@
 import { createFeatChatMessage } from './helpers/foundryHelpers.js';
 import { getAssociatedSkills, getSkillTranslation, SKILLS } from './helpers/skillsHelpers.js';
-import { capitalize } from './helpers/utility.js';
 
 export class FeatSelector extends foundry.applications.api.ApplicationV2 {
   constructor(feats, featType, actorName, targetLevel, options) {
