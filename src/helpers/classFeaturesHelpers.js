@@ -98,7 +98,7 @@ const mapFeaturesWithDetails = async (features, characterClass) => {
       );
 
       return {
-        name: feature.name,
+        name: item.name,
         description: enrichedDescription,
         img: feature.img || item.img,
         uuid: feature.uuid
