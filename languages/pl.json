@@ -77,6 +77,7 @@
         "name": "Nazwa",
         "skills": "Filtruj według umiejętności",
         "archetypeFeats": "Atuty archetypu",
+        "hideSkillFeats": "Ukryj wyczyny umiejętności",
         "placeholder": {
           "nameSearch": "Szukaj według nazwy",
           "minLevel": "Poziom min.",

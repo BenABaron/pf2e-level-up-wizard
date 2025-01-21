@@ -24,7 +24,7 @@
       <input type="number" id="max-level" 
         placeholder="{{localize 'PF2E_LEVEL_UP_WIZARD.menu.filters.placeholder.maxLevel'}}">
       {{#if (or (eq featType 'classFeats') (eq featType 'dualClassFeats') (eq featType 'skillFeats'))}}
-        <div class="archetype-feats-container">
+        <div class="feat-selector-checkbox-container">
           <input type="checkbox" id="show-archetype-feats" name="show-archetype-feats" {{checked show-archetype-feats}}>
           <label for="show-archetype-feats">
             {{localize 'PF2E_LEVEL_UP_WIZARD.menu.filters.archetypeFeats'}}
@@ -33,7 +33,15 @@
       {{/if}}
       <input type="text" id="search-dedications" class="hidden" 
         placeholder="{{localize 'PF2E_LEVEL_UP_WIZARD.menu.filters.placeholder.dedicationSearch'}}">
-      {{#if (eq featType 'skillFeats')}}
+      {{#if (eq featType 'generalFeats')}}
+        <div class="feat-selector-checkbox-container">
+          <input type="checkbox" id="hide-skill-feats" name="hide-skill-feats" {{checked hide-skill-feats}}>
+          <label for="hide-skill-feats">
+            {{localize 'PF2E_LEVEL_UP_WIZARD.menu.filters.hideSkillFeats'}}
+          </label>
+        </div>
+      {{/if}}
+      {{#if (or (eq featType 'skillFeats') (eq featType 'generalFeats'))}}
         <div class="skill-filter-container">
           <label for="skill-filter" class="skill-filter-label">
             {{localize 'PF2E_LEVEL_UP_WIZARD.menu.filters.skills'}}
