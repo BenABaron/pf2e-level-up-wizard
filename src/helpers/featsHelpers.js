@@ -92,7 +92,7 @@ export const getFeatsForLevel = async (
   };
 
   let searchQuery = queryMap[type];
-  if (type === 'ancestry') {
+  if (type === 'ancestry' || type === 'ancestryParagon') {
     const heritage = characterData?.heritage?.name;
     if (heritage) {
       searchQuery = [characterData?.ancestry?.name, heritage];
