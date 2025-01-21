@@ -8,9 +8,57 @@ let cachedFeats = null;
 
 const getCachedFeats = async () => {
   if (!cachedFeats) {
-    const featsCompendium = game.packs.get('pf2e.feats-srd');
-    cachedFeats = await featsCompendium.getDocuments();
+    let allFeats = [];
+
+    const defaultCompendium = game.packs.get('pf2e.feats-srd');
+    if (defaultCompendium) {
+      const defaultFeats = await defaultCompendium.getDocuments();
+      allFeats = allFeats.concat(defaultFeats);
+    }
+
+    const additionalCompendiumsSetting = game.settings.get(
+      module_name,
+      'additional-feat-compendiums'
+    );
+
+    if (additionalCompendiumsSetting) {
+      const compendiumKeys = additionalCompendiumsSetting
+        .split(',')
+        .map((key) => key.trim());
+
+      for (const key of compendiumKeys) {
+        const compendium = game.packs.get(key);
+        if (compendium) {
+          try {
+            const feats = await compendium.getDocuments();
+            allFeats = allFeats.concat(feats);
+          } catch (err) {
+            ui.notifications.warn(
+              game.i18n.format(
+                'PF2E_LEVEL_UP_WIZARD.notifications.additionalCompendiums.failedToLoad',
+                {
+                  key
+                }
+              ),
+              err
+            );
+          }
+        } else {
+          ui.notifications.warn(
+            game.i18n.format(
+              'PF2E_LEVEL_UP_WIZARD.notifications.additionalCompendiums.compendiumNotFound',
+              {
+                key
+              }
+            )
+          );
+        }
+      }
+    }
+
+    cachedFeats = allFeats;
   }
+
   return cachedFeats;
 };
 

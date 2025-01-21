@@ -115,4 +115,17 @@ export const registerSettings = () => {
     type: Boolean,
     default: false
   });
+
+  game.settings.register(module_name, 'additional-feat-compendiums', {
+    name: game.i18n.localize(
+      'PF2E_LEVEL_UP_WIZARD.settings.additionalCompendiums.name'
+    ),
+    hint: game.i18n.localize(
+      'PF2E_LEVEL_UP_WIZARD.settings.additionalCompendiums.hint'
+    ),
+    scope: 'world',
+    config: true,
+    type: String,
+    requiresReload: true
+  });
 };

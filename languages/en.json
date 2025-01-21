@@ -122,6 +122,10 @@
       "sendGMWhispers": {
         "name": "Send Manual Update Whispers to GM",
         "hint": "When enabled, whispers about required manual updates (such as spell updates) will also be sent to the GM in addition to the player."
+      },
+      "additionalCompendiums": {
+        "name": "Additional Feat Sources",
+        "hint": "Specify a comma-separated list of compendium keys containing feats you would like included in the wizard. Example: 'pf2e-playtest-data.impossible-playtest-class-feats, my-custom-compendium.feats'. Ensure the compendiums are enabled and accessible."
       }
     },
     "messages": {
@@ -147,7 +151,12 @@
       "levelUpComplete": "{actorName} level up complete!",
       "wizardStartup": "Starting up Level-Up Wizard...",
       "missingClass": "Level-Up Wizard cannot start until a class is selected.",
-      "translatedDualClassError": "Level-Up Wizard cannot be used with translated dual classes"
+      "invalidBoostSelection": "Invalid boost selections.",
+      "translatedDualClassError": "Level-Up Wizard cannot be used with translated dual classes",
+      "additionalCompendiums": {
+        "failedToLoad": "Failed to load compendium {key}. Ensure it is a valid feats compendium.",
+        "compendiumNotFound": "Compendium {key} not found. Ensure it is correctly spelled and enabled in your game settings."
+      }
     }
   }
 }

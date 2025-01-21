@@ -170,8 +170,8 @@ export class PF2eLevelUpWizardConfig extends foundry.applications.api
 
     // use the original english class name for determining the feats, if the name was translated with babele
     let originalClassName;
-    if(this.actorData.class?.flags?.babele?.translated) {
-        originalClassName = this.actorData.class.flags.babele.originalName;
+    if (this.actorData.class?.flags?.babele?.translated) {
+      originalClassName = this.actorData.class.flags.babele.originalName;
     }
     let primaryClass = classNames[0];
     let secondaryClass = classNames[1] || null;
@@ -377,7 +377,11 @@ export class PF2eLevelUpWizardConfig extends foundry.applications.api
       );
 
       if (finalData.attributeBoosts.length !== finalData.allowedBoostsForSet) {
-        ui.notifications.error(game.i18n.localize('invalid boost selection'));
+        ui.notifications.error(
+          game.i18n.localize(
+            'PF2E_LEVEL_UP_WIZARD.notifications.invalidBoostSelection'
+          )
+        );
         return;
       }
 

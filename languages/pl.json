@@ -122,6 +122,10 @@
       "sendGMWhispers": {
         "name": "Wysyłanie szeptów aktualizacji do MG",
         "hint": "Po włączeniu tej opcji, szepty o wymaganych ręcznych aktualizacjach (takich jak aktualizacje zaklęć) będą również wysyłane do MG oprócz gracza."
+      },
+      "additionalCompendiums": {
+        "name": "Dodatkowe źródła cech",
+        "hint": "Podaj rozdzieloną przecinkami listę kluczy kompendium zawierających wyczyny, które chcesz uwzględnić w kreatorze. Przykład: 'pf2e-playtest-data.impossible-playtest-class-feats, my-custom-compendium.feats'. Upewnij się, że kompendia są włączone i dostępne."
       }
     },
     "messages": {
@@ -147,7 +151,12 @@
       "levelUpComplete": "Aktualizacja poziomu {actorName} zakończona!",
       "wizardStartup": "Uruchamianie Level-Up Wizard...",
       "missingClass": "Level-Up Wizard nie może zostać uruchomiony, dopóki nie zostanie wybrana klasa.",
-      "translatedDualClassError": "Level-Up nie może być używany z przetłumaczonymi klasami dualnymi"
+      "invalidBoostSelection": "Nieprawidłowe wybory wzmocnienia.",
+      "translatedDualClassError": "Level-Up nie może być używany z przetłumaczonymi klasami dualnymi",
+      "additionalCompendiums": {
+        "failedToLoad": "Nie udało się załadować kompendium {key}. Upewnij się, że jest to prawidłowe kompendium wyczynów.",
+        "compendiumNotFound": "Compendium {key} nie znaleziono. Upewnij się, że jest poprawnie wpisany i włączony w ustawieniach gry."
+      }
     }
   }
 }
