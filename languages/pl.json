@@ -77,7 +77,7 @@
         "name": "Nazwa",
         "skills": "Filtruj według umiejętności",
         "archetypeFeats": "Atuty archetypu",
-        "hideSkillFeats": "Ukryj wyczyny umiejętności",
+        "hideSkillFeats": "Ukryj atuty umiejętności",
         "placeholder": {
           "nameSearch": "Szukaj według nazwy",
           "minLevel": "Poziom min.",
@@ -124,8 +124,8 @@
         "hint": "Po włączeniu tej opcji, szepty o wymaganych ręcznych aktualizacjach (takich jak aktualizacje zaklęć) będą również wysyłane do MG oprócz gracza."
       },
       "additionalCompendiums": {
-        "name": "Dodatkowe źródła cech",
-        "hint": "Podaj rozdzieloną przecinkami listę kluczy kompendium zawierających wyczyny, które chcesz uwzględnić w kreatorze. Przykład: 'pf2e-playtest-data.impossible-playtest-class-feats, my-custom-compendium.feats'. Upewnij się, że kompendia są włączone i dostępne."
+        "name": "Dodatkowe źródła atutów",
+        "hint": "Określ rozdzielaną przecinkami listę kluczy kompendium zawierających atuty, które mają zostać uwzględnione w kreatorze. Przykład: „pf2e-playtest-data.impossible-playtest-class-feats, my-custom-compendium.feats”. Upewnij się, że kompendia są włączone i dostępne."
       }
     },
     "messages": {
@@ -151,11 +151,11 @@
       "levelUpComplete": "Aktualizacja poziomu {actorName} zakończona!",
       "wizardStartup": "Uruchamianie Level-Up Wizard...",
       "missingClass": "Level-Up Wizard nie może zostać uruchomiony, dopóki nie zostanie wybrana klasa.",
-      "invalidBoostSelection": "Nieprawidłowe wybory wzmocnienia.",
-      "translatedDualClassError": "Level-Up nie może być używany z przetłumaczonymi klasami dualnymi",
+      "invalidBoostSelection": "Nieprawidłowy wybór doładowania.",
+      "translatedDualClassError": "Level-Up Wizard nie może być używany z przetłumaczonymi podwójnymi klasami",
       "additionalCompendiums": {
-        "failedToLoad": "Nie udało się załadować kompendium {key}. Upewnij się, że jest to prawidłowe kompendium wyczynów.",
-        "compendiumNotFound": "Compendium {key} nie znaleziono. Upewnij się, że jest poprawnie wpisany i włączony w ustawieniach gry."
+        "failedToLoad": "Nie udało się załadować kompendium {key}. Upewnij się, że jest to prawidłowe kompendium atutów.",
+        "compendiumNotFound": "Nie znaleziono kompendium {key}. Upewnij się, że jest poprawnie napisany i włączony w ustawieniach gry."
       }
     }
   }
