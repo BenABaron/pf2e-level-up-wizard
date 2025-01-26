@@ -4,8 +4,18 @@ import { renderWizard } from './helpers/foundryHelpers.js';
 export const renderLevelUpButton = (sheet, html) => {
   const title = game.i18n.localize('PF2E_LEVEL_UP_WIZARD.button-tooltip');
 
+  let shouldRenderWizardButton = true;
+
+  if (game.settings.get('pf2e-level-up-wizard', 'xp-enforcement')) {
+    const currentXP = sheet.actor.system.details.xp.value;
+    const XPToLevel = sheet.actor.system.details.xp.max;
+    shouldRenderWizardButton = currentXP >= XPToLevel;
+  }
+
   html.find('.level-up-icon-button').remove();
   html.find('.level-up-wizard').remove();
+
+  if (!shouldRenderWizardButton) return;
 
   if (
     // prettier-ignore

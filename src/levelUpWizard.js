@@ -392,6 +392,14 @@ export class PF2eLevelUpWizardConfig extends foundry.applications.api
       await actor.update(updateData);
     }
 
+    if (game.settings.get('pf2e-level-up-wizard', 'xp-enforcement')) {
+      const currentXP = actor.system.details.xp.value;
+      const XPToLevel = actor.system.details.xp.max;
+      const XPAfterLevel = currentXP - XPToLevel;
+
+      await actor.update({ 'system.details.xp.value': XPAfterLevel });
+    }
+
     createGlobalLevelMessage(
       actorName,
       targetLevel,

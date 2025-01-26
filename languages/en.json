@@ -129,7 +129,11 @@
       },
       "hideUncommonFeats": {
         "name": "Hide Rare and Uncommon Feats",
-        "hint": "When enabled, Uncommon and Rare Feats will be hidden in Feat Selection windows."
+        "hint": "When enabled, Uncommon and Rare Feats will be hidden in Feat Selection window."
+      },
+      "xpEnforcement": {
+        "name": "Enforce XP Requirements",
+        "hint": "When enabled, the Level-Up button will only appear if the character has enough XP to level up. After leveling up, the required XP will be deducted from the character's total, and any remaining XP will be carried over."
       }
     },
     "messages": {

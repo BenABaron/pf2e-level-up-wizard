@@ -129,6 +129,19 @@ export const registerSettings = () => {
     default: false
   });
 
+  game.settings.register(module_name, 'xp-enforcement', {
+    name: game.i18n.localize(
+      'PF2E_LEVEL_UP_WIZARD.settings.xpEnforcement.name'
+    ),
+    hint: game.i18n.localize(
+      'PF2E_LEVEL_UP_WIZARD.settings.xpEnforcement.hint'
+    ),
+    scope: 'world',
+    config: true,
+    type: Boolean,
+    default: false
+  });
+
   game.settings.register(module_name, 'additional-feat-compendiums', {
     name: game.i18n.localize(
       'PF2E_LEVEL_UP_WIZARD.settings.additionalCompendiums.name'

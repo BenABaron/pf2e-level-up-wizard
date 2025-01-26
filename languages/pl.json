@@ -130,6 +130,10 @@
       "hideUncommonFeats": {
         "name": "Ukryj rzadkie i niezwykłe atuty",
         "hint": "Po włączeniu tej opcji niezwykłe i rzadkie atuty będą ukryte w oknach wyboru wyczynów."
+      },
+      "xpEnforcement": {
+        "name": "Egzekwuj wymagania XP",
+        "hint": "Po włączeniu przycisk Level-Up pojawi się tylko wtedy, gdy postać ma wystarczająco dużo XP, aby awansować. Po awansie wymagane XP zostanie odjęte od całkowitej liczby XP postaci, a wszelkie pozostałe XP zostaną przeniesione."
       }
     },
     "messages": {
