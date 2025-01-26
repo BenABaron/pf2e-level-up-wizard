@@ -126,6 +126,10 @@
       "additionalCompendiums": {
         "name": "Dodatkowe źródła atutów",
         "hint": "Określ rozdzielaną przecinkami listę kluczy kompendium zawierających atuty, które mają zostać uwzględnione w kreatorze. Przykład: „pf2e-playtest-data.impossible-playtest-class-feats, my-custom-compendium.feats”. Upewnij się, że kompendia są włączone i dostępne."
+      },
+      "hideUncommonFeats": {
+        "name": "Ukryj rzadkie i niezwykłe atuty",
+        "hint": "Po włączeniu tej opcji niezwykłe i rzadkie atuty będą ukryte w oknach wyboru wyczynów."
       }
     },
     "messages": {

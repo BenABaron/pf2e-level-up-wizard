@@ -296,6 +296,11 @@ export class FeatSelector extends foundry.applications.api.ApplicationV2 {
     const hideSkillFeats =
       this.featType === 'generalFeats' && this.filters.hideSkillFeats;
 
+    const hideUncommonFeats = game.settings.get(
+      'pf2e-level-up-wizard',
+      'hide-uncommon-feats'
+    );
+
     this.filteredFeats = this.allFeats.filter((feat) => {
       const matchesMinLevel =
         this.filters.minLevel === null ||
@@ -335,6 +340,9 @@ export class FeatSelector extends foundry.applications.api.ApplicationV2 {
           );
         });
 
+      const matchesHideUncommonFeats =
+        !hideUncommonFeats || feat.system.traits.rarity === 'common';
+
       return (
         matchesMinLevel &&
         matchesMaxLevel &&
@@ -342,7 +350,8 @@ export class FeatSelector extends foundry.applications.api.ApplicationV2 {
         matchesHideSkillFeats &&
         matchesSkills &&
         matchesArchetype &&
-        matchesDedicationSearch
+        matchesDedicationSearch &&
+        matchesHideUncommonFeats
       );
     });
 

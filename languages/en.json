@@ -117,7 +117,7 @@
       },
       "disableLevelInput": {
         "name": "Disable Level Input",
-        "hint": "If enabled, the default level input on the character sheet will be disabled to encourage the use of the Level-Up Wizard for leveling up. This setting has no effect if the 'Enable Level-Up Button' setting is disabled."
+        "hint": "When enabled, the default level input on the character sheet will be disabled to encourage the use of the Level-Up Wizard for leveling up. This setting has no effect if the 'Enable Level-Up Button' setting is disabled."
       },
       "sendGMWhispers": {
         "name": "Send Manual Update Whispers to GM",
@@ -126,6 +126,10 @@
       "additionalCompendiums": {
         "name": "Additional Feat Sources",
         "hint": "Specify a comma-separated list of compendium keys containing feats you would like included in the wizard. Example: 'pf2e-playtest-data.impossible-playtest-class-feats, my-custom-compendium.feats'. Ensure the compendiums are enabled and accessible."
+      },
+      "hideUncommonFeats": {
+        "name": "Hide Rare and Uncommon Feats",
+        "hint": "When enabled, Uncommon and Rare Feats will be hidden in Feat Selection windows."
       }
     },
     "messages": {
