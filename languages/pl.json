@@ -117,7 +117,7 @@
       },
       "disableLevelInput": {
         "name": "Wyłączenie ręcznej edycji poziomu",
-        "hint": "Jeśli ta opcja jest włączona, domyślne wprowadzanie poziomu na karcie postaci zostanie wyłączone, aby zachęcić do korzystania z kreatora awansu na wyższy poziom. To ustawienie nie ma wpływu, jeśli opcja „Włącz przycisk podnoszenia poziomu” jest wyłączona."
+        "hint": "Po włączeniu tej opcji, domyślne wprowadzanie poziomu na karcie postaci zostanie wyłączone, aby zachęcić do korzystania z kreatora Level-Up. To ustawienie nie ma wpływu, jeśli opcja „Włącz przycisk podnoszenia poziomu” jest wyłączona."
       },
       "sendGMWhispers": {
         "name": "Wysyłanie szeptów aktualizacji do MG",
@@ -128,12 +128,12 @@
         "hint": "Określ rozdzielaną przecinkami listę kluczy kompendium zawierających atuty, które mają zostać uwzględnione w kreatorze. Przykład: „pf2e-playtest-data.impossible-playtest-class-feats, my-custom-compendium.feats”. Upewnij się, że kompendia są włączone i dostępne."
       },
       "hideUncommonFeats": {
-        "name": "Ukryj rzadkie i niezwykłe atuty",
-        "hint": "Po włączeniu tej opcji niezwykłe i rzadkie atuty będą ukryte w oknach wyboru wyczynów."
+        "name": "Ukryj rzadkie i niepospolite atuty",
+        "hint": "Po włączeniu tej opcji atuty niepospolite i rzadkie będą ukryte w oknie wyboru atutów."
       },
       "xpEnforcement": {
-        "name": "Egzekwuj wymagania XP",
-        "hint": "Po włączeniu przycisk Level-Up pojawi się tylko wtedy, gdy postać ma wystarczająco dużo XP, aby awansować. Po awansie wymagane XP zostanie odjęte od całkowitej liczby XP postaci, a wszelkie pozostałe XP zostaną przeniesione."
+        "name": "Wymuszenie wymagań PD",
+        "hint": "Po włączeniu przycisk awansowania na wyższy poziom pojawi się tylko wtedy, gdy postać ma wystarczającą liczbę PD, aby awansować na wyższy poziom. Po podniesieniu poziomu wymagane PD zostaną odjęte od sumy PD postaci, a wszelkie pozostałe PD zostaną przeniesione."
       }
     },
     "messages": {
