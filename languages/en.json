@@ -25,6 +25,14 @@
         "header": "Free Archetype Feats",
         "label": "New Free Archetype Feat Available:"
       },
+      "mythicFeats": {
+        "header": "Mythic Feats",
+        "label": "New Mythic Feat Available:"
+      },
+      "mythicDestiny": {
+        "header": "Mythic Destiny",
+        "label": "New Mythic Destiny Available:"
+      },
       "ancestryFeats": {
         "header": "Ancestry Feats",
         "label": "New Ancestry Feat Available:"

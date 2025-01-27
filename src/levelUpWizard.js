@@ -153,6 +153,8 @@ export class PF2eLevelUpWizardConfig extends foundry.applications.api
       : currentLevel + 1;
 
     const freeArchetype = game.settings.get('pf2e', 'freeArchetypeVariant');
+    const mythicVariantEnabled =
+      game.settings.get('pf2e', 'mythic') === 'enabled';
     const ancestryParagon =
       game.modules.get('xdy-pf2e-workbench')?.active &&
       game.settings.get(
@@ -191,6 +193,9 @@ export class PF2eLevelUpWizardConfig extends foundry.applications.api
         secondaryClass
       );
     }
+    const mythicFeats =
+      mythicVariantEnabled &&
+      (await getFeatsForLevel(this.actorData, 'mythic', targetLevel));
     const ancestryFeats = await getFeatsForLevel(
       this.actorData,
       'ancestry',
@@ -242,6 +247,7 @@ export class PF2eLevelUpWizardConfig extends foundry.applications.api
       classFeats,
       secondaryClass,
       dualClassFeats,
+      mythicFeats,
       freeArchetypeFeats,
       ancestryFeats,
       ancestryParagonFeats,
@@ -306,7 +312,8 @@ export class PF2eLevelUpWizardConfig extends foundry.applications.api
       skillFeats: finalData.skillFeats,
       generalFeats: finalData.generalFeats,
       freeArchetypeFeats: finalData.freeArchetypeFeats,
-      ancestryParagonFeats: finalData.ancestryParagonFeats
+      ancestryParagonFeats: finalData.ancestryParagonFeats,
+      mythicFeats: finalData.mythicFeats
     });
 
     const validFeatEntries = featEntries.filter(([, uuid]) => uuid);
@@ -327,7 +334,8 @@ export class PF2eLevelUpWizardConfig extends foundry.applications.api
       skillFeats: 'skill',
       generalFeats: 'general',
       freeArchetypeFeats: 'archetype',
-      ancestryParagonFeats: 'xdy_ancestryparagon'
+      ancestryParagonFeats: 'xdy_ancestryparagon',
+      mythicFeats: 'mythic'
     };
 
     const itemsToCreate = featsToAdd.map(({ feat, type }) => ({

@@ -1,7 +1,7 @@
 import { module_name } from '../main.js';
 import { normalizeString } from './utility.js';
 
-const freeArchetypeFeatLevels = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20];
+const freeArchetypeAndMythicFeatLevels = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20];
 const ancestryParagonFeatLevels = [1, 3, 7, 11, 15, 19];
 
 let cachedFeats = null;
@@ -95,11 +95,15 @@ const filterFeats = async (searchQueries, targetLevel, existingFeats) => {
       normalizedQueries.includes('archetype') &&
       Object.values(manualArchetypeFeats).flat().includes(feat.slug);
 
+    const isDestinyTraitExcluded =
+      targetLevel > 12 && traits.includes('destiny');
+
     return (
       (normalizedQueries.some((query) => traits.includes(query)) ||
         isManualArchetypeFeat) &&
       feat.system.level.value <= targetLevel &&
-      !(isTaken && maxTakable === 1)
+      !(isTaken && maxTakable === 1) &&
+      !isDestinyTraitExcluded
     );
   });
 };
@@ -140,7 +144,8 @@ export const getFeatsForLevel = async (
 
   switch (type) {
     case 'archetype':
-      levelsArray = freeArchetypeFeatLevels;
+    case 'mythic':
+      levelsArray = freeArchetypeAndMythicFeatLevels;
       break;
     case 'ancestryParagon':
       levelsArray = ancestryParagonFeatLevels;
@@ -158,7 +163,8 @@ export const getFeatsForLevel = async (
     ancestryParagon: characterData?.ancestry?.name,
     general: 'general',
     skill: 'skill',
-    archetype: 'archetype'
+    archetype: 'archetype',
+    mythic: targetLevel !== 12 ? 'mythic' : 'destiny'
   };
 
   let searchQuery = queryMap[type];

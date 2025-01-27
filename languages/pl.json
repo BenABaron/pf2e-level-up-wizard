@@ -25,6 +25,14 @@
         "header": "Darmowe atuty archetypu",
         "label": "Dostępny jest nowy darmowy atut archetypu:"
       },
+      "mythicFeats": {
+        "header": "Atuty mityczne",
+        "label": "Dostępny jest nowy atut mityczne:"
+      },
+      "mythicDestiny": {
+        "header": "Mityczne przeznaczenie",
+        "label": "Dostępne jest nowe przeznaczenie mityczne:"
+      },
       "ancestryFeats": {
         "header": "Atuty pochodzenia",
         "label": "Dostępny jest nowy atut pochodzenia:"
