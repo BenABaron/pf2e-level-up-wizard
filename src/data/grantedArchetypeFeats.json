@@ -1,0 +1,294 @@
+{
+  "avenger": [
+    "twin-takedown",
+    "twin-parry",
+    "twin-riposte",
+    "second-sting",
+    "improved-twin-riposte"
+  ],
+  "battleHarbinger": [
+    "vicious-swing",
+    "intimidating-strike",
+    "bespell-strikes"
+  ],
+  "bloodrager": ["split-shot", "bespell-strikes", "energy-ward"],
+  "elementalist": [
+    "familiar",
+    "current-spell",
+    "enhanced-familier",
+    "water-step"
+  ],
+  "runelord": ["tattoo-artist"],
+  "seneschal": ["martyr", "premonition-of-clarity", "inviolable"],
+  "spellshot": [
+    "basic-arcana",
+    "basic-wizard-spellcasting",
+    "advanced-arcana",
+    "arcane-breadth",
+    "expert-wizard-spellcasting"
+  ],
+  "vindicator": [
+    "domain-initiate",
+    "instructive-strike",
+    "ongoing-investigation",
+    "thorough-research",
+    "advanced-domain"
+  ],
+  "warriorOfLegend": ["clear-the-way", "unbalanced-sweep"],
+  "wellspringMage": [
+    "energetic-resonance",
+    "spell-relay",
+    "surging-might",
+    "scintillating-spell",
+    "echoing-spell"
+  ],
+  "ghoul": ["guarded-movement", "reactive-pursuit", "wall-run"],
+  "lich": ["magic-sense"],
+  "zombie": ["bashing-charge", "combat-grab", "crushing-grab", "corpse-stench"],
+  "alkenstarAgent": [
+    "plant-evidence",
+    "quick-draw",
+    "reactive-pursuit",
+    "running-reload",
+    "snap-shot",
+    "instant-opening"
+  ],
+  "archaeologist": ["trap-finder", "delay-trap"],
+  "archer": [
+    "assisting-shot",
+    "crossbow-ace",
+    "point-blank-shot",
+    "double-shot",
+    "parting-shot",
+    "running-reload",
+    "triple-shot",
+    "mobile-shot-stance",
+    "multishot-stance",
+    "impossible-volley"
+  ],
+  "assassin": [
+    "poison-resistance",
+    "poison-weapon",
+    "sneak-attacker",
+    "improved-poison-weapon"
+  ],
+  "bastion": [
+    "shielded-stride",
+    "reflexive-shield",
+    "shield-warden",
+    "quick-shield-block",
+    "mirror-shield"
+  ],
+  "beastGunner": ["call-gun"],
+  "beastMaster": [
+    "animal-empathy-ranger",
+    "initiate-warden",
+    "advanced-warden",
+    "companions-cry",
+    "side-by-side"
+  ],
+  "blessedOne": [
+    "mercy",
+    "greater-mercy",
+    "affliction-mercy",
+    "rejuvenating-touch",
+    "ultimate-mercy"
+  ],
+  "bountyHunter": ["monster-hunter", "double-prey"],
+  "bulletDancer": [
+    "pistol-twirl",
+    "qi-spells",
+    "black-powder-boost",
+    "snap-shot",
+    "trick-shot",
+    "ricochet-shot",
+    "showstopper",
+    "two-weapon-fusillade"
+  ],
+  "butterflyBlade": [
+    "clever-gambit",
+    "combat-assessment",
+    "quick-draw",
+    "dread-striker"
+  ],
+  "drowShootist": ["poison-weapon", "running-reload", "skirmish-strike"],
+  "dualWeaponWarrior": [
+    "quick-draw",
+    "dual-weapon-reload",
+    "twin-parry",
+    "twin-riposte",
+    "improved-twin-riposte",
+    "two-weapon-flurry",
+    "twinned-defense"
+  ],
+  "duelist": [
+    "dueling-parry",
+    "disarming-stance",
+    "dueling-riposte",
+    "disarming-twist",
+    "dueling-dance",
+    "improved-dueling-riposte",
+    "guiding-riposte"
+  ],
+  "eldritchArcher": ["running-reload", "impossible-volley-eldritch-archer"],
+  "exorcist": ["spiritual-sense", "blind-fight", "sense-the-unseen"],
+  "familiarMaster": ["enhanced-familiar"],
+  "gameHunter": ["hunters-aim", "running-reload", "double-prey"],
+  "horizonWalker": ["blind-fight", "terrain-master", "wardens-step"],
+  "loremaster": [
+    "loremasters-etude",
+    "assured-knowledge",
+    "enigmas-knowledge",
+    "true-hypercognition"
+  ],
+  "mammothLord": [
+    "animal-empathy-ranger",
+    "quick-mount",
+    "companions-cry",
+    "trampling-charge",
+    "legendary-rider"
+  ],
+  "marshal": ["reactive-strike"],
+  "martialArtist": [
+    "brawling-focus",
+    "crane-stance",
+    "dragon-stance",
+    "gorilla-stance",
+    "mountain-stance",
+    "stumbling-stance",
+    "rushing-goat-stance",
+    "tiger-stance",
+    "twisting-petal-stance",
+    "wolf-stance",
+    "advanced-monastic-weaponry",
+    "crane-flutter",
+    "dragon-roar",
+    "gorilla-pound",
+    "momentous-charge",
+    "mountain-stronghold",
+    "stumbling-feint",
+    "tiger-slash",
+    "wolf-drag",
+    "scattering-in-spring",
+    "five-gods-ram",
+    "whirling-in-the-summer-storm",
+    "mountain-quake"
+  ],
+  "mauler": [
+    "slam-down",
+    "vicious-swing",
+    "crashing-slam",
+    "brutal-finish",
+    "unbalancing-sweep"
+  ],
+  "mortalHerald": [
+    "premonition-of-clarity",
+    "eternal-bane",
+    "eternal-blessing",
+    "resurrectionist",
+    "divine-apex",
+    "shared-clarity"
+  ],
+  "pirate": ["antagonize", "youre-next"],
+  "poisoner": [
+    "blowgun-poisoner",
+    "poison-resistance",
+    "poison-weapon",
+    "tenacious-toxins",
+    "sticky-poison",
+    "improved-poison-weapon",
+    "pinpoint-poisoner"
+  ],
+  "reanimator": [
+    "undying-conviction",
+    "necromancers-visage",
+    "sepulchral-sublimation"
+  ],
+  "redMantisAssassin": [
+    "twin-feint",
+    "quick-draw",
+    "underhanded-assault",
+    "poison-weapon",
+    "twin-distraction",
+    "gang-up",
+    "advanced-spell-school",
+    "improved-poison-weapon",
+    "opportune-backstab"
+  ],
+  "rivethunEmissary": ["enhanced-familiar", "incredible-familiar"],
+  "rivethunInvoker": [
+    "barreling-charge",
+    "slam-down",
+    "crashing-slam",
+    "overpowering-charge"
+  ],
+  "rivethunInvolutionish": ["mature-animal-companion", "incredible-companion"],
+  "scout": ["camouflage"],
+  "shadowcaster": [
+    "familiar",
+    "enhanced-familiar",
+    "shadow-magic",
+    "additional-shadow-magic",
+    "shadow-illusion",
+    "shadow-power"
+  ],
+  "shadowdancer": [
+    "uncanny-dodge",
+    "spring-from-the-shadows",
+    "sense-the-unseen",
+    "cognitive-loophole"
+  ],
+  "snipingDuo": [
+    "assisting-shot",
+    "cover-fire",
+    "deflecting-shot",
+    "redirecting-shot"
+  ],
+  "soulWarden": [
+    "domain-initiate",
+    "expanded-domain-initiate",
+    "advanced-domain"
+  ],
+  "thlipitContestant": ["lunge", "slam-down", "crashing-slam"],
+  "timeMage": [
+    "read-disaster",
+    "quickened-casting",
+    "plot-the-future",
+    "echoing-spell"
+  ],
+  "undeadMaster": [
+    "additional-companion",
+    "mature-beastmaster-companion",
+    "companions-cry",
+    "incredible-beastmaster-companion",
+    "specialized-beastmaster-companion",
+    "lead-the-pack"
+  ],
+  "verduranShadow": [
+    "fleeting-shadow",
+    "sneak-attacker",
+    "scouts-pounce",
+    "camouflage",
+    "sneak-adept"
+  ],
+  "vigilante": ["quick-draw"],
+  "viking": ["reactive-shield", "shielded-strike", "quick-shield-block"],
+  "wildMimic": [
+    "animal-empathy",
+    "crane-stance",
+    "gorilla-stance",
+    "tiger-stance",
+    "wolf-stance",
+    "crane-flutter",
+    "gorilla-pound",
+    "tiger-slash",
+    "wolf-drag"
+  ],
+  "wrestler": [
+    "combat-grab",
+    "crushing-grab",
+    "snagging-strike",
+    "whirling-throw",
+    "godbreaker"
+  ]
+}

@@ -62,8 +62,20 @@ const getCachedFeats = async () => {
   return cachedFeats;
 };
 
+const loadManualArchetypeFeats = async () => {
+  const jsonPath =
+    'modules/pf2e-level-up-wizard/src/data/grantedArchetypeFeats.json';
+  try {
+    return await foundry.utils.fetchJsonWithTimeout(jsonPath);
+  } catch (error) {
+    console.error(`Failed to load manual archetype feats: ${error}`);
+    return {};
+  }
+};
+
 const filterFeats = async (searchQueries, targetLevel, existingFeats) => {
   const feats = await getCachedFeats();
+  const manualArchetypeFeats = await loadManualArchetypeFeats();
 
   const normalizedQueries = Array.isArray(searchQueries)
     ? searchQueries.map(normalizeString)
@@ -74,8 +86,13 @@ const filterFeats = async (searchQueries, targetLevel, existingFeats) => {
     const isTaken = existingFeats.includes(feat.name.toLowerCase());
     const maxTakable = feat.system.maxTakable;
 
+    const isManualArchetypeFeat =
+      normalizedQueries.includes('archetype') &&
+      Object.values(manualArchetypeFeats).flat().includes(feat.slug);
+
     return (
-      normalizedQueries.some((query) => traits.includes(query)) &&
+      (normalizedQueries.some((query) => traits.includes(query)) ||
+        isManualArchetypeFeat) &&
       feat.system.level.value <= targetLevel &&
       !(isTaken && maxTakable === 1)
     );
