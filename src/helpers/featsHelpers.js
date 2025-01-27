@@ -30,7 +30,12 @@ const getCachedFeats = async () => {
         const compendium = game.packs.get(key);
         if (compendium) {
           try {
-            const feats = await compendium.getDocuments();
+            const collection = await compendium.getDocuments();
+
+            const feats = collection.filter(
+              (item) =>
+                item.type === 'feat' && item.system.category !== 'classfeature'
+            );
             allFeats = allFeats.concat(feats);
           } catch (err) {
             ui.notifications.warn(
@@ -182,7 +187,18 @@ export const getFeatsForLevel = async (
       ? await filterFeats('archetype', targetLevel, existingFeats)
       : [];
 
-  const allFeats = [...feats, ...archetypeFeats];
+  archetypeFeats.forEach((feat) => {
+    feat.isArchetypeFeat = true;
+    if (feats.some((classFeat) => feat.slug === classFeat.slug)) {
+      feat.isArchetypeFeat = false;
+    }
+  });
+
+  const uniqueArchetypeFeats = archetypeFeats?.filter(
+    (archetypeFeat) => !feats.some((feat) => feat.slug === archetypeFeat.slug)
+  );
+
+  const allFeats = [...feats, ...uniqueArchetypeFeats];
 
   const sortMethod = game.settings.get(module_name, 'feat-sort-method');
 

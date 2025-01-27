@@ -322,9 +322,10 @@ export class FeatSelector extends foundry.applications.api.ApplicationV2 {
         this.filters.skills.length === 0 ||
         this.filters.skills.some((skill) => associatedSkills.includes(skill));
 
-      const matchesArchetype =
-        includeArchetypeFeats ||
-        !feat.system.traits.value.includes('archetype');
+      const isArchetypeFeat =
+        feat.system.traits.value.includes('archetype') || feat.isArchetypeFeat;
+
+      const matchesArchetype = includeArchetypeFeats || !isArchetypeFeat;
 
       const dedicationTranslated = game.i18n
         .localize('PF2E.TraitDedication')
