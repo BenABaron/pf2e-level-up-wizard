@@ -115,7 +115,7 @@ export const getSkillPotencyForLevel = (
 
   allSkills.forEach((skill) => {
     const potencyModifier = skill.modifiers.find(
-      (mod) => mod.slug === 'potency'
+      (mod) => mod.type === 'potency'
     );
     if (potencyModifier) {
       skillsWithPotency.push(skill);
@@ -165,4 +165,30 @@ export const getSkillPotencyForLevel = (
     potencyUpgradeTo3Options,
     currentPotencyLevels
   };
+};
+
+export const buildPotencyModifier = (modifier) => {
+  return [
+    {
+      slug: 'potency',
+      label: 'Potency',
+      domains: [],
+      modifier: modifier,
+      type: 'potency',
+      ability: null,
+      adjustments: [],
+      force: false,
+      enabled: true,
+      ignored: false,
+      source: null,
+      custom: true,
+      damageType: null,
+      damageCategory: null,
+      critical: null,
+      tags: [],
+      hideIfDisabled: false,
+      kind: 'bonus',
+      predicate: []
+    }
+  ];
 };

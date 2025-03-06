@@ -155,6 +155,11 @@
         "rankName": "Rank {updatedRank}",
         "rankIncrease": "{skill} skill rank increased to {rankName}."
       },
+      "skillPotency": {
+        "newPotency": "{skill} Potency upgraded to +1.",
+        "upgradeTo2": "{skill} Potency upgraded to +2.",
+        "upgradeTo3": "{skill} Potency upgraded to +3."
+      },
       "global": {
         "header": "{actorName} has leveled up to level {targetLevel}!",
         "feats": "Selected Feats:",

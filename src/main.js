@@ -24,7 +24,14 @@ Hooks.on('ready', () => {
 });
 
 document.addEventListener('change', (event) => {
-  if (event.target.matches('#skills')) {
+  if (
+    event.target.matches([
+      '#skills',
+      '#newPotency',
+      '#upgradePotencyTo2',
+      '#upgradePotencyTo3'
+    ])
+  ) {
     const selectElement = event.target;
     const selectedOption = selectElement.options[selectElement.selectedIndex];
     const selectedClass = selectedOption.className;

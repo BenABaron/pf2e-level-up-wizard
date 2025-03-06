@@ -16,7 +16,8 @@ import {
   getSkillsForLevel,
   skillProficiencyRanks,
   getSkillTranslation,
-  getSkillPotencyForLevel
+  getSkillPotencyForLevel,
+  buildPotencyModifier
 } from './helpers/skillsHelpers.js';
 import {
   confirmChanges,
@@ -387,6 +388,60 @@ export class PF2eLevelUpWizardConfig extends foundry.applications.api
         'PF2E_LEVEL_UP_WIZARD.messages.skillIncrease.rankIncrease',
         { skill: translatedSkill, rankName }
       );
+    }
+
+    if (finalData.newPotency) {
+      const normalizedSkill = normalizeString(finalData.newPotency);
+      const translatedSkill = getSkillTranslation(normalizedSkill);
+      const skillPath = `system.customModifiers.${normalizedSkill}`;
+      const newModifiers = buildPotencyModifier(1);
+
+      await actor.update({
+        [skillPath]: newModifiers
+      });
+
+      skillIncreaseMessage +=
+        ' ' +
+        game.i18n.format(
+          'PF2E_LEVEL_UP_WIZARD.messages.skillPotency.newPotency',
+          { skill: translatedSkill }
+        );
+    }
+
+    if (finalData.upgradePotencyTo2) {
+      const normalizedSkill = normalizeString(finalData.upgradePotencyTo2);
+      const translatedSkill = getSkillTranslation(normalizedSkill);
+      const skillPath = `system.customModifiers.${normalizedSkill}`;
+      const newModifiers = buildPotencyModifier(2);
+
+      await actor.update({
+        [skillPath]: newModifiers
+      });
+
+      skillIncreaseMessage +=
+        ' ' +
+        game.i18n.format(
+          'PF2E_LEVEL_UP_WIZARD.messages.skillPotency.upgradeTo2',
+          { skill: translatedSkill }
+        );
+    }
+
+    if (finalData.upgradePotencyTo3) {
+      const normalizedSkill = normalizeString(finalData.upgradePotencyTo3);
+      const translatedSkill = getSkillTranslation(normalizedSkill);
+      const skillPath = `system.customModifiers.${normalizedSkill}`;
+      const newModifiers = buildPotencyModifier(3);
+
+      await actor.update({
+        [skillPath]: newModifiers
+      });
+
+      skillIncreaseMessage +=
+        ' ' +
+        game.i18n.format(
+          'PF2E_LEVEL_UP_WIZARD.messages.skillPotency.upgradeTo3',
+          { skill: translatedSkill }
+        );
     }
 
     const selectedFeats = featsToAdd
