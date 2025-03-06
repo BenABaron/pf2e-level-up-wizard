@@ -1,3 +1,4 @@
+{{log 'wizard' this}}
 <div>
   <div class="header-container">
     <h1>
@@ -161,6 +162,84 @@
     </div>
   {{/if}}
 
+  {{! Skill Potency }}
+  {{#if hasSkillPotencyUpgrade}}
+    <h3>
+      <strong>
+        {{localize 'PF2E_LEVEL_UP_WIZARD.menu.skillPotency.header'}}
+      </strong>
+    </h3>
+    {{#if currentPotencyLevels}}
+      <p>Current Potency Boosts:</p>
+      <ul>
+      {{#each currentPotencyLevels}}
+        <li>{{skill}}: +{{potency}}</li>
+      {{/each}}
+      </ul>
+    {{/if}}
+    {{#if potencyAvailableNewBoosts}}
+      <div class='selection-row'>
+        <label for='newPotency'>
+          {{localize 'PF2E_LEVEL_UP_WIZARD.menu.skillPotency.newPotency'}}
+        </label>
+        <select
+          name='newPotency'
+          id='newPotencies'
+          class='form-select-skill'
+          data-required='true'
+        >
+          <option value='' disabled selected>
+            {{localize 'PF2E_LEVEL_UP_WIZARD.menu.dropdown.placeholder'}}
+          </option>
+          {{#each potencyAvailableNewBoosts}}
+            <option value={{slug}} class={{class}}>{{label}}</option>
+          {{/each}}
+        </select>
+      </div>
+    {{/if}}
+    {{#if potencyUpgradeTo2Options}}
+      <div class='selection-row margin-top'>
+        <label for='newPotency'>
+          {{localize 'PF2E_LEVEL_UP_WIZARD.menu.skillPotency.upgradeTo2'}}
+        </label>
+        <select
+          name='newPotency'
+          id='newPotencies'
+          class='form-select-skill'
+          data-required='true'
+        >
+          <option value='' disabled selected>
+            {{localize 'PF2E_LEVEL_UP_WIZARD.menu.dropdown.placeholder'}}
+          </option>
+          {{#each potencyUpgradeTo2Options}}
+            <option value={{slug}} class={{class}}>{{label}}</option>
+          {{/each}}
+        </select>
+      </div>
+    {{/if}}
+    {{#if potencyUpgradeTo3Options}}
+      <div class='selection-row margin-top'>
+        <label for='newPotency'>
+          {{localize 'PF2E_LEVEL_UP_WIZARD.menu.skillPotency.upgradeTo3'}}
+        </label>
+        <select
+          name='newPotency'
+          id='newPotencies'
+          class='form-select-skill'
+          data-required='true'
+        >
+          <option value='' disabled selected>
+            {{localize 'PF2E_LEVEL_UP_WIZARD.menu.dropdown.placeholder'}}
+          </option>
+          {{#each potencyUpgradeTo3Options}}
+            <option value={{slug}} class={{class}}>{{label}}</option>
+          {{/each}}
+        </select>
+      </div>
+    {{/if}}
+  {{/if}}
+
+  {{! Attribute Boosts }}
   {{#if attributeBoostLevel}}
     <h3>
       <strong>

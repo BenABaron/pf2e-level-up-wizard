@@ -43,8 +43,6 @@ export const SKILLS = [
   'thievery'
 ];
 
-
-
 export const getMaxSkillProficiency = (level) => {
   if (level >= 15) return 4; // Legendary
   if (level >= 7) return 3; // Master
@@ -53,11 +51,13 @@ export const getMaxSkillProficiency = (level) => {
 
 const SKILL_TRANSLATIONS_MAP = {};
 
-export const getSkillTranslation= (skill) => {
-  if(!SKILL_TRANSLATIONS_MAP[skill]) {
-    SKILL_TRANSLATIONS_MAP[skill] = game.i18n.localize(`PF2E.Skill.${capitalize(skill)}`);
+export const getSkillTranslation = (skill) => {
+  if (!SKILL_TRANSLATIONS_MAP[skill]) {
+    SKILL_TRANSLATIONS_MAP[skill] = game.i18n.localize(
+      `PF2E.Skill.${capitalize(skill)}`
+    );
   }
-  return  SKILL_TRANSLATIONS_MAP[skill];
+  return SKILL_TRANSLATIONS_MAP[skill];
 };
 
 export const getSkillsForLevel = (characterData, targetLevel) => {
@@ -79,11 +79,90 @@ export const getAssociatedSkills = (prerequisites) => {
 
   return prerequisites.value
     .flatMap((prereq) => {
-      const matches = SKILLS.filter((skill) =>
-        new RegExp(`\\b${skill}\\b`, 'i').test(prereq.value)
-        || new RegExp(`\\b${getSkillTranslation(skill)}\\b`, 'i').test(prereq.value)
+      const matches = SKILLS.filter(
+        (skill) =>
+          new RegExp(`\\b${skill}\\b`, 'i').test(prereq.value) ||
+          new RegExp(`\\b${getSkillTranslation(skill)}\\b`, 'i').test(
+            prereq.value
+          )
       );
       return matches;
     })
     .filter(Boolean);
+};
+
+export const getSkillPotencyForLevel = (
+  characterData,
+  targetLevel,
+  isABPEnabled
+) => {
+  if (!isABPEnabled) {
+    return { hasSkillPotencyUpgrade: false };
+  }
+
+  const potencyLevels = [3, 6, 9, 13, 15, 17, 20];
+  if (!potencyLevels.includes(targetLevel)) {
+    return { hasSkillPotencyUpgrade: false };
+  }
+
+  const allSkills = Object.values(characterData?.skills).map((skill) => ({
+    ...skill,
+    class: getSkillRankClass(skill.rank)
+  }));
+
+  const currentPotencyLevels = [];
+  const skillsWithPotency = [];
+
+  allSkills.forEach((skill) => {
+    const potencyModifier = skill.modifiers.find(
+      (mod) => mod.slug === 'potency'
+    );
+    if (potencyModifier) {
+      skillsWithPotency.push(skill);
+      currentPotencyLevels.push({
+        skill: capitalize(skill.slug),
+        potency: potencyModifier.modifier
+      });
+    }
+  });
+
+  const newPotencyLevels = [3, 6, 13, 15, 17, 20];
+  const potencyAvailableNewBoosts = newPotencyLevels.includes(targetLevel)
+    ? allSkills.filter(
+        (skill) =>
+          !currentPotencyLevels.some(
+            (potentSkill) => potentSkill.skill === capitalize(skill.slug)
+          )
+      )
+    : undefined;
+
+  const upgradeTo2Levels = [9, 13, 15, 17, 20];
+  const potencyUpgradeTo2Options = upgradeTo2Levels.includes(targetLevel)
+    ? skillsWithPotency.filter((skill) =>
+        currentPotencyLevels.some(
+          (potentSkill) =>
+            potentSkill.potency === 1 &&
+            potentSkill.skill === capitalize(skill.slug)
+        )
+      )
+    : undefined;
+
+  const upgradeTo3Levels = [17, 20];
+  const potencyUpgradeTo3Options = upgradeTo3Levels.includes(targetLevel)
+    ? skillsWithPotency.filter((skill) =>
+        currentPotencyLevels.some(
+          (potentSkill) =>
+            potentSkill.potency === 2 &&
+            potentSkill.skill === capitalize(skill.slug)
+        )
+      )
+    : undefined;
+
+  return {
+    hasSkillPotencyUpgrade: true,
+    potencyAvailableNewBoosts,
+    potencyUpgradeTo2Options,
+    potencyUpgradeTo3Options,
+    currentPotencyLevels
+  };
 };

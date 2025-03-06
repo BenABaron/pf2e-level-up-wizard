@@ -15,7 +15,8 @@ import {
 import {
   getSkillsForLevel,
   skillProficiencyRanks,
-  getSkillTranslation
+  getSkillTranslation,
+  getSkillPotencyForLevel
 } from './helpers/skillsHelpers.js';
 import {
   confirmChanges,
@@ -155,6 +156,8 @@ export class PF2eLevelUpWizardConfig extends foundry.applications.api
     const freeArchetype = game.settings.get('pf2e', 'freeArchetypeVariant');
     const mythicVariantEnabled =
       game.settings.get('pf2e', 'mythic') === 'enabled';
+    const ABPEnabled =
+      game.settings.get('pf2e', 'automaticBonusVariant') !== 'noABP';
     const ancestryParagon =
       game.modules.get('xdy-pf2e-workbench')?.active &&
       game.settings.get(
@@ -217,6 +220,15 @@ export class PF2eLevelUpWizardConfig extends foundry.applications.api
     const ancestryParagonFeats =
       ancestryParagon &&
       (await getFeatsForLevel(this.actorData, 'ancestryParagon', targetLevel));
+    const {
+      hasSkillPotencyUpgrade,
+      potencyAvailableNewBoosts,
+      potencyUpgradeTo2Options,
+      potencyUpgradeTo3Options,
+      currentPotencyLevels
+    } =
+      ABPEnabled &&
+      getSkillPotencyForLevel(this.actorData, targetLevel, ABPEnabled);
 
     const gradualBoosts = game.settings.get('pf2e', 'gradualBoostsVariant');
 
@@ -266,7 +278,12 @@ export class PF2eLevelUpWizardConfig extends foundry.applications.api
       actorName,
       targetLevel,
       showFeatPrerequisites,
-      classJournals
+      classJournals,
+      hasSkillPotencyUpgrade,
+      potencyAvailableNewBoosts,
+      potencyUpgradeTo2Options,
+      potencyUpgradeTo3Options,
+      currentPotencyLevels
     };
   }
 

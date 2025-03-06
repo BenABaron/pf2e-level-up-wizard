@@ -78,6 +78,10 @@
   > div {
     flex: 2;
   }
+
+  &.margin-top {
+    margin-top: 1rem;
+  }
 }
 
 .checkbox-row {
@@ -349,4 +353,8 @@
 .feat-selector-checkbox-container {
   display: flex;
   align-items: center;
+}
+
+.current-potency-boosts {
+  display: flex;
 }
