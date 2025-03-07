@@ -240,17 +240,28 @@
   cursor: pointer;
 }
 
-.feat-option:hover {
-  background-color: rgba(255, 255, 255, 0.25);
+.feat-option .feat-link {
+  display: flex;
+  flex: 5;
+  align-items: center;
 }
 
-.feat-option .feat-link-button {
-  min-height: 1.5em;
+.feat-option:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+
+  &.confirm-feat-button {
+    visibility: visible;
+  }
+}
+
+.feat-option:hover .confirm-feat-button {
+  visibility: visible;
 }
 
 .feat-chat-image-container {
   position: relative;
   align-items: center;
+  margin-right: 0.25rem;
   display: flex;
   min-height: 2rem;
   justify-content: center;
@@ -326,6 +337,18 @@
 
 .feat-option .feat-rarity-tag.rare {
   background-color: var(--color-rarity-rare);
+}
+
+.feat-option .confirm-feat-button {
+  height: 1.75rem;
+  width: 1.75rem;
+  font-size: --var(--font-size-12);
+  color: darkgreen;
+  visibility: hidden;
+
+  > i {
+    margin-right: 0;
+  }
 }
 
 .skill-filter-label {

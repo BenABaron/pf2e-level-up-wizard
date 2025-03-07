@@ -99,7 +99,11 @@
           "dedicationSearch": "Search by Dedication"
         }
       },
-      "featButtonContent": "{name} | {level}"
+      "featButtonContent": "{name} | {level}",
+      "tooltips": {
+        "viewFeat": "View Feat",
+        "selectFeat": "Select Feat"
+      }
     },
     "settings": {
       "showButton": {

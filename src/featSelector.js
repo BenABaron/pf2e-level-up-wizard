@@ -243,14 +243,7 @@ export class FeatSelector extends foundry.applications.api.ApplicationV2 {
     // Event: Select Feat
     $(html)
       .find('.feat-list')
-      .on('click', (e) => {
-        if (
-          $(e.target).hasClass('feat-link') ||
-          $(e.target).closest('[data-action="send-to-chat"]').length
-        ) {
-          return;
-        }
-
+      .on('click', '[class="confirm-feat-button"]', (e) => {
         const target = e.target.closest('.feat-option');
         if (target) {
           this.selectFeat(target.dataset.uuid);

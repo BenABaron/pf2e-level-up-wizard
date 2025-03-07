@@ -1,15 +1,21 @@
 <li class="feat-option" data-uuid="{{uuid}}">
-  <div class="feat-chat-image-container">
-    <img loading="lazy" class="feat-chat-image" src="icons/sundries/books/book-red-exclamation.webp">
+  <div class="feat-chat-image-container" data-tooltip="Send Feat to Chat">
+    <img 
+      loading="lazy" 
+      class="feat-chat-image" 
+      src="icons/sundries/books/book-red-exclamation.webp"
+    >
     <i class="fa-solid fa-message" data-action="send-to-chat"></i>
   </div>
-   <div class="feat-name">
-    <button class="flat feat-link-button" type="button">
-      <a class="feat-link" data-link data-uuid="{{uuid}}">
-        {{displayName}}
-      </a>
-    </button>
-  </div>
+  <a 
+    class="feat-link" 
+    data-link 
+    data-uuid="{{uuid}}" 
+    data-tooltip="{{localize 'PF2E_LEVEL_UP_WIZARD.menu.tooltips.viewFeat'}}"
+  >
+  <p class="feat-name">
+    {{displayName}}
+  </p>
   <div class="feat-rarity">
     {{#if (notEqual system.traits.rarity 'common')}}
     <span class="feat-rarity-tag {{rarity}}">
@@ -17,5 +23,13 @@
     </span>
     {{/if}}
   </div>
+  </a>
+  <button 
+    class="confirm-feat-button" 
+    type="button" 
+    data-tooltip="{{localize 'PF2E_LEVEL_UP_WIZARD.menu.tooltips.selectFeat'}}"
+  >
+    <i class="fa-solid fa-check"></i>
+  </button>
   <div class="feat-level">{{level}}</div>
 </li>
