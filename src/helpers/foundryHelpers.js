@@ -85,6 +85,16 @@ export const createPersonalLevelMessage = (formData, playerId, actorName) => {
     );
   }
 
+  if (
+    formData.attributes.find(
+      (attribute) => attribute.key === 'int' && attribute.isPartial === false
+    )
+  ) {
+    manualUpdates.push(
+      game.i18n.localize('PF2E_LEVEL_UP_WIZARD.messages.personal.intIncrease')
+    );
+  }
+
   if (manualUpdates.length > 0) {
     const whisperMessage = `
       <h2>${game.i18n.format('PF2E_LEVEL_UP_WIZARD.messages.personal.header', {

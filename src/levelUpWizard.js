@@ -309,6 +309,7 @@ export class PF2eLevelUpWizardConfig extends foundry.applications.api
     finalData.spellcasting = data.spellcasting;
     finalData.newSpellRankLevel = data.newSpellRankLevel;
     finalData.currentBoostSet = data.currentBoostSet;
+    finalData.attributes = data.attributes;
 
     if (!this.triggeredByManualLevelUp) {
       ui.notifications.info(

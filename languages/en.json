@@ -174,7 +174,8 @@
       "personal": {
         "header": "{actorName} Manual Updates Needed",
         "spellRank": "New Spell Rank & Slots (Spellcasting tab)",
-        "spellSlots": "New Spell Slots (Spellcasting tab)"
+        "spellSlots": "New Spell Slots (Spellcasting tab)",
+        "intIncrease": "Select a new Language and gain a Skill Increase from Intelligence Boost"
       }
     },
     "notifications": {

@@ -174,7 +174,8 @@
       "personal": {
         "header": "{actorName} wymaga ręcznej aktualizacji",
         "spellRank": "Nowa ranga i miejsca na zaklęcia (zakładka Rzucanie zaklęć)",
-        "spellSlots": "Nowe miejsca na zaklęcia (zakładka Rzucanie zaklęć)"
+        "spellSlots": "Nowe miejsca na zaklęcia (zakładka Rzucanie zaklęć)",
+        "intIncrease": "Wybierz nowy język i zyskaj wzrost umiejętności dzięki wzmocnieniu inteligencji"
       }
     },
     "notifications": {
