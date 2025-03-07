@@ -89,6 +89,29 @@ export const registerSettings = () => {
     }
   });
 
+  game.settings.register(module_name, 'skill-increase-info', {
+    name: game.i18n.localize('PF2E_LEVEL_UP_WIZARD.settings.skillInfo.name'),
+    hint: game.i18n.localize('PF2E_LEVEL_UP_WIZARD.settings.skillInfo.hint'),
+    scope: 'client',
+    config: true,
+    type: String,
+    default: 'NAME_ONLY',
+    choices: {
+      NAME_ONLY: game.i18n.localize(
+        'PF2E_LEVEL_UP_WIZARD.settings.skillInfo.options.nameOnly'
+      ),
+      NAME_WITH_MOD: game.i18n.localize(
+        'PF2E_LEVEL_UP_WIZARD.settings.skillInfo.options.nameWithMod'
+      ),
+      NAME_WITH_RANK: game.i18n.localize(
+        'PF2E_LEVEL_UP_WIZARD.settings.skillInfo.options.nameWithRank'
+      ),
+      NAME_WITH_MOD_AND_RANK: game.i18n.localize(
+        'PF2E_LEVEL_UP_WIZARD.settings.skillInfo.options.nameWithModAndRank'
+      )
+    }
+  });
+
   game.settings.register(module_name, 'disable-level-input', {
     name: game.i18n.localize(
       'PF2E_LEVEL_UP_WIZARD.settings.disableLevelInput.name'

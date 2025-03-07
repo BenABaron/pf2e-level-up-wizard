@@ -1,3 +1,4 @@
+import { module_name } from '../main.js';
 import { capitalize } from './utility.js';
 export const skillProficiencyRanks = {
   0: 'Untrained',
@@ -60,6 +61,32 @@ export const getSkillTranslation = (skill) => {
   return SKILL_TRANSLATIONS_MAP[skill];
 };
 
+const getSkillDropdownLabel = (skillName, modifier, nextRank) => {
+  const skillIncreaseInfo = game.settings.get(
+    module_name,
+    'skill-increase-info'
+  );
+
+  switch (skillIncreaseInfo) {
+    case 'NAME_ONLY':
+      return `${skillName}`;
+    case 'NAME_WITH_MOD':
+      return `${skillName} +${modifier}`;
+    case 'NAME_WITH_RANK':
+      if (!nextRank) {
+        return `${skillName}`;
+      }
+      return `${skillName} → ${nextRank}`;
+    case 'NAME_WITH_MOD_AND_RANK':
+      if (!nextRank) {
+        return `${skillName} +${modifier}`;
+      }
+      return `${skillName} +${modifier} → ${nextRank}`;
+    default:
+      return `${skillName}`;
+  }
+};
+
 export const getSkillsForLevel = (characterData, targetLevel) => {
   const levelsArray = characterData?.class?.system?.skillIncreaseLevels?.value;
 
@@ -69,7 +96,16 @@ export const getSkillsForLevel = (characterData, targetLevel) => {
 
   return Object.values(characterData?.skills)
     .filter((skill) => skill.rank < maxProficiency)
-    .map((skill) => ({ ...skill, class: getSkillRankClass(skill.rank) }));
+    .map((skill) => {
+      const modifier = characterData?.system?.skills[skill.slug].value;
+      const nextRank = skillProficiencyRanks[skill.rank + 1];
+
+      return {
+        ...skill,
+        class: getSkillRankClass(skill.rank),
+        dropdownLabel: getSkillDropdownLabel(skill.label, modifier, nextRank)
+      };
+    });
 };
 
 export const getAssociatedSkills = (prerequisites) => {
@@ -105,10 +141,15 @@ export const getSkillPotencyForLevel = (
     return { hasSkillPotencyUpgrade: false };
   }
 
-  const allSkills = Object.values(characterData?.skills).map((skill) => ({
-    ...skill,
-    class: getSkillRankClass(skill.rank)
-  }));
+  const allSkills = Object.values(characterData?.skills).map((skill) => {
+    const modifier = characterData?.system?.skills[skill.slug].value;
+
+    return {
+      ...skill,
+      class: getSkillRankClass(skill.rank),
+      dropdownLabel: getSkillDropdownLabel(skill.label, modifier, null)
+    };
+  });
 
   const currentPotencyLevels = [];
   const skillsWithPotency = [];

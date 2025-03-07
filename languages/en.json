@@ -108,7 +108,7 @@
     "settings": {
       "showButton": {
         "name": "Enable Level-Up Button",
-        "hint": "Choose whether to show a Level-Up button on character sheets. When disabled, the Level-Up Wizard will activate automatically after manually updating a character's level."
+        "hint": "When enabled, display a Level-Up button on character sheets. When disabled, the Level-Up Wizard will activate automatically after manually updating a character's level."
       },
       "buttonPlacement": {
         "name": "Level-Up Button Placement",
@@ -131,7 +131,17 @@
       },
       "featPrereqs": {
         "name": "Display Feat Prerequisites",
-        "hint": "Toggle whether an asterisk (*) appears next to Feats with prerequisites in dropdowns."
+        "hint": "When enabled, display an asterisk (*) next to Feats with prerequisites in Feat Selection windows."
+      },
+      "skillInfo": {
+        "name": "Skill Increase Info",
+        "hint": "Select how much info to show in Skill Increase selections.",
+        "options": {
+          "nameOnly": "Skill Name (Nature)",
+          "nameWithMod": "Name +Mod (Nature +12)",
+          "nameWithRank": "Name → Next Rank (Nature → Master)",
+          "nameWithModAndRank": "Name +Mod → Next Rank (Nature +12 → Master)"
+        }
       },
       "disableLevelInput": {
         "name": "Disable Level Input",

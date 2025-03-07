@@ -133,6 +133,16 @@
         "name": "Wyświetlanie wymagań wstępnych atutu",
         "hint": "Włączenie wyświetlania gwiazdki (*) obok atutów z wymaganiami wstępnymi w listach rozwijanych."
       },
+      "skillInfo": {
+        "name": "Informacje o zwiększaniu umiejętności",
+        "hint": "Wybierz, ile informacji ma być wyświetlanych w opcjach zwiększania umiejętności.",
+        "options": {
+          "nameOnly": "Nazwa umiejętności (Natura)",
+          "nameWithMod": "Nazwa +Mod (Natura +12)",
+          "nameWithRank": "Nazwa → Następna ranga (Natura → Mistrz)",
+          "nameWithModAndRank": "Nazwa +Mod → Następna ranga (Natura +12 → Mistrz)"
+        }
+      },
       "disableLevelInput": {
         "name": "Wyłączenie ręcznej edycji poziomu",
         "hint": "Po włączeniu tej opcji, domyślne wprowadzanie poziomu na karcie postaci zostanie wyłączone, aby zachęcić do korzystania z kreatora Level-Up. To ustawienie nie ma wpływu, jeśli opcja „Włącz przycisk podnoszenia poziomu” jest wyłączona."
