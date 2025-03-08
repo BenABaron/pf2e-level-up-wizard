@@ -54,8 +54,8 @@
         "label": "Dostępne zwiększenie umiejętności:"
       },
       "skillPotency": {
-        "header": "Potencjał umiejętności (ABP)",
-        "newPotency": "Dostępna nowa moc umiejętności (+1):",
+        "header": "Potencjał umiejętności (APB)",
+        "newPotency": "Dostępna nowy potencjał umiejętności (+1):",
         "upgradeTo2": "Dostępne ulepszenie potencjału umiejętności (+2):",
         "upgradeTo3": "Dostępne ulepszenie potencjału umiejętności (+3):"
       },
@@ -101,14 +101,14 @@
       },
       "featButtonContent": "{name} | {level}",
       "tooltips": {
-        "viewFeat": "Zobacz wyczyn",
-        "selectFeat": "Wybierz wyczyn"
+        "viewFeat": "Zobacz atut",
+        "selectFeat": "Wybierz atut"
       }
     },
     "settings": {
       "showButton": {
         "name": "Włącz przycisk zwiększania poziomu",
-        "hint": "Wybierz, czy na kartach postaci ma być wyświetlany przycisk podnoszenia poziomu. Gdy przycisk jest wyłączony, kreator podnoszenia poziomu aktywuje się automatycznie po ręcznym zaktualizowaniu poziomu postaci."
+        "hint": "Gdy opcja ta jest włączona, na kartach postaci wyświetlany jest przycisk podnoszenia poziomu. Gdy jest wyłączony, kreator podnoszenia poziomu aktywuje się automatycznie po ręcznym zaktualizowaniu poziomu postaci."
       },
       "buttonPlacement": {
         "name": "Rozmieszczenie przycisku zwiększania poziomu",
@@ -131,16 +131,16 @@
       },
       "featPrereqs": {
         "name": "Wyświetlanie wymagań wstępnych atutu",
-        "hint": "Włączenie wyświetlania gwiazdki (*) obok atutów z wymaganiami wstępnymi w listach rozwijanych."
+        "hint": "Gdy opcja ta jest włączona, wyświetla gwiazdkę (*) obok atutów z wymaganiami wstępnymi w oknach wyboru atutów."
       },
       "skillInfo": {
-        "name": "Informacje o zwiększaniu umiejętności",
+        "name": "Informacje o zwiększeniu umiejętności",
         "hint": "Wybierz, ile informacji ma być wyświetlanych w opcjach zwiększania umiejętności.",
         "options": {
           "nameOnly": "Nazwa umiejętności (Natura)",
           "nameWithMod": "Nazwa +Mod (Natura +12)",
-          "nameWithRank": "Nazwa → Następna ranga (Natura → Mistrz)",
-          "nameWithModAndRank": "Nazwa +Mod → Następna ranga (Natura +12 → Mistrz)"
+          "nameWithRank": "Nazwa → Następna ranga (Natura → Mistrzowski)",
+          "nameWithModAndRank": "Nazwa +Mod → Następna ranga (Natura +12 → Mistrzowski)"
         }
       },
       "disableLevelInput": {
@@ -170,9 +170,9 @@
         "rankIncrease": "Biegłość umiejętności {skill} została zwiększona do {rankName}."
       },
       "skillPotency": {
-        "newPotency": "{skill} Potencjał zwiększony do +1.",
-        "upgradeTo2": "{skill} Potencjał zwiększony do +2.",
-        "upgradeTo3": "{skill} Potencjał zwiększony do +3."
+        "newPotency": "Zwiększono potencjał {skill} do +1.",
+        "upgradeTo2": "Zwiększono potencjał {skill} do +2.",
+        "upgradeTo3": "Zwiększono potencjał {skill} do +3."
       },
       "global": {
         "header": "{actorName} awansował na poziom {targetLevel}!",
@@ -185,7 +185,7 @@
         "header": "{actorName} wymaga ręcznej aktualizacji",
         "spellRank": "Nowa ranga i miejsca na zaklęcia (zakładka Rzucanie zaklęć)",
         "spellSlots": "Nowe miejsca na zaklęcia (zakładka Rzucanie zaklęć)",
-        "intIncrease": "Wybierz nowy język i zyskaj wzrost umiejętności dzięki wzmocnieniu inteligencji"
+        "intIncrease": "Wybierz nowy język i zyskaj zwiększenie umiejętności dzięki premii do Inteligencji."
       }
     },
     "notifications": {
