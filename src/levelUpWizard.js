@@ -357,14 +357,17 @@ export class PF2eLevelUpWizardConfig extends foundry.applications.api
       mythicFeats: 'mythic'
     };
 
-    const itemsToCreate = featsToAdd.map(({ feat, type }) => ({
-      ...feat.toObject(),
-      system: {
-        ...feat.system,
-        location: `${featGroupMap[type]}-${targetLevel}`,
-        level: { ...feat.system.level, taken: targetLevel }
-      }
-    }));
+    const itemsToCreate = featsToAdd.map(({ feat, type }) => {
+      const featClone = foundry.utils.deepClone(feat.toObject());
+
+      featClone.system.location = `${featGroupMap[type]}-${targetLevel}`;
+      featClone.system.level = {
+        ...featClone.system.level,
+        taken: targetLevel
+      };
+
+      return featClone;
+    });
 
     await actor.createEmbeddedDocuments('Item', itemsToCreate);
 
