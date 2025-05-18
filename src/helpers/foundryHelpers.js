@@ -85,11 +85,7 @@ export const createPersonalLevelMessage = (formData, playerId, actorName) => {
     );
   }
 
-  if (
-    formData.attributes.find(
-      (attribute) => attribute.key === 'int' && attribute.isPartial === false
-    )
-  ) {
+  if (formData.attributeBoosts?.includes('int')) {
     manualUpdates.push(
       game.i18n.localize('PF2E_LEVEL_UP_WIZARD.messages.personal.intIncrease')
     );
