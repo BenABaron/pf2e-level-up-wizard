@@ -37,12 +37,15 @@ export const renderLevelUpButton = (sheet, html) => {
 
     button.on('click', () => renderWizard(sheet.actor));
 
-    html.find('section.char-level').prepend(button);
+    const headerCharLevel = html.find('section.char-level');
+
+    headerCharLevel.css('position', 'relative');
+    headerCharLevel.prepend(button);
   }
 
   if (game.settings.get(module_name, 'button-placement') === 'WINDOW_HEADER') {
     const button = $(
-      `<a class="level-up-wizard" title="Level Up Wizard"><i class="fas fa-hat-wizard"></i>${title}</a>`
+      `<a class="level-up-wizard header-button control" title="Level Up Wizard" ><i class="fas fa-hat-wizard"></i>${title}</a>`
     );
 
     button.on('click', () => renderWizard(sheet.actor));

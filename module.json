@@ -4,9 +4,9 @@
   "description": "A Wizard to assist with your level ups in PF2e!",
   "version": "0.0.1",
   "compatibility": {
-    "minimum": 10,
-    "verified": 12,
-    "maximum": 12
+    "minimum": 13,
+    "verified": 13,
+    "maximum": 13
   },
   "authors": [
     {
@@ -21,7 +21,7 @@
       "lang": "en",
       "name": "English",
       "path": "languages/en.json"
-    },    
+    },
     {
       "lang": "pl",
       "name": "Polski",
