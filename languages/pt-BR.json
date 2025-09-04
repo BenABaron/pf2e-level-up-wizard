@@ -193,6 +193,7 @@
       "levelUpComplete": "Avanço de {actorName} completo!",
       "wizardStartup": "Iniciando o Assistente de Avanço de Nível...",
       "missingClass": "Assistente de Avanço de Nível não pode iniciar antes de uma classe ser escolhida.",
+      "companionClass": "Assistente de Avanço de Nível não suporta Companheiros ou Eidolons. Conceda ao seu Companheiro ou Eidolon quaisquer talentos que seriam concedidos manualmente.",
       "invalidBoostSelection": "Escolhas de melhoria inválidas.",
       "translatedDualClassError": "Assistente de Avanço de Nível não pode ser usado com Classes Duplas traduzidas",
       "additionalCompendiums": {

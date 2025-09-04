@@ -193,6 +193,7 @@
       "levelUpComplete": "Aktualizacja poziomu {actorName} zakończona!",
       "wizardStartup": "Uruchamianie Level-Up Wizard...",
       "missingClass": "Level-Up Wizard nie może zostać uruchomiony, dopóki nie zostanie wybrana klasa.",
+      "companionClass": "Level-Up Wizard nie obsługuje Towarzyszy ani Eidolonów. Proszę przyznać Towarzyszowi lub Eidolonowi wszystkie atuty, które zostałyby mu przyznane ręcznie.",
       "invalidBoostSelection": "Nieprawidłowy wybór doładowania.",
       "translatedDualClassError": "Level-Up Wizard nie może być używany z przetłumaczonymi podwójnymi klasami",
       "additionalCompendiums": {
