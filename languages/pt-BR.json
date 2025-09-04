@@ -1,0 +1,204 @@
+{
+  "PF2E_LEVEL_UP_WIZARD": {
+    "button-tooltip": "Avançar de Nível",
+    "menu": {
+      "title": "Assistente de Avanço de Nível",
+      "header": {
+        "name": "{actorName} avançou ao nível {targetLevel}!",
+        "description": "Aqui está uma visão geral das suas novas características. Faça suas escolhas quando solicitado!!"
+      },
+      "close": "Fechar",
+      "notes": {
+        "note": "Nota:",
+        "featsPrereq": "Talentos com pré-requisitos estão marcados com um asterisco (*)",
+        "classJournal": "Aprenda mais sobre a sua classe:"
+      },
+      "dropdown": {
+        "placeholder": "Faça uma escolha"
+      },
+      "classFeats": {
+        "header": "Talentos de Classe de {className}",
+        "label": "Novos talentos de classe disponíveis:",
+        "checkbox": "Incluir talentos de Arquétipo"
+      },
+      "freeArchetypeFeats": {
+        "header": "Talentos de Arquétipo Gratuito",
+        "label": "Novos talentos de Arquétipo gratuito disponíveis:"
+      },
+      "mythicFeats": {
+        "header": "Talentos Míticos",
+        "label": "Novos talentos Míticos disponíveis:"
+      },
+      "mythicDestiny": {
+        "header": "Destino Mítico",
+        "label": "Novos Destinos Míticos disponíveis:"
+      },
+      "ancestryFeats": {
+        "header": "Talentos de Ancestralidade",
+        "label": "Novos talentos de Ancestralidade disponíveis:"
+      },
+      "ancestryParagonFeats": {
+        "header": "Talentos de Paradigma de Ancestralidede",
+        "label": "Novos talentos de Paradigma de Ancestralidede disponíveis:"
+      },
+      "skillFeats": {
+        "header": "Talentos de Perícia",
+        "label": "Novos talentos de Perícia disponíveis:"
+      },
+      "generalFeats": {
+        "header": "Talentos Gerais",
+        "label": "Novos talentos gerais disponíveis:"
+      },
+      "skillIncreases": {
+        "header": "Incrementos de Perícia",
+        "label": "Incrementos de Perícia disponíveis:"
+      },
+      "skillPotency": {
+        "header": "Potência de Perícia (PAB)",
+        "newPotency": "Nova Potência de Perícia disponível (+1):",
+        "upgradeTo2": "Nova Potência de Perícia disponível (+2):",
+        "upgradeTo3": "Nova Potência de Perícia disponível (+3):"
+      },
+      "attributeBoosts": {
+        "header": "Melhorias de Atributo",
+        "label": "Selecione quatro atributos diferentes para melhorar:",
+        "gradualBoostLabel": "Selecione um atributo para melhorar:",
+        "boost": "MELHORADO",
+        "partial": "MELHORA PARCIAL"
+      },
+      "features": {
+        "class": {
+          "header": "Nova Característica de Classe",
+          "noAction": "Nenhuma ação necessária"
+        },
+        "manual": {
+          "update": "Atualize isso manualmente na aba de",
+          "spellcasting": "Conjuração",
+          "sheet": "na sua ficha de personagem."
+        },
+        "spellcasting": {
+          "rank": "Novo Círculo & Espaços de Magia disponíveis:",
+          "slots": "Novos Espaços de Magia:"
+        }
+      },
+      "confirmDialog": {
+        "title": "Confirmar Mudanças",
+        "content": "Você tem certeza que quer aplicar estas mudanças de avanço de nível?"
+      },
+      "filters": {
+        "orderBy": "Ordenar por:",
+        "level": "Nível",
+        "name": "Nome",
+        "skills": "Filtrar por Perícias",
+        "archetypeFeats": "Talentos de Arquétipo",
+        "hideSkillFeats": "Esconde Talentos de Perícia",
+        "placeholder": {
+          "nameSearch": "Pesquisar por Nome",
+          "minLevel": "Nível Mín.",
+          "maxLevel": "Nível Máx.",
+          "dedicationSearch": "Pesquisar por Dedicação"
+        }
+      },
+      "featButtonContent": "{name} | {level}",
+      "tooltips": {
+        "viewFeat": "Ver Talento",
+        "selectFeat": "Selecionar Talento"
+      }
+    },
+    "settings": {
+      "showButton": {
+        "name": "Habilitar Botão de Avanço",
+        "hint": "Se habilitado, exibe um botão de Avanço na ficha de personagem. Se desabilitado, o Assistente de Avanço de Nível ativará automaticamente após atualizar manualmente o nível do personagem."
+      },
+      "buttonPlacement": {
+        "name": "Posição do Botão de Avanço",
+        "hint": "Selecione onde o botão de Avanço deve aparecer.",
+        "options": {
+          "charHeaderSmall": "Próximo do Nível - Pequeno",
+          "charHeaderLarge": "Próximo do Nível - Grande",
+          "windowHeader": "Barra"
+        }
+      },
+      "sortMethod": {
+        "name": "Método de Ordem dos Talentos",
+        "hint": "Escolha como talentos serão ordenados por padrão.",
+        "options": {
+          "levelDesc": "Por Nível (Decrescente",
+          "levelAsc": "Por Nível (Crescente)",
+          "alphaAsc": "Alfabética (A-Z)",
+          "alphaDesc": "Alfabética (Z-A)"
+        }
+      },
+      "featPrereqs": {
+        "name": "Exibir Pré-requisitos de Talentos",
+        "hint": "Exibe um asterisco (*) ao lado do nome de Talentos com pré-requisitos na janela de Seleção de Talentos."
+      },
+      "skillInfo": {
+        "name": "Informação de Incremento de Perícia",
+        "hint": "Escolha quanta informação será exibida na seleção de Incremento de Perícia.",
+        "options": {
+          "nameOnly": "Nome da Perícia (Natureza)",
+          "nameWithMod": "Nome +Mod (Natureza +12)",
+          "nameWithRank": "Name → Próxima Graduação (Natureza → Mestre)",
+          "nameWithModAndRank": "Name +Mod → Próxima Gradução (Natureza +12 → Mestre)"
+        }
+      },
+      "disableLevelInput": {
+        "name": "Desabilitar Campo de Nível",
+        "hint": "O campo de nível na ficha de personagem será desabilitado para encorajar o uso do Assistente de Avanço de Nível. Esta configuração não tem efeito se a configuração \"Habilitar Botão de Avanço\" estiver desativado."
+      },
+      "sendGMWhispers": {
+        "name": "Enviar Atualizações Manuais como Sussuros ao Mestre",
+        "hint": "Sussuros sobre mudanças manuais, como mudanças em magias, também serão enviadas ao mestre."
+      },
+      "additionalCompendiums": {
+        "name": "Fontes de Talentos Adicionais",
+        "hint": "Especifique uma lista separada por vírgulas de chaves de compêndios contendo talentos que você queira incluir no assistente. Exemplo: 'pf2e-playtest-data.impossible-playtest-class-feats, my-custom-compendium.feats'. Garanta que os compêndios estão disponíveis e são accessáveis."
+      },
+      "hideUncommonFeats": {
+        "name": "Ocultar Talentos Incomuns e Raros",
+        "hint": "Talentos Incomuns e Raros serão ocultos na janela de Seleção de Talentos."
+      },
+      "xpEnforcement": {
+        "name": "Obrigar Requerimentos de XP",
+        "hint": "O botão de Avanço só irá aparecer se o personagem tiver XP suficientes para avançar de nível. Após avançar, os XP necessários serão subtraídos do total do personagem."
+      }
+    },
+    "messages": {
+      "skillIncrease": {
+        "rankName": "Graduação {updatedRank}",
+        "rankIncrease": "A gradução de {skill} foi incrementada à graduação {rankName}."
+      },
+      "skillPotency": {
+        "newPotency": "Potência de {skill} aumentada para +1.",
+        "upgradeTo2": "Potência de {skill} aumentada para +2.",
+        "upgradeTo3": "Potência de {skill} aumentada para +3."
+      },
+      "global": {
+        "header": "{actorName} avançou ao nível {targetLevel}!",
+        "feats": "Talentos Selecionados:",
+        "noFeats": "Nenhum Talento selecionado.",
+        "skills": "Incremento de Perícia:",
+        "feat": "Talento"
+      },
+      "personal": {
+        "header": "{actorName} tem atualizações manuais necessárias",
+        "spellRank": "Novo Círculo & Espaços de Magia (aba de Conjuração)",
+        "spellSlots": "Novos Espaços de Magia (aba de Conjuração)",
+        "intIncrease": "Escolha um novo Idioma e receba um Incremento de Perícia pela Melhoria em Inteligência"
+      }
+    },
+    "notifications": {
+      "levelUpStart": "Atualizando {actorName} ao nível {targetLevel}...",
+      "levelUpComplete": "Avanço de {actorName} completo!",
+      "wizardStartup": "Iniciando o Assistente de Avanço de Nível...",
+      "missingClass": "Assistente de Avanço de Nível não pode iniciar antes de uma classe ser escolhida.",
+      "invalidBoostSelection": "Escolhas de melhoria inválidas.",
+      "translatedDualClassError": "Assistente de Avanço de Nível não pode ser usado com Classes Duplas traduzidas",
+      "additionalCompendiums": {
+        "failedToLoad": "Falha ao ler o compêndio {key}. Garanta que ele é um compêndio de talentos válido.",
+        "compendiumNotFound": "Compêndio {key} não foi encontrado. Garanta que o nome está correto e está habilitado nas suas configurações de jogo."
+      }
+    }
+  }
+}
