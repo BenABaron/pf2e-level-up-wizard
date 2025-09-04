@@ -17,7 +17,6 @@ export const validateActor = (actor) => {
     );
     return false;
   }
-  console.log(actor.class.name);
   // If the actor is an animal companion, construct companion, or eidolon, do not render the wizard
   if (companionClasses.includes(actor.class.name)) {
     ui.notifications.error(
