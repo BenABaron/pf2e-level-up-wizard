@@ -193,6 +193,7 @@
       "levelUpComplete": "{actorName} level up complete!",
       "wizardStartup": "Starting up Level-Up Wizard...",
       "missingClass": "Level-Up Wizard cannot start until a class is selected.",
+      "companionClass": "Level-Up Wizard does not support Companions or Eidolons. Please grant your Companion or Eidolon any feats that would be granted to them manually.",
       "invalidBoostSelection": "Invalid boost selections.",
       "translatedDualClassError": "Level-Up Wizard cannot be used with translated dual classes",
       "additionalCompendiums": {

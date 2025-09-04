@@ -8,10 +8,20 @@ export const renderWizard = (actor, manualLevelUp) => {
   }
 };
 
+const companionClasses = ['Animal Companion', 'Construct Companion', 'Eidolon'];
+
 export const validateActor = (actor) => {
   if (!actor.class) {
     ui.notifications.error(
       game.i18n.localize('PF2E_LEVEL_UP_WIZARD.notifications.missingClass')
+    );
+    return false;
+  }
+  console.log(actor.class.name);
+  // If the actor is an animal companion, construct companion, or eidolon, do not render the wizard
+  if (companionClasses.includes(actor.class.name)) {
+    ui.notifications.error(
+      game.i18n.localize('PF2E_LEVEL_UP_WIZARD.notifications.companionClass')
     );
     return false;
   }
