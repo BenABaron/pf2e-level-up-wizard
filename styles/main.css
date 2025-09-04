@@ -8,11 +8,15 @@
 }
 
 .level-up-icon-button-large {
+  position: absolute;
   font-size: 36px;
+  left: -50px;
 }
 
 .level-up-icon-button-small {
+  position: absolute;
   font-size: 24px;
+  left: -40px;
 }
 
 #level-up-wizard {
