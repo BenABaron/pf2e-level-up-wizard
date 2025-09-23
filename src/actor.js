@@ -4,6 +4,14 @@ import { renderWizard } from './helpers/foundryHelpers.js';
 export const renderLevelUpButton = (sheet, html) => {
   const title = game.i18n.localize('PF2E_LEVEL_UP_WIZARD.button-tooltip');
 
+  if (game.settings.get(module_name, 'disable-level-input')) {
+    const levelInput = html
+      .find('.char-header')
+      .find('input[name="system.details.level.value"]');
+
+    levelInput.prop('disabled', true);
+  }
+
   let shouldRenderWizardButton = true;
 
   if (game.settings.get('pf2e-level-up-wizard', 'xp-enforcement')) {
@@ -51,14 +59,6 @@ export const renderLevelUpButton = (sheet, html) => {
     button.on('click', () => renderWizard(sheet.actor));
 
     html.find('.window-title').after(button);
-  }
-
-  if (game.settings.get(module_name, 'disable-level-input')) {
-    const levelInput = html
-      .find('.char-header')
-      .find('input[name="system.details.level.value"]');
-
-    levelInput.prop('disabled', true);
   }
 };
 
