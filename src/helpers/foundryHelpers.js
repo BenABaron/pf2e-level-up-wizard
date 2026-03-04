@@ -135,7 +135,7 @@ export const getClassJournal = async (actor) => {
     : [characterClass];
 
   const classesJournal = game.packs
-    .get('pf2e.journals')
+    .get(game.system.id+'.journals')
     ?.index.find((entry) => entry.name === 'Classes');
 
   if (!classesJournal) return null;

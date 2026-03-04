@@ -9,10 +9,15 @@ let cachedFeats = null;
 const getCachedFeats = async () => {
   if (!cachedFeats) {
     let allFeats = [];
-
-    const defaultCompendium = game.packs.get('pf2e.feats-srd');
-    if (defaultCompendium) {
-      const defaultFeats = await defaultCompendium.getDocuments();
+    
+    const pf2eCompendium = game.packs.get('pf2e.feats-srd');
+    if (pf2eCompendium) {
+      const defaultFeats = await pf2eCompendium.getDocuments();
+      allFeats = allFeats.concat(defaultFeats);
+    }
+    const sf2eCompendium = game.packs.get('sf2e.feats');
+    if(sf2eCompendium) {
+      const defaultFeats = await sf2eCompendium.getDocuments();
       allFeats = allFeats.concat(defaultFeats);
     }
 
